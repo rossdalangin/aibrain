@@ -1,0 +1,69 @@
+<?php
+declare(strict_types=1);
+
+namespace NexusAI\Workforce\API;
+
+use WP_REST_Server;
+
+/**
+ * Handles registration of Nexus AI REST API endpoints.
+ */
+class RestHandler {
+
+	/**
+	 * @var string
+	 */
+	private $namespace = 'nexus-ai/v1';
+
+	/**
+	 * Initialize the REST API.
+	 */
+	public function init(): void {
+		add_action( 'rest_api_init', [ $this, 'register_routes' ] );
+	}
+
+	/**
+	 * Register all routes.
+	 */
+	public function register_routes(): void {
+		$employee_controller = new EmployeeController();
+
+		register_rest_route( $this->namespace, '/employees', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $employee_controller, 'get_items' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $employee_controller, 'create_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/employees/(?P<id>\d+)', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $employee_controller, 'get_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => [ $employee_controller, 'update_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::DELETABLE,
+				'callback'            => [ $employee_controller, 'delete_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+	}
+
+	/**
+	 * Check if the user has permission to access the API.
+	 */
+	public function check_permission(): bool {
+		return current_user_can( 'manage_options' );
+	}
+}
