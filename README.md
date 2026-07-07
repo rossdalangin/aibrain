@@ -1,0 +1,37 @@
+# Nexus AI Workforce: Project Master Document
+
+## Introduction
+Nexus AI Workforce is an enterprise-grade AI Operating System for WordPress. It allows businesses to deploy an entire AI workforce, each agent specialized in a role (CEO, CMO, Developer, etc.), sharing a centralized company memory and collaborating on complex tasks.
+
+## Document Index
+
+### 1. Business & Strategy
+- **Competitive Analysis:** [Competitive_Analysis.md](project-docs/business/Competitive_Analysis.md) - How Nexus beats JT1, Power 5, and others.
+- **Monetization & SaaS Strategy:** [SaaS_Monetization_Strategy.md](project-docs/business/SaaS_Monetization_Strategy.md) - Pricing tiers and white-label approach.
+
+### 2. Design & Experience
+- **UI/UX & User Flows:** [UI_UX_UserFlows.md](project-docs/design/UI_UX_UserFlows.md) - Wireframes and interaction models.
+
+### 3. Technical Architecture
+- **Software Requirements (SRS):** [SRS.md](project-docs/technical/SRS.md) - Core functional and non-functional requirements.
+- **System Architecture:** [System_Architecture.md](project-docs/architecture/System_Architecture.md) - High-level system design.
+- **Plugin Architecture:** [Plugin_Architecture.md](project-docs/architecture/Plugin_Architecture.md) - Folder structure and modular design.
+- **Database Schema:** [Database_Schema.md](project-docs/technical/Database_Schema.md) - Optimized table structures.
+- **API Design:** [API_Design.md](project-docs/technical/API_Design.md) - REST API endpoints and UML diagrams.
+- **AI & Multi-Agent:** [AI_Prompt_MultiAgent.md](project-docs/architecture/AI_Prompt_MultiAgent.md) - Prompting strategy and orchestration logic.
+- **Memory System:** [Memory_System_Design.md](project-docs/architecture/Memory_System_Design.md) - Multi-tiered context management.
+- **RAG Engine:** [RAG_Implementation_Plan.md](project-docs/architecture/RAG_Implementation_Plan.md) - Knowledge base and vector search.
+- **Security Design:** [Security_Design.md](project-docs/technical/Security_Design.md) - Encryption, capabilities, and data privacy.
+
+### 4. Implementation & Roadmap
+- **Coding Standards:** [WP_Coding_Standards.md](project-docs/technical/WP_Coding_Standards.md) - PHP and WP best practices.
+- **Development Roadmap:** [Development_Roadmap.md](project-docs/technical/Development_Roadmap.md) - Step-by-step coding order.
+- **Sprint Plan & Marketplace:** [Agile_Sprint_Marketplace.md](project-docs/technical/Agile_Sprint_Marketplace.md) - Agile execution and future expansion.
+
+## Quick Start (For Developers)
+The plugin foundation is located in the `wp-ai-workforce/` directory.
+
+1. Install dependencies: `composer install && npm install`
+2. Activate the plugin in WordPress.
+3. Configure your API keys in the Nexus AI > Settings menu.
+4. Hire your first AI Employee in the Workforce tab.
