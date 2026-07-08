@@ -78,8 +78,11 @@ class Plugin {
 			return;
 		}
 
-		// In a real scenario, we would enqueue the compiled React build
-		// wp_enqueue_script( 'nexus-ai-admin', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), [ 'wp-element', 'wp-api-fetch' ], '1.0.0', true );
-		// wp_enqueue_style( 'nexus-ai-admin', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ), [], '1.0.0' );
+		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 2 ) ), [], '1.0.0' );
+
+		// Enqueue React build (assuming webpack output)
+		if ( file_exists( dirname( __FILE__, 2 ) . '/assets/js/admin.js' ) ) {
+			wp_enqueue_script( 'nexus-ai-admin', plugins_url( 'assets/js/admin.js', dirname( __FILE__, 2 ) ), [ 'wp-element', 'wp-api-fetch' ], '1.0.0', true );
+		}
 	}
 }
