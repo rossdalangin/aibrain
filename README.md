@@ -5,12 +5,17 @@ Nexus AI Workforce is an enterprise-grade AI Operating System for WordPress. It 
 
 ## Document Index
 
-### 1. Business & Strategy
+### 1. Business & Marketing
+- **Value Proposition:** [Value_Proposition.md](project-docs/marketing/Value_Proposition.md) - Core benefits and target personas.
+- **Sales Copy:** [Sales_Page_Copy.md](project-docs/marketing/Sales_Page_Copy.md) - High-conversion landing page copy.
+- **Email Campaigns:** [Email_Campaigns.md](project-docs/marketing/Email_Campaigns.md) - 5-day onboarding sequence.
 - **Competitive Analysis:** [Competitive_Analysis.md](project-docs/business/Competitive_Analysis.md) - How Nexus beats JT1, Power 5, and others.
 - **Monetization & SaaS Strategy:** [SaaS_Monetization_Strategy.md](project-docs/business/SaaS_Monetization_Strategy.md) - Pricing tiers and white-label approach.
 
-### 2. Design & Experience
+### 2. Design & Documentation
+- **User Manual:** [User_Manual.md](project-docs/documentation/User_Manual.md) - How to use the platform.
 - **UI/UX & User Flows:** [UI_UX_UserFlows.md](project-docs/design/UI_UX_UserFlows.md) - Wireframes and interaction models.
+- **Design System:** [Design_System.md](project-docs/design/Design_System.md) - Premium design system (Linear/Framer style).
 
 ### 3. Technical Architecture
 - **Software Requirements (SRS):** [SRS.md](project-docs/technical/SRS.md) - Core functional and non-functional requirements.
@@ -24,6 +29,9 @@ Nexus AI Workforce is an enterprise-grade AI Operating System for WordPress. It 
 - **Security Design:** [Security_Design.md](project-docs/technical/Security_Design.md) - Encryption, capabilities, and data privacy.
 
 ### 4. Implementation & Roadmap
+- **Installation Guide:** [Installation_Guide.md](project-docs/documentation/Installation_Guide.md) - Technical setup instructions.
+- **API Reference:** [API_Reference.md](project-docs/documentation/API_Reference.md) - v1 REST API documentation.
+- **FAQ:** [FAQ.md](project-docs/documentation/FAQ.md) - Frequently asked questions.
 - **Coding Standards:** [WP_Coding_Standards.md](project-docs/technical/WP_Coding_Standards.md) - PHP and WP best practices.
 - **Development Roadmap:** [Development_Roadmap.md](project-docs/technical/Development_Roadmap.md) - Step-by-step coding order.
 - **Sprint Plan & Marketplace:** [Agile_Sprint_Marketplace.md](project-docs/technical/Agile_Sprint_Marketplace.md) - Agile execution and future expansion.
