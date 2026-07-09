@@ -14,12 +14,19 @@ class AdminRenderer {
 	public function render_workforce_page(): void {
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Workforce Command</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-violet uppercase tracking-widest mb-2">Talent Management</h2>
+				<h1 class="text-4xl font-bold text-white">Hire & Manage AI Agents</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Build your virtual executive team. Each agent you hire has a unique personality, specific professional goals, and access to your company knowledge. Deploy specialized agents for Marketing, Sales, Development, and more.</p>
+			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<!-- Form Section -->
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<h2 class="text-xl font-semibold mb-6">Hire New AI Agent</h2>
+					<div class="mb-6">
+						<h2 class="text-xl font-semibold">Hire New AI Agent</h2>
+						<p class="text-xs text-gray-500 mt-1 italic">Tip: Be specific in the Mission field to get the best reasoning from your agent.</p>
+					</div>
 					<form id="nexus-hire-agent-form" class="space-y-6">
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Agent Name</label>
@@ -113,11 +120,18 @@ class AdminRenderer {
 	public function render_settings_page(): void {
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">System Configuration</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-gold uppercase tracking-widest mb-2">Platform Infrastructure</h2>
+				<h1 class="text-4xl font-bold text-white">System Configuration</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Configure the core engines powering your AI Workforce. Manage API keys, set global defaults for model performance, and customize the platform branding for your agency or enterprise.</p>
+			</div>
 
 			<div class="max-w-2xl">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<h2 class="text-xl font-semibold mb-6">Global AI Settings</h2>
+					<div class="mb-6">
+						<h2 class="text-xl font-semibold">Global AI Settings</h2>
+						<p class="text-xs text-gray-500 mt-1 italic">Example: Enter your OpenAI 'sk-...' key and select GPT-4o for maximum performance.</p>
+					</div>
 					<form id="nexus-settings-form" class="space-y-8">
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 							<div>
@@ -146,9 +160,26 @@ class AdminRenderer {
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Default Global Model</label>
 							<select name="default_model" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
-								<option value="gpt-4o">GPT-4o</option>
-								<option value="gpt-4-turbo">GPT-4 Turbo</option>
+								<optgroup label="OpenAI">
+									<option value="gpt-4o">GPT-4o (Most Intelligent)</option>
+									<option value="gpt-4o-mini">GPT-4o Mini (Fast & Cheap)</option>
+									<option value="gpt-4-turbo">GPT-4 Turbo</option>
+								</optgroup>
+								<optgroup label="Anthropic">
+									<option value="claude-3-5-sonnet-20240620">Claude 3.5 Sonnet (Best Coding/Writing)</option>
+									<option value="claude-3-opus-20240229">Claude 3 Opus</option>
+									<option value="claude-3-haiku-20240307">Claude 3 Haiku</option>
+								</optgroup>
+								<optgroup label="Google">
+									<option value="gemini-1.5-pro">Gemini 1.5 Pro (Large Context)</option>
+									<option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+								</optgroup>
+								<optgroup label="OpenRouter (Universal)">
+									<option value="meta-llama/llama-3-70b-instruct">Llama 3 70B</option>
+									<option value="mistralai/mixtral-8x7b-instruct">Mistral 8x7B</option>
+								</optgroup>
 							</select>
+							<p class="text-xs text-gray-500 mt-2">Individual agents can override this setting in their profile.</p>
 						</div>
 
 						<hr class="border-nexus-border">
@@ -224,12 +255,19 @@ class AdminRenderer {
 	public function render_kb_page(): void {
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Company Brain (Knowledge Base)</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-blue uppercase tracking-widest mb-2">Central Intelligence</h2>
+				<h1 class="text-4xl font-bold text-white">Company Brain (RAG)</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Give your AI workforce "Company Memory." Upload PDFs, SOPs, and URLs to create a shared knowledge base. Your agents will use this data to provide accurate, brand-aligned responses during interactions.</p>
+			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<!-- Ingestion Section -->
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<h2 class="text-xl font-semibold mb-6">Ingest Information</h2>
+					<div class="mb-6">
+						<h2 class="text-xl font-semibold">Ingest Information</h2>
+						<p class="text-xs text-gray-500 mt-1 italic">Process: Upload -> Chunk -> Embed -> Query. Once indexed, agents can "read" these files.</p>
+					</div>
 
 					<div class="space-y-8">
 						<!-- File Upload -->
@@ -290,7 +328,11 @@ class AdminRenderer {
 	public function render_workflows_page(): void {
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Multi-Agent Automations</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-green-500 uppercase tracking-widest mb-2">Operational Efficiency</h2>
+				<h1 class="text-4xl font-bold text-white">Multi-Agent Automations</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Create complex workflows where multiple AI agents collaborate to finish a task. For example, a "Content Machine" workflow can research, write, SEO-optimize, and publish a post without manual intervention.</p>
+			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<!-- Template Gallery -->
@@ -335,8 +377,13 @@ class AdminRenderer {
 	public function render_overview_page(): void {
 		?>
 		<div class="nexus-admin-body p-8">
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-violet uppercase tracking-widest mb-2">Platform Command</h2>
+				<h1 class="text-4xl font-bold text-white">Executive Overview</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Monitor your AI workforce productivity, token consumption, and strategic activity in real-time. This dashboard provides a high-level view of how AI is impacting your business operations.</p>
+			</div>
+
 			<div class="flex justify-between items-center mb-8">
-				<h1 class="text-3xl font-bold text-nexus-violet">Executive Overview</h1>
 				<div class="flex gap-4">
 					<div class="glass-panel px-4 py-2 rounded-lg text-sm text-gray-400">System Uptime: <span class="text-green-500">99.9%</span></div>
 				</div>
