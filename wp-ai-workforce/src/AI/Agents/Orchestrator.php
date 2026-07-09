@@ -6,6 +6,7 @@ namespace NexusAI\Workforce\AI\Agents;
 use NexusAI\Workforce\AI\Models\AIModelInterface;
 use NexusAI\Workforce\Integrations\ActionRegistry;
 use NexusAI\Workforce\AI\Prompting\PromptBuilder;
+use NexusAI\Workforce\AI\RAG\Searcher;
 
 /**
  * Orchestrates multi-agent interactions and task delegation.
@@ -27,10 +28,16 @@ class Orchestrator {
 	 */
 	private $prompt_builder;
 
+	/**
+	 * @var Searcher
+	 */
+	private $searcher;
+
 	public function __construct( AIModelInterface $model ) {
 		$this->model = $model;
 		$this->action_registry = new ActionRegistry();
 		$this->prompt_builder = new PromptBuilder();
+		$this->searcher = new Searcher();
 	}
 
 	/**
@@ -75,7 +82,14 @@ class Orchestrator {
 	 * @return string           Final response.
 	 */
 	public function process_request( string $request, array $agent_data, string $company_context = '' ): string {
-		$system_prompt = $this->prompt_builder->build( array_merge( $agent_data, [ 'company_context' => $company_context ] ) );
+		// 1. Perform RAG search
+		$kb_context = $this->searcher->search( $request, [ 'agent_id' => $agent_data['id'] ?? 0 ] );
+
+		// 2. Build system prompt with RAG context
+		$system_prompt = $this->prompt_builder->build( array_merge( $agent_data, [
+			'company_context' => $company_context,
+			'kb_context'      => $kb_context
+		] ) );
 
 		$messages = [
 			[ 'role' => 'system', 'content' => $system_prompt ],

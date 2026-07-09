@@ -342,6 +342,10 @@ class AdminRenderer {
 	 * Render the "Overview" dashboard page.
 	 */
 	public function render_overview_page(): void {
+		global $wpdb;
+		$agent_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE is_active = 1" );
+		$doc_count   = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_knowledge_documents" );
+		$total_cost  = $wpdb->get_var( "SELECT SUM(cost) FROM {$wpdb->prefix}ai_usage_logs" ) ?: 0.00;
 		?>
 		<div class="nexus-admin-body p-8">
 			<div class="flex justify-between items-center mb-8">
@@ -358,16 +362,16 @@ class AdminRenderer {
 					<p class="text-3xl font-bold mt-2">94.2%</p>
 				</div>
 				<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">Active Conversations</p>
-					<p class="text-3xl font-bold mt-2">12</p>
+					<p class="text-xs text-gray-400 uppercase tracking-widest">AI Workforce Size</p>
+					<p class="text-3xl font-bold mt-2"><?php echo (int) $agent_count; ?></p>
 				</div>
 				<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">Documents Indexed</p>
-					<p class="text-3xl font-bold mt-2">48</p>
+					<p class="text-xs text-gray-400 uppercase tracking-widest">Knowledge Ingested</p>
+					<p class="text-3xl font-bold mt-2"><?php echo (int) $doc_count; ?></p>
 				</div>
 				<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">Cost (Last 24h)</p>
-					<p class="text-3xl font-bold mt-2">$1.42</p>
+					<p class="text-xs text-gray-400 uppercase tracking-widest">Estimated ROI Cost</p>
+					<p class="text-3xl font-bold mt-2">$<?php echo number_format( (float) $total_cost, 2 ); ?></p>
 				</div>
 			</div>
 

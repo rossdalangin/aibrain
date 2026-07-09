@@ -5,6 +5,8 @@ namespace NexusAI\Workforce\Integrations;
 
 use NexusAI\Workforce\Integrations\Actions\BaseAction;
 use NexusAI\Workforce\Integrations\Actions\CreatePostAction;
+use NexusAI\Workforce\Integrations\Actions\ManageUserAction;
+use NexusAI\Workforce\Integrations\Actions\AnalyticsReportAction;
 
 /**
  * Registry for all AI-executable actions.
@@ -19,6 +21,8 @@ class ActionRegistry {
 	public function __construct() {
 		// Register core actions
 		$this->register( new CreatePostAction() );
+		$this->register( new ManageUserAction() );
+		$this->register( new AnalyticsReportAction() );
 	}
 
 	/**
