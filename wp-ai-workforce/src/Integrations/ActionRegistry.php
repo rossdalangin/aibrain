@@ -1,0 +1,58 @@
+<?php
+declare(strict_types=1);
+
+namespace NexusAI\Workforce\Integrations;
+
+use NexusAI\Workforce\Integrations\Actions\BaseAction;
+use NexusAI\Workforce\Integrations\Actions\CreatePostAction;
+
+/**
+ * Registry for all AI-executable actions.
+ */
+class ActionRegistry {
+
+	/**
+	 * @var BaseAction[]
+	 */
+	private $actions = [];
+
+	public function __construct() {
+		// Register core actions
+		$this->register( new CreatePostAction() );
+	}
+
+	/**
+	 * Register a new action.
+	 */
+	public function register( BaseAction $action ): void {
+		$this->actions[ $action->get_name() ] = $action;
+	}
+
+	/**
+	 * Get all registered actions formatted for the AI (OpenAI Tools format).
+	 */
+	public function get_tools_definition(): array {
+		$tools = [];
+		foreach ( $this->actions as $action ) {
+			$tools[] = [
+				'type' => 'function',
+				'function' => [
+					'name'        => $action->get_name(),
+					'description' => $action->get_description(),
+					'parameters'  => $action->get_parameters(),
+				],
+			];
+		}
+		return $tools;
+	}
+
+	/**
+	 * Execute an action by name.
+	 */
+	public function execute( string $name, array $args ) {
+		if ( ! isset( $this->actions[ $name ] ) ) {
+			throw new \Exception( "Action '$name' not found." );
+		}
+		return $this->actions[ $name ]->execute( $args );
+	}
+}
