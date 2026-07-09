@@ -8,7 +8,9 @@ Welcome to Nexus AI. Your Command Center is located in the **Nexus AI** menu in 
 2. Click **Hire Agent**.
 3. Choose a template (e.g., "Digital Marketer") or start from scratch.
 4. Define their **Identity**, **Mission**, and **KPIs**.
-5. Save your agent. They are now ready to work.
+5. **Multi-Model Selection:** Choose between OpenAI (GPT-4o), Anthropic (Claude 3.5), or Google (Gemini).
+6. **Style Config:** Define their communication style (Professional, Creative, etc.) and output format (Markdown, JSON).
+7. Save your agent. They are now ready to work.
 
 ## 3. Using the Knowledge Base
 To give your agents "Company Memory," you must feed them data.

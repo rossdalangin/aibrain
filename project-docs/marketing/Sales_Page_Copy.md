@@ -24,18 +24,36 @@ Watch in real-time as your CEO delegates to your Marketing Manager, who briefs y
 
 ---
 
-## Features That Scale Businesses
-- **The Brain Builder:** Visual prompt engineering for non-techies.
-- **Enterprise RAG:** Connect your entire knowledge base.
-- **Deep WP Integration:** AI that can actually create posts, manage users, and run your store.
-- **White-Label Agency Mode:** Build and sell AI Workforces to your clients.
+## Why Nexus AI is the Leader in Business AI
+
+| Feature | Generic Chatbots | **Nexus AI Workforce** |
+| :--- | :--- | :--- |
+| **Identity** | Basic Persona | Full Professional Profile (Skills, KPIs, Style) |
+| **Brain Engine** | One Model Only | Multi-Model (GPT-4o, Claude 3.5, Gemini 1.5) |
+| **Memory** | Short-term | Hierarchical RAG (Company-wide intelligence) |
+| **Collaboration** | Single User-to-AI | Multi-Agent Meetings & Automated Workflows |
+| **Execution** | Talk only | Actionable (Creates WP Posts, Manages Data) |
+| **Privacy** | Shared SaaS Cloud | **Self-hosted** on your own WordPress site |
+
+---
+
+## Features Built for Enterprise Scaling
+
+### 🧠 The Multi-Provider Core
+Don't be locked into one AI provider. Nexus lets you hire a **Claude** agent for creative writing, a **GPT-4o** agent for logical analysis, and a **Gemini** agent for handling massive technical documents—all working in the same dashboard.
+
+### 🏢 Hierarchical Company Memory (RAG)
+Generic RAG is messy. Nexus organizes knowledge into **Global**, **Department**, and **Agent** levels. Your CEO knows the vision, your Support Manager knows the refund policy, and your Developer knows the code standards.
+
+### ⚙️ Multi-Agent Orchestration
+Stop acting as the middleman. Start an AI Meeting and watch your team solve problems. The Orchestrator manages the flow, ensuring every agent contributes based on their unique expertise and goals.
 
 ---
 
 ## Tiered Pricing for Serious Growth
-- **Pro ($197/mo):** 10 Agents + RAG Engine.
-- **Agency ($497/mo):** Unlimited Agents + White Labeling.
-- **Enterprise ($997/mo):** Custom Models + Dedicated Vector DB.
+- **Pro ($197/mo):** 10 Agents, 5GB Company Brain, Multi-Model Access.
+- **Agency ($497/mo):** Unlimited Agents, Full White-Labeling, Client Portals, Marketplace Access.
+- **Enterprise ($997/mo):** Custom Vector DB, Fine-Tuning Integration, 24/7 Priority Support.
 
 ### Call to Action:
 **[Secure Your AI Workforce Now - 14 Day Risk-Free Trial]**

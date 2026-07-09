@@ -1,6 +1,6 @@
-# Nexus AI Workforce: 5-Day "Onboarding" Email Sequence
+# Nexus AI Workforce: 7-Day Enterprise Onboarding Sequence
 
-## Email 1: Welcome to the Future of Work
+## Email 1: Welcome to your Command Center
 **Subject:** Meet your new Executive Team.
 **Body:** Welcome to Nexus AI. You didn't just buy a plugin; you just hired a department. Today, we want you to meet your "CEO" agent. Log in and ask them for a 90-day growth plan based on your current site data.
 
@@ -16,6 +16,14 @@
 **Subject:** Your AI doesn't just talk. It works.
 **Body:** Did you know Nexus can create WordPress posts? Ask your "Content Manager" to draft a 1,500-word blog post and schedule it for tomorrow. See the result in your "Drafts" folder.
 
-## Email 5: Scaling to Agency
+## Email 5: The Model Advantage
+**Subject:** Claude, GPT, or Gemini? Why not all three?
+**Body:** Different tasks require different brains. Today, hire a "Creative Director" powered by Claude 3.5 and a "Data Analyst" powered by Gemini. Watch them collaborate in an AI Meeting and see the difference in quality.
+
+## Email 6: Actionable Results
+**Subject:** Your AI doesn't just talk. It works.
+**Body:** Did you know Nexus can create WordPress posts? Ask your "Content Manager" to draft a 1,500-word blog post and schedule it for tomorrow. See the result in your "Drafts" folder.
+
+## Email 7: Scaling to Agency (The $10k Blueprint)
 **Subject:** How to turn AI into a $10k/mo revenue stream.
 **Body:** Our Agency partners are building custom AI workforces for their clients and charging $1,000/mo. Learn how to use our "White Label" mode to brand Nexus as your own and scale your revenue.

@@ -7,12 +7,14 @@ Nexus AI Workforce is an enterprise-grade AI Operating System for WordPress. It 
 
 ### 1. Business & Marketing
 - **Value Proposition:** [Value_Proposition.md](project-docs/marketing/Value_Proposition.md) - Core benefits and target personas.
-- **Sales Copy:** [Sales_Page_Copy.md](project-docs/marketing/Sales_Page_Copy.md) - High-conversion landing page copy.
-- **Email Campaigns:** [Email_Campaigns.md](project-docs/marketing/Email_Campaigns.md) - 5-day onboarding sequence.
+- **Sales Copy:** [Sales_Page_Copy.md](project-docs/marketing/Sales_Page_Copy.md) - High-conversion landing page copy with competitive feature tables.
+- **Agency Success Kit:** [Agency_Success_Kit.md](project-docs/marketing/Agency_Success_Kit.md) - How to scale AI-as-a-Service revenue.
+- **Email Campaigns:** [Email_Campaigns.md](project-docs/marketing/Email_Campaigns.md) - 7-day enterprise onboarding sequence.
 - **Competitive Analysis:** [Competitive_Analysis.md](project-docs/business/Competitive_Analysis.md) - How Nexus beats JT1, Power 5, and others.
 - **Monetization & SaaS Strategy:** [SaaS_Monetization_Strategy.md](project-docs/business/SaaS_Monetization_Strategy.md) - Pricing tiers and white-label approach.
 
 ### 2. Design & Documentation
+- **Multi-Agent Strategy:** [Multi_Agent_Strategy_Guide.md](project-docs/documentation/Multi_Agent_Strategy_Guide.md) - Best practices for AI team orchestration.
 - **Feature & Functional Guide:** [Feature_Functional_Guide.md](project-docs/documentation/Feature_Functional_Guide.md) - In-depth instructions for every platform feature.
 - **User Manual:** [User_Manual.md](project-docs/documentation/User_Manual.md) - How to use the platform.
 - **UI/UX & User Flows:** [UI_UX_UserFlows.md](project-docs/design/UI_UX_UserFlows.md) - Wireframes and interaction models.

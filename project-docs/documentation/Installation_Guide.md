@@ -3,8 +3,9 @@
 ## 1. System Requirements
 - WordPress 6.2+
 - PHP 8.1+
-- SQLite (recommended for local vector search) or MySQL 8.0+
-- OpenSSL enabled (for secure encryption)
+- **Extensions:** `curl`, `openssl`, `mbstring`, `sqlite3` (for local vector storage).
+- **PHP Libraries:** `smalot/pdfparser` and `phpoffice/phpword` (required for RAG document processing).
+- **Server:** Minimum 512MB RAM (1GB recommended for large document indexing).
 
 ## 2. Installation
 1. Upload the `wp-ai-workforce` folder to your `/wp-content/plugins/` directory.
