@@ -56,7 +56,7 @@ class Plugin {
 			'Company Brain',
 			'manage_options',
 			'nexus-ai-workforce-kb',
-			[ $this, 'render_admin_page' ]
+			[ $this, 'render_kb_page' ]
 		);
 
 		add_submenu_page(
@@ -91,6 +91,12 @@ class Plugin {
 	public function render_settings_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_settings_page();
+		}
+	}
+
+	public function render_kb_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_kb_page();
 		}
 	}
 

@@ -31,9 +31,13 @@ class SettingsController {
 	public function get_items( WP_REST_Request $request ): WP_REST_Response {
 		$settings = $this->repository->get_all();
 
+		$sensitive_keys = [ 'openai_api_key', 'claude_api_key', 'gemini_api_key', 'openrouter_api_key' ];
+
 		// Mask sensitive data
-		if ( ! empty( $settings['openai_api_key'] ) ) {
-			$settings['openai_api_key'] = '********';
+		foreach ( $sensitive_keys as $key ) {
+			if ( ! empty( $settings[ $key ] ) ) {
+				$settings[ $key ] = '********';
+			}
 		}
 
 		return new WP_REST_Response( $settings, 200 );
@@ -43,8 +47,12 @@ class SettingsController {
 		$params = $request->get_params();
 		$data = [];
 
-		if ( isset( $params['openai_api_key'] ) && $params['openai_api_key'] !== '********' ) {
-			$data['openai_api_key'] = $this->encryption->encrypt( $params['openai_api_key'] );
+		$sensitive_keys = [ 'openai_api_key', 'claude_api_key', 'gemini_api_key', 'openrouter_api_key' ];
+
+		foreach ( $sensitive_keys as $key ) {
+			if ( isset( $params[ $key ] ) && $params[ $key ] !== '********' ) {
+				$data[ $key ] = $this->encryption->encrypt( $params[ $key ] );
+			}
 		}
 
 		if ( isset( $params['default_model'] ) ) {

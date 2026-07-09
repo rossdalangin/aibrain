@@ -9,7 +9,7 @@ use NexusAI\Workforce\Repositories\ConversationRepository;
 use NexusAI\Workforce\Repositories\MessageRepository;
 use NexusAI\Workforce\Repositories\EmployeeRepository;
 use NexusAI\Workforce\AI\Agents\Orchestrator;
-use NexusAI\Workforce\AI\Models\OpenAIAdapter;
+use NexusAI\Workforce\AI\Factories\ModelFactory;
 use NexusAI\Workforce\Utils\Encryption;
 use NexusAI\Workforce\Repositories\SettingsRepository;
 
@@ -79,10 +79,11 @@ class ChatController {
 		return new WP_REST_Response( [ 'response' => $response, 'conversation_id' => $conversation_id ], 200 );
 	}
 
-	private function get_orchestrator(): Orchestrator {
-		$encryption = new Encryption();
-		$api_key = $encryption->decrypt( $this->settings->get( 'openai_api_key', '' ) );
-		$model = new OpenAIAdapter( $api_key );
+	private function get_orchestrator( array $agent_data ): Orchestrator {
+		$model_settings = json_decode( $agent_data['model_settings'] ?? '{}', true );
+		$provider = $model_settings['provider'] ?? 'openai';
+
+		$model = ModelFactory::create( $provider );
 		return new Orchestrator( $model );
 	}
 }
