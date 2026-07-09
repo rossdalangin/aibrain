@@ -27,6 +27,20 @@ class RestHandler {
 	 */
 	public function register_routes(): void {
 		$employee_controller = new EmployeeController();
+		$chat_controller = new ChatController();
+
+		register_rest_route( $this->namespace, '/conversations', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $chat_controller, 'get_conversations' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $chat_controller, 'send_message' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
 
 		register_rest_route( $this->namespace, '/employees', [
 			[

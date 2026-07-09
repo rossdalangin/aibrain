@@ -34,6 +34,39 @@ class Orchestrator {
 	}
 
 	/**
+	 * Facilitate a multi-agent meeting.
+	 *
+	 * @param string $topic  The discussion topic.
+	 * @param array  $agents Array of agent data.
+	 * @return array         Transcript of the meeting.
+	 */
+	public function facilitate_meeting( string $topic, array $agents ): array {
+		$transcript = [];
+		$context = "Meeting Topic: $topic\n\nParticipants:\n";
+
+		foreach ( $agents as $agent ) {
+			$context .= "- " . $agent['name'] . " (" . $agent['position'] . ")\n";
+		}
+
+		// Simplified Round-robin debate for MVP
+		foreach ( $agents as $agent ) {
+			$prompt = $context . "\nTranscript so far:\n";
+			foreach ( $transcript as $entry ) {
+				$prompt .= $entry['agent'] . ": " . $entry['content'] . "\n";
+			}
+			$prompt .= "\n" . $agent['name'] . ", what is your opinion on this?";
+
+			$response = $this->process_request( $prompt, $agent );
+			$transcript[] = [
+				'agent'   => $agent['name'],
+				'content' => $response,
+			];
+		}
+
+		return $transcript;
+	}
+
+	/**
 	 * Process a complex request by delegating to specialized agents.
 	 *
 	 * @param string $request   The user request.
