@@ -44,7 +44,7 @@ class Plugin {
 		add_submenu_page(
 			'nexus-ai-workforce',
 			__( 'Workforce', 'nexus-ai-workforce' ),
-			__( 'Workforce', 'nexus-ai-workforce' ),
+			'Hire AI Agents',
 			'manage_options',
 			'nexus-ai-workforce-employees',
 			[ $this, 'render_admin_page' ]
@@ -53,7 +53,7 @@ class Plugin {
 		add_submenu_page(
 			'nexus-ai-workforce',
 			__( 'Knowledge Base', 'nexus-ai-workforce' ),
-			__( 'Knowledge Base', 'nexus-ai-workforce' ),
+			'Company Brain',
 			'manage_options',
 			'nexus-ai-workforce-kb',
 			[ $this, 'render_admin_page' ]
@@ -61,8 +61,17 @@ class Plugin {
 
 		add_submenu_page(
 			'nexus-ai-workforce',
+			__( 'Workflows', 'nexus-ai-workforce' ),
+			'Automations',
+			'manage_options',
+			'nexus-ai-workforce-workflows',
+			[ $this, 'render_admin_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
 			__( 'Settings', 'nexus-ai-workforce' ),
-			__( 'Settings', 'nexus-ai-workforce' ),
+			'System Config',
 			'manage_options',
 			'nexus-ai-workforce-settings',
 			[ $this, 'render_admin_page' ]

@@ -28,6 +28,29 @@ class RestHandler {
 	public function register_routes(): void {
 		$employee_controller = new EmployeeController();
 		$chat_controller = new ChatController();
+		$settings_controller = new SettingsController();
+		$status_controller = new StatusController();
+
+		register_rest_route( $this->namespace, '/settings', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $settings_controller, 'get_items' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => [ $settings_controller, 'update_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/status', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $status_controller, 'get_status' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
 
 		register_rest_route( $this->namespace, '/conversations', [
 			[
