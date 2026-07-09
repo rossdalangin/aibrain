@@ -47,7 +47,7 @@ class Plugin {
 			'Hire AI Agents',
 			'manage_options',
 			'nexus-ai-workforce-employees',
-			[ $this, 'render_admin_page' ]
+			[ $this, 'render_workforce_page' ]
 		);
 
 		add_submenu_page(
@@ -74,12 +74,24 @@ class Plugin {
 			'System Config',
 			'manage_options',
 			'nexus-ai-workforce-settings',
-			[ $this, 'render_admin_page' ]
+			[ $this, 'render_settings_page' ]
 		);
 	}
 
 	public function render_admin_page() {
 		echo '<div id="nexus-ai-admin-root"></div>';
+	}
+
+	public function render_workforce_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_workforce_page();
+		}
+	}
+
+	public function render_settings_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_settings_page();
+		}
 	}
 
 	public function enqueue_admin_assets( $hook ) {
