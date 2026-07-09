@@ -36,7 +36,7 @@ class Plugin {
 			__( 'Nexus AI', 'nexus-ai-workforce' ),
 			'manage_options',
 			'nexus-ai-workforce',
-			[ $this, 'render_admin_page' ],
+			[ $this, 'render_overview_page' ],
 			'dashicons-superhero',
 			2
 		);
@@ -65,7 +65,7 @@ class Plugin {
 			'Automations',
 			'manage_options',
 			'nexus-ai-workforce-workflows',
-			[ $this, 'render_admin_page' ]
+			[ $this, 'render_workflows_page' ]
 		);
 
 		add_submenu_page(
@@ -100,10 +100,25 @@ class Plugin {
 		}
 	}
 
+	public function render_overview_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_overview_page();
+		}
+	}
+
+	public function render_workflows_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_workflows_page();
+		}
+	}
+
 	public function enqueue_admin_assets( $hook ) {
 		if ( strpos( $hook, 'nexus-ai-workforce' ) === false ) {
 			return;
 		}
+
+		// Enqueue Tailwind CDN for immediate preview in development
+		wp_enqueue_script( 'nexus-ai-tailwind', 'https://cdn.tailwindcss.com', [], '3.3.0' );
 
 		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 2 ) ), [], '1.0.0' );
 
