@@ -13,6 +13,7 @@ Nexus AI Workforce is an enterprise-grade AI Operating System for WordPress. It 
 - **Monetization & SaaS Strategy:** [SaaS_Monetization_Strategy.md](project-docs/business/SaaS_Monetization_Strategy.md) - Pricing tiers and white-label approach.
 
 ### 2. Design & Documentation
+- **Feature & Functional Guide:** [Feature_Functional_Guide.md](project-docs/documentation/Feature_Functional_Guide.md) - In-depth instructions for every platform feature.
 - **User Manual:** [User_Manual.md](project-docs/documentation/User_Manual.md) - How to use the platform.
 - **UI/UX & User Flows:** [UI_UX_UserFlows.md](project-docs/design/UI_UX_UserFlows.md) - Wireframes and interaction models.
 - **Design System:** [Design_System.md](project-docs/design/Design_System.md) - Premium design system (Linear/Framer style).

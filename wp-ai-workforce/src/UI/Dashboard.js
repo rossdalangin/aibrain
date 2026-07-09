@@ -16,9 +16,16 @@ const Dashboard = () => {
         </div>
 
         <nav className="flex-1 px-4 space-y-2">
+          {/* Tooltip: View your company wide performance metrics */}
           <NavItem icon="dashboard" label="Overview" active={activeTab === 'overview'} onClick={() => setActiveTab('overview')} />
+
+          {/* Tooltip: Manage and 'Hire' your specialized AI agents */}
           <NavItem icon="users" label="Workforce" active={activeTab === 'workforce'} onClick={() => setActiveTab('workforce')} />
+
+          {/* Tooltip: Feed company data to your AI team */}
           <NavItem icon="database" label="Knowledge Base" active={activeTab === 'kb'} onClick={() => setActiveTab('kb')} />
+
+          {/* Tooltip: Track ROI and token consumption */}
           <NavItem icon="activity" label="Analytics" active={activeTab === 'analytics'} onClick={() => setActiveTab('analytics')} />
         </nav>
 
@@ -43,7 +50,7 @@ const Dashboard = () => {
         </header>
 
         <section className="flex-1 overflow-y-auto p-8 animate-fade-in-up">
-          {/* Dashboard Content Renders Here */}
+          {/* Section: Overview Metrics - High-level summary of AI workforce productivity */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <StatCard label="Total Agents" value="24" trend="+3 this month" />
             <StatCard label="Avg Response Time" value="1.2s" trend="-0.4s" />

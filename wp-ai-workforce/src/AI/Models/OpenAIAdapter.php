@@ -20,17 +20,23 @@ class OpenAIAdapter extends BaseAdapter {
 	public function generate_completion( array $messages, array $settings ): array {
 		$model = $settings['model'] ?? 'gpt-4o';
 
+		$body_params = [
+			'model'       => $model,
+			'messages'    => $messages,
+			'temperature' => (float) ( $settings['temperature'] ?? 0.7 ),
+			'max_tokens'  => (int) ( $settings['max_tokens'] ?? 2000 ),
+		];
+
+		if ( ! empty( $settings['tools'] ) ) {
+			$body_params['tools'] = $settings['tools'];
+		}
+
 		$response = wp_remote_post( $this->base_url . 'chat/completions', [
 			'headers' => [
 				'Authorization' => 'Bearer ' . $this->api_key,
 				'Content-Type'  => 'application/json',
 			],
-			'body'    => wp_json_encode( [
-				'model'       => $model,
-				'messages'    => $messages,
-				'temperature' => (float) ( $settings['temperature'] ?? 0.7 ),
-				'max_tokens'  => (int) ( $settings['max_tokens'] ?? 2000 ),
-			] ),
+			'body'    => wp_json_encode( $body_params ),
 			'timeout' => 60,
 		] );
 
@@ -47,8 +53,9 @@ class OpenAIAdapter extends BaseAdapter {
 		}
 
 		return [
-			'content' => $body['choices'][0]['message']['content'] ?? '',
-			'usage'   => $body['usage'] ?? [],
+			'content'    => $body['choices'][0]['message']['content'] ?? '',
+			'tool_calls' => $body['choices'][0]['message']['tool_calls'] ?? [],
+			'usage'      => $body['usage'] ?? [],
 		];
 	}
 
