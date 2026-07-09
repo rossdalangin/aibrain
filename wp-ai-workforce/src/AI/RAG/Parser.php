@@ -24,7 +24,30 @@ class Parser {
 			case 'txt':
 			case 'md':
 				return file_get_contents( $filepath ) ?: '';
-			// In a full implementation, we would use specialized libraries for PDF/DOCX
+
+			case 'pdf':
+				if ( class_exists( 'Smalot\\PdfParser\\Parser' ) ) {
+					$parser = new \Smalot\PdfParser\Parser();
+					$pdf = $parser->parseFile( $filepath );
+					return $pdf->getText();
+				}
+				return '';
+
+			case 'docx':
+				if ( class_exists( 'PhpOffice\\PhpWord\\IOFactory' ) ) {
+					$phpWord = \PhpOffice\PhpWord\IOFactory::load( $filepath );
+					$text = '';
+					foreach ( $phpWord->getSections() as $section ) {
+						foreach ( $section->getElements() as $element ) {
+							if ( method_exists( $element, 'getText' ) ) {
+								$text .= $element->getText() . "\n";
+							}
+						}
+					}
+					return $text;
+				}
+				return '';
+
 			default:
 				return '';
 		}

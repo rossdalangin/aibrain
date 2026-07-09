@@ -12,6 +12,7 @@ use NexusAI\Workforce\AI\Agents\Orchestrator;
 use NexusAI\Workforce\AI\Factories\ModelFactory;
 use NexusAI\Workforce\Utils\Encryption;
 use NexusAI\Workforce\Repositories\SettingsRepository;
+use NexusAI\Workforce\Repositories\UsageLogRepository;
 
 /**
  * Controller for Chat and Multi-Agent interactions.
@@ -22,12 +23,14 @@ class ChatController {
 	private $messages;
 	private $employees;
 	private $settings;
+	private $usage_logs;
 
 	public function __construct() {
 		$this->conversations = new ConversationRepository();
 		$this->messages      = new MessageRepository();
 		$this->employees     = new EmployeeRepository();
 		$this->settings      = new SettingsRepository();
+		$this->usage_logs    = new UsageLogRepository();
 	}
 
 	public function get_conversations( WP_REST_Request $request ): WP_REST_Response {
@@ -61,10 +64,10 @@ class ChatController {
 		] );
 
 		// Process with AI
-		$employee = $this->employees->get_by_id( $employee_id );
-		$orchestrator = $this->get_orchestrator();
+		$employee = $this->employees->get_by_id( $employee_id ) ?: [];
+		$orchestrator = $this->get_orchestrator( $employee );
 
-		$response = $orchestrator->process_request( $content, $employee ?: [] );
+		$response = $orchestrator->process_request( $content, $employee );
 
 		// Store AI Message
 		$this->messages->create( [
@@ -72,6 +75,15 @@ class ChatController {
 			'sender_type'     => 'ai',
 			'sender_id'       => $employee_id,
 			'content'         => $response,
+		] );
+
+		// Log Usage (Conceptual Cost Calculation)
+		$this->usage_logs->log_usage( [
+			'employee_id'       => $employee_id,
+			'model'             => $employee['model'] ?? 'gpt-4o',
+			'prompt_tokens'     => 100, // Placeholder
+			'completion_tokens' => 200, // Placeholder
+			'cost'              => 0.01,
 		] );
 
 		$this->conversations->update_last_message_at( $conversation_id );

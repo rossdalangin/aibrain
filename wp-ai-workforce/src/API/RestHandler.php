@@ -30,6 +30,7 @@ class RestHandler {
 		$chat_controller = new ChatController();
 		$settings_controller = new SettingsController();
 		$status_controller = new StatusController();
+		$marketplace_controller = new MarketplaceController();
 
 		register_rest_route( $this->namespace, '/settings', [
 			[
@@ -40,6 +41,22 @@ class RestHandler {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $settings_controller, 'update_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/marketplace/export/(?P<id>\d+)', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $marketplace_controller, 'export_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/marketplace/import', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $marketplace_controller, 'import_item' ],
 				'permission_callback' => [ $this, 'check_permission' ],
 			],
 		] );
