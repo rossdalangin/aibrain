@@ -33,6 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 3. KB URL Ingestion
+    const kbForm = document.querySelector('button[class*="bg-nexus-violet"]'); // Simple selector for MVP
+    if (kbForm && kbForm.innerText === 'Index') {
+        kbForm.addEventListener('click', function(e) {
+            const urlInput = document.querySelector('input[type="url"]');
+            if (urlInput && urlInput.value) {
+                kbForm.innerText = 'Indexing...';
+                nexusFetch('kb/ingest', 'POST', { url: urlInput.value }).then(res => {
+                    kbForm.innerText = 'Index';
+                    alert('URL content indexed into Company Brain!');
+                    window.location.reload();
+                });
+            }
+        });
+    }
+
     /**
      * Helper to wrap WP REST API calls
      */

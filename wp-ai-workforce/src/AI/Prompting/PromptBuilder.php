@@ -21,9 +21,23 @@ class PromptBuilder {
 		$sections[] = "# IDENTITY\n" . ( $params['name'] ?? 'AI Employee' ) . " - " . ( $params['position'] ?? 'Specialist' );
 		$sections[] = "# MISSION\n" . ( $params['role_description'] ?? 'Execute tasks efficiently.' );
 
-		// 2. Behavioral Constraints
-		if ( ! empty( $params['personality'] ) ) {
-			$sections[] = "# PERSONALITY & TONE\n" . $params['personality'];
+		// 2. Specialized Skills & Expertise
+		if ( ! empty( $params['skills'] ) ) {
+			$sections[] = "# SKILLS & EXPERTISE\n" . $params['skills'];
+		}
+
+		// 3. Success Metrics (KPIs)
+		if ( ! empty( $params['kpis'] ) ) {
+			$sections[] = "# SUCCESS KPIS\nYour performance is measured by: " . $params['kpis'];
+		}
+
+		// 4. Behavioral Constraints
+		if ( ! empty( $params['personality'] ) || ! empty( $params['communication_style'] ) ) {
+			$style = $params['personality'] ?? '';
+			if ( ! empty( $params['communication_style'] ) ) {
+				$style .= "\nCommunication Style: " . $params['communication_style'];
+			}
+			$sections[] = "# PERSONALITY & TONE\n" . trim( $style );
 		}
 
 		// 3. Reasoning Framework

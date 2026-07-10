@@ -31,6 +31,7 @@ class RestHandler {
 		$settings_controller = new SettingsController();
 		$status_controller = new StatusController();
 		$marketplace_controller = new MarketplaceController();
+		$kb_controller = new KBController();
 
 		register_rest_route( $this->namespace, '/settings', [
 			[
@@ -41,6 +42,14 @@ class RestHandler {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $settings_controller, 'update_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/kb/ingest', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $kb_controller, 'ingest_item' ],
 				'permission_callback' => [ $this, 'check_permission' ],
 			],
 		] );

@@ -3,15 +3,29 @@ declare(strict_types=1);
 
 namespace NexusAI\Workforce\UI;
 
+use NexusAI\Workforce\Repositories\SettingsRepository;
+
 /**
  * Renders the visible Admin UI forms and components.
  */
 class AdminRenderer {
 
+	private $settings;
+
+	public function __construct() {
+		$this->settings = new SettingsRepository();
+	}
+
+	private function get_brand_styles(): string {
+		$color = $this->settings->get( 'ui_color', '#7C3AED' );
+		return "<style>:root { --nexus-violet: $color !important; } .text-nexus-violet { color: $color !important; } .bg-nexus-violet { background-color: $color !important; }</style>";
+	}
+
 	/**
 	 * Render the "Hire Agent" workforce management page.
 	 */
 	public function render_workforce_page(): void {
+		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
 			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Workforce Command</h1>
@@ -114,6 +128,7 @@ class AdminRenderer {
 	 * Render the "Settings" page.
 	 */
 	public function render_settings_page(): void {
+		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
 			<h1 class="text-3xl font-bold text-nexus-violet mb-8">System Configuration</h1>
@@ -228,6 +243,7 @@ class AdminRenderer {
 	 * Render the "Knowledge Base" (Company Brain) page.
 	 */
 	public function render_kb_page(): void {
+		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
 			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Company Brain (Knowledge Base)</h1>
@@ -342,6 +358,7 @@ class AdminRenderer {
 	 * Render the "Overview" dashboard page.
 	 */
 	public function render_overview_page(): void {
+		echo $this->get_brand_styles();
 		global $wpdb;
 		$agent_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE is_active = 1" );
 		$doc_count   = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_knowledge_documents" );
