@@ -32,7 +32,13 @@ Nexus AI Workforce is an enterprise-grade AI Operating System for WordPress. It 
 - **RAG Engine:** [RAG_Implementation_Plan.md](project-docs/architecture/RAG_Implementation_Plan.md) - Knowledge base and vector search.
 - **Security Design:** [Security_Design.md](project-docs/technical/Security_Design.md) - Encryption, capabilities, and data privacy.
 
-### 4. Implementation & Roadmap
+### 4. Sample Intelligence & Templates
+- **Agent Templates:** [Agent_Hire_Templates.txt](project-docs/samples/Agent_Hire_Templates.txt) - Best content to input for hiring agents.
+- **Brand Voice Sample:** [Brand_Voice_Sample.txt](project-docs/samples/Brand_Voice_Sample.txt) - Sample company brain document.
+- **SOP Sample:** [Standard_Operating_Procedures.txt](project-docs/samples/Standard_Operating_Procedures.txt) - Sample operational guidelines.
+- **Catalog Sample:** [Product_Catalog_Sample.txt](project-docs/samples/Product_Catalog_Sample.txt) - Sample product and services data.
+
+### 5. Implementation & Roadmap
 - **Installation Guide:** [Installation_Guide.md](project-docs/documentation/Installation_Guide.md) - Technical setup instructions.
 - **API Reference:** [API_Reference.md](project-docs/documentation/API_Reference.md) - v1 REST API documentation.
 - **FAQ:** [FAQ.md](project-docs/documentation/FAQ.md) - Frequently asked questions.
