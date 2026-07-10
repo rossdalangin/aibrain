@@ -8,13 +8,12 @@ namespace NexusAI\Workforce\AI\Models;
  */
 class OpenAIAdapter extends BaseAdapter {
 
-	/**
-	 * @var string
-	 */
-	private $base_url = 'https://api.openai.com/v1/';
-
 	public function get_id(): string {
 		return 'openai';
+	}
+
+	protected function get_base_url(): string {
+		return 'https://api.openai.com/v1/';
 	}
 
 	public function generate_completion( array $messages, array $settings ): array {
@@ -31,14 +30,7 @@ class OpenAIAdapter extends BaseAdapter {
 			$body_params['tools'] = $settings['tools'];
 		}
 
-		$response = wp_remote_post( $this->base_url . 'chat/completions', [
-			'headers' => [
-				'Authorization' => 'Bearer ' . $this->api_key,
-				'Content-Type'  => 'application/json',
-			],
-			'body'    => wp_json_encode( $body_params ),
-			'timeout' => 60,
-		] );
+		$response = $this->request( 'chat/completions', $body_params );
 
 		if ( is_wp_error( $response ) ) {
 			$this->log_error( $response->get_error_message() );
@@ -60,16 +52,9 @@ class OpenAIAdapter extends BaseAdapter {
 	}
 
 	public function generate_embeddings( string $text ): array {
-		$response = wp_remote_post( $this->base_url . 'embeddings', [
-			'headers' => [
-				'Authorization' => 'Bearer ' . $this->api_key,
-				'Content-Type'  => 'application/json',
-			],
-			'body'    => wp_json_encode( [
-				'model' => 'text-embedding-3-small',
-				'input' => $text,
-			] ),
-			'timeout' => 30,
+		$response = $this->request( 'embeddings', [
+			'model' => 'text-embedding-3-small',
+			'input' => $text,
 		] );
 
 		if ( is_wp_error( $response ) ) {

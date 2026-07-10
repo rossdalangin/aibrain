@@ -7,6 +7,8 @@ use NexusAI\Workforce\AI\Models\AIModelInterface;
 use NexusAI\Workforce\AI\Models\OpenAIAdapter;
 use NexusAI\Workforce\AI\Models\ClaudeAdapter;
 use NexusAI\Workforce\AI\Models\GeminiAdapter;
+use NexusAI\Workforce\AI\Models\OpenRouterAdapter;
+use NexusAI\Workforce\AI\Models\OllamaAdapter;
 use NexusAI\Workforce\Utils\Encryption;
 use NexusAI\Workforce\Repositories\SettingsRepository;
 
@@ -26,6 +28,11 @@ class ModelFactory {
 			case 'gemini':
 				$key = $encryption->decrypt( $settings->get( 'gemini_api_key', '' ) );
 				return new GeminiAdapter( $key );
+			case 'openrouter':
+				$key = $encryption->decrypt( $settings->get( 'openrouter_api_key', '' ) );
+				return new OpenRouterAdapter( $key );
+			case 'ollama':
+				return new OllamaAdapter( '' ); // Ollama typically doesn't need an API key locally
 			case 'openai':
 			default:
 				$key = $encryption->decrypt( $settings->get( 'openai_api_key', '' ) );

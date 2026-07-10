@@ -1,4 +1,4 @@
-/* Nexus AI Workforce - Premium UI Styles */
+/* Nexus AI Workforce - Premium Luxury UI Styles */
 
 :root {
   --nexus-violet: #7C3AED;
@@ -6,6 +6,9 @@
   --nexus-gold: #f59e0b;
   --nexus-green: #10b981;
   --nexus-red: #ef4444;
+  --nexus-orange: #f97316;
+  --nexus-slate: #94a3b8;
+
   --nexus-bg: #0A0A0B;
   --nexus-surface: #121214;
   --nexus-elevated: #1a1a1e;
@@ -15,98 +18,57 @@
 .nexus-admin-body {
   background-color: var(--nexus-bg);
   color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  line-height: 1.6;
 }
 
-/* Glassmorphism Panels */
+/* Luxury Glassmorphism */
 .glass-panel {
-  background: rgba(18, 18, 20, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(18, 18, 20, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--nexus-border);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-}
-
-.glass-card-hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-hover:hover {
-  transform: translateY(-5px);
-  border-color: var(--nexus-violet);
-  background: rgba(18, 18, 20, 0.95);
-  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.15);
+  transform: translateY(-8px);
+  border-color: var(--nexus-accent, var(--nexus-violet));
+  background: rgba(22, 22, 26, 0.95);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
 }
 
-/* Department Gradients */
-.dept-exec { background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), transparent); }
-.dept-marketing { background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), transparent); }
-.dept-tech { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent); }
-.dept-legal { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), transparent); }
+/* Page Themes */
+.theme-overview { --nexus-accent: var(--nexus-violet); }
+.theme-workforce { --nexus-accent: var(--nexus-green); }
+.theme-kb { --nexus-accent: var(--nexus-blue); }
+.theme-automations { --nexus-accent: var(--nexus-orange); }
+.theme-settings { --nexus-accent: var(--nexus-slate); }
+.theme-meetings { --nexus-accent: var(--nexus-blue); }
+.theme-learning { --nexus-accent: var(--nexus-gold); }
 
-/* Premium Gradient Borders */
-.gradient-border {
-  position: relative;
-  border-radius: 8px;
-  background: var(--nexus-surface);
-}
+/* Department Branding */
+.dept-exec { border-left: 5px solid var(--nexus-violet); background: linear-gradient(90deg, rgba(124, 58, 237, 0.05) 0%, transparent 100%); }
+.dept-marketing { border-left: 5px solid var(--nexus-blue); background: linear-gradient(90deg, rgba(14, 165, 233, 0.05) 0%, transparent 100%); }
+.dept-tech { border-left: 5px solid var(--nexus-green); background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
+.dept-legal { border-left: 5px solid var(--nexus-gold); background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%); }
 
-.gradient-border::before {
-  content: '';
-  position: absolute;
-  top: -1px; left: -1px; right: -1px; bottom: -1px;
-  background: linear-gradient(45deg, var(--nexus-violet), #06B6D4);
-  border-radius: 9px;
-  z-index: -1;
-  opacity: 0.2;
-  transition: opacity 0.3s ease;
-}
-
-.gradient-border:hover::before {
-  opacity: 0.5;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--nexus-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--nexus-border);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--nexus-violet);
-}
-
-/* Thinking Indicator Pulse */
-.agent-thinking {
-  width: 8px;
-  height: 8px;
-  background-color: var(--nexus-violet);
-  border-radius: 50%;
-  animation: pulse 1.5s infinite;
-  box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7);
-}
-
-@keyframes pulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+/* Instructions & Pro-Tips */
+.nexus-step-guide {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px dashed var(--nexus-border);
 }
 
 .nexus-pro-tip {
-  border-left: 3px solid var(--nexus-gold);
+  border-left: 4px solid var(--nexus-gold);
   background: rgba(245, 158, 11, 0.05);
-  padding: 1rem;
+  padding: 1.25rem;
   border-radius: 0 1rem 1rem 0;
-  font-size: 0.85rem;
-  color: #d1d5db;
+  font-size: 0.9rem;
 }
 
 .nexus-button-note {
@@ -116,11 +78,11 @@
   display: block;
 }
 
-/* Multi-Agent Collaboration Wave */
+/* Animations */
 .collab-wave {
-  background: linear-gradient(-45deg, #7C3AED, #06B6D4, #F59E0B, #10B981);
+  background: linear-gradient(-45deg, #7C3AED, #0ea5e9, #10b981, #f59e0b);
   background-size: 400% 400%;
-  animation: gradient-wave 15s ease infinite;
+  animation: gradient-wave 20s ease infinite;
 }
 
 @keyframes gradient-wave {
@@ -129,14 +91,18 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Shimmer Effect for Loading States */
 .nexus-shimmer {
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  animation: shimmer 3s infinite;
 }
 
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+/* Typography */
+.text-accent { color: var(--nexus-accent); }
+.bg-accent { background-color: var(--nexus-accent); }
+.border-accent { border-color: var(--nexus-accent); }

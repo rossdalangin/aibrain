@@ -121,6 +121,23 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/workflows', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$params = $request->get_params();
+					$repo = new \NexusAI\Workforce\Repositories\WorkflowRepository();
+					$id = $repo->create( [
+						'name'       => sanitize_text_field( $params['name'] ),
+						'definition' => wp_json_encode( $params['steps'] ),
+						'status'     => 'active'
+					] );
+					return new \WP_REST_Response( [ 'id' => $id ], 201 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/employees/(?P<id>\d+)', [
 			[
 				'methods'             => WP_REST_Server::READABLE,

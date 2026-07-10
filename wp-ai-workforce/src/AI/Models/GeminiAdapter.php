@@ -8,13 +8,12 @@ namespace NexusAI\Workforce\AI\Models;
  */
 class GeminiAdapter extends BaseAdapter {
 
-	/**
-	 * @var string
-	 */
-	private $base_url = 'https://generativelanguage.googleapis.com/v1beta/models/';
-
 	public function get_id(): string {
 		return 'gemini';
+	}
+
+	protected function get_base_url(): string {
+		return 'https://generativelanguage.googleapis.com/v1beta/models/';
 	}
 
 	public function generate_completion( array $messages, array $settings ): array {
@@ -31,21 +30,15 @@ class GeminiAdapter extends BaseAdapter {
 			];
 		}
 
-		$url = $this->base_url . $model . ':generateContent?key=' . $api_key;
+		$endpoint = $model . ':generateContent?key=' . $api_key;
 
-		$response = wp_remote_post( $url, [
-			'headers' => [
-				'Content-Type' => 'application/json',
+		$response = $this->request( $endpoint, [
+			'contents' => $contents,
+			'generationConfig' => [
+				'temperature' => (float) ( $settings['temperature'] ?? 0.7 ),
+				'maxOutputTokens' => (int) ( $settings['max_tokens'] ?? 2048 ),
 			],
-			'body'    => wp_json_encode( [
-				'contents' => $contents,
-				'generationConfig' => [
-					'temperature' => (float) ( $settings['temperature'] ?? 0.7 ),
-					'maxOutputTokens' => (int) ( $settings['max_tokens'] ?? 2048 ),
-				],
-			] ),
-			'timeout' => 60,
-		] );
+		], [ 'Authorization' => '' ] ); // Key is in query string
 
 		if ( is_wp_error( $response ) ) {
 			throw new \Exception( $response->get_error_message() );
@@ -65,16 +58,12 @@ class GeminiAdapter extends BaseAdapter {
 
 	public function generate_embeddings( string $text ): array {
 		$model = 'text-embedding-004';
-		$url = $this->base_url . $model . ':embedContent?key=' . $this->api_key;
+		$endpoint = $model . ':embedContent?key=' . $this->api_key;
 
-		$response = wp_remote_post( $url, [
-			'headers' => [ 'Content-Type' => 'application/json' ],
-			'body'    => wp_json_encode( [
-				'model'   => 'models/' . $model,
-				'content' => [ 'parts' => [ [ 'text' => $text ] ] ],
-			] ),
-			'timeout' => 30,
-		] );
+		$response = $this->request( $endpoint, [
+			'model'   => 'models/' . $model,
+			'content' => [ 'parts' => [ [ 'text' => $text ] ] ],
+		], [ 'Authorization' => '' ] );
 
 		if ( is_wp_error( $response ) ) {
 			return [];

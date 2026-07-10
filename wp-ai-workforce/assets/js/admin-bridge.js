@@ -18,14 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 cto: { position: 'Chief Technology Officer', identity: 'I am a systems architect and security expert ensuring technical scalability.', mission: 'Optimize performance and minimize technical debt.', temp: 0.2 },
                 cfo: { position: 'Chief Financial Officer', identity: 'I am a financial strategist focused on capital allocation and risk management.', mission: 'Maximize long-term growth through rigorous audit.', temp: 0.1 },
                 seo: { position: 'SEO Specialist', identity: 'I am a technical search architect living in the data of search trends.', mission: 'Dominate page one for primary business keywords.', temp: 0.3 },
-                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 },
-                hr: { position: 'HR Manager', identity: 'I am a culture-focused HR professional specializing in talent acquisition and employee retention.', mission: 'Build a high-performance team culture.', temp: 0.6 },
-                legal: { position: 'Legal Advisor', identity: 'I am a meticulous legal expert specializing in corporate law and compliance.', mission: 'Mitigate risk and ensure regulatory adherence.', temp: 0.1 },
-                qa: { position: 'QA Engineer', identity: 'I am a detail-oriented quality assurance specialist focused on bug-free deployments.', mission: 'Ensure 100% product stability and performance.', temp: 0.1 },
-                ads: { position: 'Paid Ads Specialist', identity: 'I am an expert media buyer for Meta, Google, and LinkedIn.', mission: 'Optimize ad spend for maximum ROAS.', temp: 0.7 },
-                data: { position: 'Data Analyst', identity: 'I am a statistical expert turning raw data into actionable business intelligence.', mission: 'Identify trends and growth opportunities through data.', temp: 0.2 },
-                support: { position: 'Customer Support Manager', identity: 'I am a customer success expert dedicated to 100% satisfaction.', mission: 'Reduce churn and increase NPS.', temp: 0.5 },
-                sales: { position: 'Sales Director', identity: 'I am a high-ticket sales closer and pipeline architect.', mission: 'Maximize revenue and shorten sales cycles.', temp: 0.8 }
+                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 }
             };
 
             const data = templates[role];
@@ -42,23 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
         hireForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(hireForm);
-            const rawData = Object.fromEntries(formData.entries());
+            const data = Object.fromEntries(formData.entries());
 
-            // Correct field mapping for backend
-            const payload = {
-                name: rawData.name,
-                position: rawData.position,
-                role_description: rawData.identity,
-                prompt_template: rawData.mission,
-                model_settings: {
-                    model: rawData.model,
-                    temperature: parseFloat(rawData.temperature),
-                    provider: 'openai'
-                }
-            };
-
-            nexusFetch('employees', 'POST', payload).then(res => {
-                alert('Agent deployed successfully! This agent is now part of your virtual workforce.');
+            nexusFetch('employees', 'POST', data).then(res => {
+                alert('Agent deployed successfully!');
                 window.location.reload();
             });
         });
@@ -125,15 +105,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Create a step element on the canvas
             const step = document.createElement('div');
-            step.className = 'p-6 rounded-2xl bg-nexus-surface border border-nexus-violet animate-fade-in-up mb-4 w-64 shadow-xl relative z-10';
-            step.innerHTML = `<p class="text-nexus-violet font-bold">STEP ${canvas.children.length}</p>
-                              <p class="text-white font-bold mt-1">${name}</p>
-                              <input type="text" placeholder="Task description..." class="w-full bg-nexus-bg border border-nexus-border rounded mt-3 p-2 text-xs text-white">`;
+            step.className = 'nexus-workflow-step p-6 rounded-2xl bg-nexus-surface border border-nexus-violet animate-fade-in-up mb-4 w-72 shadow-xl relative z-10';
+            step.dataset.agentId = id;
+            step.innerHTML = `
+                <div class="flex justify-between items-center mb-3">
+                    <p class="text-nexus-violet font-bold text-xs uppercase tracking-widest">Step ${canvas.querySelectorAll('.nexus-workflow-step').length + 1}</p>
+                    <button class="text-gray-600 hover:text-red-500 transition-colors" onclick="this.parentElement.parentElement.remove()">✕</button>
+                </div>
+                <p class="text-white font-bold">${name}</p>
+                <textarea placeholder="Define the specific task for this agent..." class="nexus-step-task w-full bg-nexus-bg border border-nexus-border rounded-xl mt-3 p-3 text-xs text-white outline-none focus:border-nexus-violet h-20"></textarea>
+            `;
 
             if (canvas.querySelector('.text-center')) {
                 canvas.innerHTML = ''; // Clear placeholder
             }
             canvas.appendChild(step);
+        });
+    }
+
+    const saveWorkflowBtn = document.querySelector('button[class*="bg-nexus-violet"][class*="px-6"]');
+    if (saveWorkflowBtn && saveWorkflowBtn.innerText === 'Save Workflow') {
+        saveWorkflowBtn.addEventListener('click', function() {
+            const steps = [];
+            document.querySelectorAll('.nexus-workflow-step').forEach((step, index) => {
+                steps.push({
+                    name: `Step_${index + 1}`,
+                    agent_id: step.dataset.agentId,
+                    task_description: step.querySelector('.nexus-step-task').value
+                });
+            });
+
+            if (steps.length === 0) return alert('Add at least one step to the workflow.');
+
+            saveWorkflowBtn.innerText = 'Saving...';
+            nexusFetch('workflows', 'POST', { steps: steps, name: 'Custom Workflow ' + Date.now() }).then(res => {
+                saveWorkflowBtn.innerText = 'Saved ✓';
+                setTimeout(() => saveWorkflowBtn.innerText = 'Save Workflow', 2000);
+            });
         });
     }
 
