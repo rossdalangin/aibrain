@@ -32,6 +32,7 @@ class RestHandler {
 		$status_controller = new StatusController();
 		$marketplace_controller = new MarketplaceController();
 		$kb_controller = new KBController();
+		$billing_controller = new BillingController();
 
 		register_rest_route( $this->namespace, '/settings', [
 			[
@@ -42,6 +43,22 @@ class RestHandler {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $settings_controller, 'update_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/billing/plans', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $billing_controller, 'get_plans' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/billing/coupon', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $billing_controller, 'apply_coupon' ],
 				'permission_callback' => [ $this, 'check_permission' ],
 			],
 		] );

@@ -70,6 +70,15 @@ class Plugin {
 
 		add_submenu_page(
 			'nexus-ai-workforce',
+			__( 'Tutorials', 'nexus-ai-workforce' ),
+			'Learning Center',
+			'read',
+			'nexus-ai-workforce-tutorials',
+			[ $this, 'render_tutorials_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
 			__( 'Settings', 'nexus-ai-workforce' ),
 			'System Config',
 			'manage_options',
@@ -109,6 +118,12 @@ class Plugin {
 	public function render_workflows_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_workflows_page();
+		}
+	}
+
+	public function render_tutorials_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_tutorials_page();
 		}
 	}
 

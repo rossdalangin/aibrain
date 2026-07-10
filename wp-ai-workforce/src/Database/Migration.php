@@ -118,6 +118,33 @@ class Migration {
 				KEY user_id (user_id),
 				KEY employee_id (employee_id)
 			) $charset_collate;",
+
+			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ai_plans (
+				id BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				name VARCHAR(255) NOT NULL,
+				price DECIMAL(10, 2),
+				agent_limit INT,
+				features JSON,
+				created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+			) $charset_collate;",
+
+			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ai_subscriptions (
+				id BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				user_id BIGINT(20) UNSIGNED,
+				plan_id BIGINT(20) UNSIGNED,
+				status VARCHAR(50),
+				expires_at DATETIME,
+				created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+				KEY user_id (user_id)
+			) $charset_collate;",
+
+			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ai_coupons (
+				id BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				code VARCHAR(50) UNIQUE,
+				discount_percent INT,
+				is_active TINYINT(1) DEFAULT 1,
+				expires_at DATETIME
+			) $charset_collate;",
 		];
 
 		foreach ( $tables as $sql ) {

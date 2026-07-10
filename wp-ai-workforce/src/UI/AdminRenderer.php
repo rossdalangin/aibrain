@@ -446,23 +446,35 @@ class AdminRenderer {
 				</div>
 			</div>
 
-			<!-- Key Stats -->
-			<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-				<div class="glass-panel p-6 rounded-2xl border border-nexus-border gradient-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">Token Efficiency</p>
-					<p class="text-3xl font-bold mt-2">94.2%</p>
+			<!-- Key Stats: Bento Grid Layout -->
+			<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border collab-wave bg-opacity-20 flex flex-col justify-between min-h-[200px] transform hover:scale-[1.02] transition-transform">
+					<p class="text-xs text-white uppercase tracking-widest font-bold">Token Efficiency</p>
+					<div>
+						<p class="text-5xl font-black mt-2">94.2%</p>
+						<p class="text-xs text-white/70 mt-2">Optimized for Scalability</p>
+					</div>
 				</div>
-				<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">AI Workforce Size</p>
-					<p class="text-3xl font-bold mt-2"><?php echo (int) $agent_count; ?></p>
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border bg-nexus-blue bg-opacity-10 flex flex-col justify-between min-h-[200px] transform hover:scale-[1.02] transition-transform">
+					<p class="text-xs text-nexus-blue uppercase tracking-widest font-bold">AI Workforce</p>
+					<div>
+						<p class="text-5xl font-black mt-2"><?php echo (int) $agent_count; ?></p>
+						<p class="text-xs text-gray-400 mt-2">Specialized Agents Active</p>
+					</div>
 				</div>
-				<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">Knowledge Ingested</p>
-					<p class="text-3xl font-bold mt-2"><?php echo (int) $doc_count; ?></p>
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border bg-green-500 bg-opacity-10 flex flex-col justify-between min-h-[200px] transform hover:scale-[1.02] transition-transform">
+					<p class="text-xs text-green-500 uppercase tracking-widest font-bold">Company Brain</p>
+					<div>
+						<p class="text-5xl font-black mt-2"><?php echo (int) $doc_count; ?></p>
+						<p class="text-xs text-gray-400 mt-2">Documents Ingested</p>
+					</div>
 				</div>
-				<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
-					<p class="text-xs text-gray-400 uppercase tracking-widest">Estimated ROI Cost</p>
-					<p class="text-3xl font-bold mt-2">$<?php echo number_format( (float) $total_cost, 2 ); ?></p>
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border bg-nexus-gold bg-opacity-10 flex flex-col justify-between min-h-[200px] transform hover:scale-[1.02] transition-transform">
+					<p class="text-xs text-nexus-gold uppercase tracking-widest font-bold">Monthly ROI</p>
+					<div>
+						<p class="text-5xl font-black mt-2">$<?php echo number_format( (float) $total_cost, 2 ); ?></p>
+						<p class="text-xs text-gray-400 mt-2">Estimated Value Created</p>
+					</div>
 				</div>
 			</div>
 
