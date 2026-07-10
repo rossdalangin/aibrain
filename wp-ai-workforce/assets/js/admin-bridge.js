@@ -49,6 +49,49 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 4. Visual Workflow Builder
+    const openBuilderBtn = document.getElementById('nexus-open-visual-builder');
+    const closeBuilderBtn = document.getElementById('nexus-close-builder');
+    const builderModal = document.getElementById('nexus-visual-builder-modal');
+    const canvas = document.getElementById('nexus-workflow-canvas');
+
+    if (openBuilderBtn) {
+        openBuilderBtn.addEventListener('click', () => builderModal.classList.remove('hidden'));
+    }
+    if (closeBuilderBtn) {
+        closeBuilderBtn.addEventListener('click', () => builderModal.classList.add('hidden'));
+    }
+
+    // Drag & Drop Logic
+    const draggables = document.querySelectorAll('.nexus-draggable-agent');
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('agent_id', draggable.dataset.id);
+            e.dataTransfer.setData('agent_name', draggable.querySelector('p').innerText);
+        });
+    });
+
+    if (canvas) {
+        canvas.addEventListener('dragover', (e) => e.preventDefault());
+        canvas.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('agent_id');
+            const name = e.dataTransfer.getData('agent_name');
+
+            // Create a step element on the canvas
+            const step = document.createElement('div');
+            step.className = 'p-6 rounded-2xl bg-nexus-surface border border-nexus-violet animate-fade-in-up mb-4 w-64 shadow-xl relative z-10';
+            step.innerHTML = `<p class="text-nexus-violet font-bold">STEP ${canvas.children.length}</p>
+                              <p class="text-white font-bold mt-1">${name}</p>
+                              <input type="text" placeholder="Task description..." class="w-full bg-nexus-bg border border-nexus-border rounded mt-3 p-2 text-xs text-white">`;
+
+            if (canvas.querySelector('.text-center')) {
+                canvas.innerHTML = ''; // Clear placeholder
+            }
+            canvas.appendChild(step);
+        });
+    }
+
     /**
      * Helper to wrap WP REST API calls
      */

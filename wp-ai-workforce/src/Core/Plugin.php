@@ -120,14 +120,14 @@ class Plugin {
 		// Enqueue Tailwind CDN for immediate preview in development
 		wp_enqueue_script( 'nexus-ai-tailwind', 'https://cdn.tailwindcss.com', [], '3.3.0' );
 
-		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 2 ) ), [], '1.0.0' );
+		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 3 ) ), [], '1.0.0' );
 
 		// Enqueue React build (assuming webpack output)
-		if ( file_exists( dirname( __FILE__, 2 ) . '/assets/js/admin.js' ) ) {
-			wp_enqueue_script( 'nexus-ai-admin', plugins_url( 'assets/js/admin.js', dirname( __FILE__, 2 ) ), [ 'wp-element', 'wp-api-fetch' ], '1.0.0', true );
+		if ( file_exists( dirname( __FILE__, 3 ) . '/assets/js/admin.js' ) ) {
+			wp_enqueue_script( 'nexus-ai-admin', plugins_url( 'assets/js/admin.js', dirname( __FILE__, 3 ) ), [ 'wp-element', 'wp-api-fetch' ], '1.0.0', true );
 		}
 
-		wp_enqueue_script( 'nexus-ai-bridge', plugins_url( 'assets/js/admin-bridge.js', dirname( __FILE__, 2 ) ), [], '1.0.0', true );
+		wp_enqueue_script( 'nexus-ai-bridge', plugins_url( 'assets/js/admin-bridge.js', dirname( __FILE__, 3 ) ), [], '1.0.0', true );
 		wp_localize_script( 'nexus-ai-bridge', 'nexus_ai_data', [
 			'rest_url' => esc_url_raw( rest_url() ),
 			'nonce'    => wp_create_nonce( 'wp_rest' ),
