@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const builderModal = document.getElementById('nexus-visual-builder-modal');
     const canvas = document.getElementById('nexus-workflow-canvas');
 
-    if (openBuilderBtn) {
+    if (openBuilderBtn && builderModal) {
         openBuilderBtn.addEventListener('click', () => builderModal.classList.remove('hidden'));
     }
-    if (closeBuilderBtn) {
+    if (closeBuilderBtn && builderModal) {
         closeBuilderBtn.addEventListener('click', () => builderModal.classList.add('hidden'));
     }
 
@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const saveWorkflowBtn = document.querySelector('button[class*="bg-nexus-violet"][class*="px-6"]');
-    if (saveWorkflowBtn && saveWorkflowBtn.innerText === 'Save Workflow') {
+    const saveWorkflowBtn = document.querySelector('button[id="nexus-save-workflow-btn"]') || document.querySelector('button.bg-accent.text-white.px-8.py-3.rounded-xl.font-bold');
+    if (saveWorkflowBtn && (saveWorkflowBtn.innerText.includes('Save Workflow') || saveWorkflowBtn.id === 'nexus-save-workflow-btn')) {
         saveWorkflowBtn.addEventListener('click', function() {
             const steps = [];
             document.querySelectorAll('.nexus-workflow-step').forEach((step, index) => {

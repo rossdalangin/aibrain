@@ -261,7 +261,7 @@ class AdminRenderer {
 								<input type="range" name="temperature" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 bg-nexus-border rounded-lg appearance-none cursor-pointer accent-accent">
 							</div>
 						</div>
-						<button type="submit" class="w-full bg-accent hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-500/10">Deploy Agent</button>
+						<button type="submit" class="w-full bg-accent hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-500/10 nexus-btn-vibrant">Deploy Agent</button>
 						<span class="nexus-button-note text-center">Expect: Permanent agent profile creation and workforce integration.</span>
 					</form>
 				</div>
@@ -334,6 +334,10 @@ class AdminRenderer {
 							<input type="password" name="claude_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-ant-...">
 						</div>
 						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Google Gemini API Key</label>
+							<input type="password" name="gemini_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="AIza...">
+						</div>
+						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">OpenRouter API Key</label>
 							<input type="password" name="openrouter_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-or-...">
 						</div>
@@ -366,7 +370,7 @@ class AdminRenderer {
 								</optgroup>
 							</select>
 						</div>
-						<button type="submit" class="w-full bg-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-accent/10">Save Infrastructure</button>
+						<button type="submit" class="w-full bg-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-accent/10 nexus-btn-vibrant">Save Infrastructure</button>
 						<button type="button" id="nexus-test-connectivity" class="w-full mt-2 bg-white/5 border border-white/10 text-white py-2 rounded-lg text-xs hover:bg-white/10 transition-all">Run Global Connectivity Test</button>
 						<span class="nexus-button-note text-center">Expect: Secure AES-256 encryption of all keys before storage.</span>
 					</form>
@@ -461,7 +465,7 @@ class AdminRenderer {
 	public function render_workflows_page(): void {
 		global $wpdb;
 		$agents = $wpdb->get_results( "SELECT id, name, position FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
-		$workflows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_workflows WHERE status = 'active'", ARRAY_A ) ?: [];
+		$workflows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_workflows WHERE is_active = 1", ARRAY_A ) ?: [];
 		?>
 		<div class="nexus-admin-body p-10 theme-automations">
 			<div class="mb-10">
@@ -542,7 +546,7 @@ class AdminRenderer {
 								<p class="text-xs text-gray-500 mt-1">Establish the execution sequence for your AI workforce.</p>
 							</div>
 							<div class="flex gap-4">
-								<button class="bg-accent text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all">Save Workflow</button>
+								<button id="nexus-save-workflow-btn" class="bg-accent text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant">Save Workflow</button>
 								<button id="nexus-close-builder" class="text-gray-400 hover:text-white bg-nexus-elevated px-4 rounded-xl">✕</button>
 							</div>
 						</div>
@@ -574,7 +578,7 @@ class AdminRenderer {
 					<p class="text-gray-400 mt-2 max-w-2xl">Start virtual meetings. Gather your AI executives to brainstorm and reach a consensus.</p>
 				</div>
 				<div class="text-right">
-					<button id="nexus-start-meeting-btn" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-accent/20">
+					<button id="nexus-start-meeting-btn" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">
 						Start Strategic Meeting
 					</button>
 					<span class="nexus-button-note mt-2">Expect: Iterative consensus loop between invited agents.</span>

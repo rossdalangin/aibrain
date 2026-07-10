@@ -146,7 +146,7 @@ class RestHandler {
 					$id = $repo->create( [
 						'name'       => sanitize_text_field( $params['name'] ),
 						'definition' => wp_json_encode( $params['steps'] ),
-						'status'     => 'active'
+						'is_active'  => 1
 					] );
 					return new \WP_REST_Response( [ 'id' => $id ], 201 );
 				},
