@@ -66,4 +66,40 @@ class KBController {
 
 		return new WP_REST_Response( [ 'success' => true, 'doc_id' => $doc_id, 'chunks' => count( $chunks ) ], 200 );
 	}
+
+	/**
+	 * Handle file upload for RAG.
+	 */
+	public function upload_item( WP_REST_Request $request ): WP_REST_Response {
+		$files = $request->get_file_params();
+		if ( empty( $files['file'] ) ) {
+			return new WP_REST_Response( [ 'message' => 'No file uploaded' ], 400 );
+		}
+
+		$file = $files['file'];
+		$ext  = pathinfo( $file['name'], PATHINFO_EXTENSION );
+		$text = $this->parser->parse( $file['tmp_name'], $ext );
+
+		if ( empty( $text ) ) {
+			return new WP_REST_Response( [ 'message' => 'Failed to parse file or file empty' ], 400 );
+		}
+
+		$chunks = $this->chunker->chunk( $text );
+		$doc_id = $this->repository->create( [
+			'kb_id'       => 1,
+			'type'        => 'file',
+			'source_path' => $file['name'],
+			'status'      => 'indexed',
+		] );
+
+		global $wpdb;
+		foreach ( $chunks as $chunk ) {
+			$wpdb->insert( $wpdb->prefix . 'ai_knowledge_chunks', [
+				'doc_id'  => $doc_id,
+				'content' => $chunk,
+			] );
+		}
+
+		return new WP_REST_Response( [ 'success' => true, 'doc_id' => $doc_id, 'chunks' => count( $chunks ) ], 200 );
+	}
 }

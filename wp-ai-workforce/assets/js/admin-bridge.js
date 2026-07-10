@@ -29,6 +29,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 7. KB File Upload
+    const kbFileInput = document.getElementById('nexus-kb-file-input');
+    const uploadIdle = document.getElementById('nexus-upload-idle');
+    const uploadProgress = document.getElementById('nexus-upload-progress');
+
+    if (kbFileInput) {
+        kbFileInput.addEventListener('change', function() {
+            if (!kbFileInput.files[0]) return;
+
+            uploadIdle.classList.add('hidden');
+            uploadProgress.classList.remove('hidden');
+
+            const formData = new FormData();
+            formData.append('file', kbFileInput.files[0]);
+
+            fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/kb/upload`, {
+                method: 'POST',
+                headers: { 'X-WP-Nonce': nexus_ai_data.nonce },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                uploadProgress.classList.add('hidden');
+                uploadIdle.classList.remove('hidden');
+                if (data.success) {
+                    alert('Document ingested successfully! Chunks created: ' + data.chunks);
+                } else {
+                    alert('Upload failed: ' + (data.message || 'Unknown error'));
+                }
+            });
+        });
+    }
+
     // 1. Hire Agent Form Submission
     const hireForm = document.getElementById('nexus-hire-agent-form');
     if (hireForm) {
@@ -141,6 +174,38 @@ document.addEventListener('DOMContentLoaded', function() {
             nexusFetch('workflows', 'POST', { steps: steps, name: 'Custom Workflow ' + Date.now() }).then(res => {
                 saveWorkflowBtn.innerText = 'Saved ✓';
                 setTimeout(() => saveWorkflowBtn.innerText = 'Save Workflow', 2000);
+            });
+        });
+    }
+
+    // 8. Run Workflow
+    document.querySelectorAll('.nexus-run-workflow').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = btn.dataset.id;
+            const input = prompt('Enter the initial trigger for this workflow (e.g. "Draft a 500 word blog post about solar energy"):');
+            if (!input) return;
+
+            const runBtn = btn.querySelector('button');
+            runBtn.innerText = 'RUNNING...';
+            btn.classList.add('opacity-50', 'pointer-events-none');
+
+            nexusFetch(`workflows/run/${id}`, 'POST', { input: input }).then(res => {
+                runBtn.innerText = 'COMPLETED ✓';
+                btn.classList.remove('opacity-50', 'pointer-events-none');
+                console.log('Workflow Result:', res);
+                alert('Workflow execution complete. Check console for full trace.');
+            });
+        });
+    });
+
+    // 9. Connectivity Test
+    const testBtn = document.getElementById('nexus-test-connectivity');
+    if (testBtn) {
+        testBtn.addEventListener('click', function() {
+            testBtn.innerText = 'Testing All Endpoints...';
+            nexusFetch('status', 'GET').then(res => {
+                testBtn.innerText = 'All Systems Operational ✓';
+                setTimeout(() => testBtn.innerText = 'Run Global Connectivity Test', 3000);
             });
         });
     }

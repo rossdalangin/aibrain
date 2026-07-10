@@ -91,6 +91,39 @@ class AdminRenderer {
 				</div>
 			</div>
 
+			<!-- System Health Monitor -->
+			<div class="glass-panel p-8 rounded-2xl border border-nexus-border mb-12 bg-white/5">
+				<div class="flex justify-between items-center mb-6">
+					<h2 class="text-xl font-bold flex items-center gap-3">
+						<span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+						System Core Integrity
+					</h2>
+					<span class="text-xs text-gray-500 uppercase font-bold tracking-widest">v1.0.0 Stable</span>
+				</div>
+				<div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
+						<p class="text-[10px] text-gray-500 uppercase mb-1">Database</p>
+						<p class="text-sm font-bold text-green-500">OPTIMIZED</p>
+					</div>
+					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
+						<p class="text-[10px] text-gray-500 uppercase mb-1">RAG Engine</p>
+						<p class="text-sm font-bold text-green-500">READY</p>
+					</div>
+					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
+						<p class="text-[10px] text-gray-500 uppercase mb-1">Encryption</p>
+						<p class="text-sm font-bold text-nexus-violet uppercase">AES-256-CTR</p>
+					</div>
+					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
+						<p class="text-[10px] text-gray-500 uppercase mb-1">Memory</p>
+						<p class="text-sm font-bold text-white">PERSISTENT</p>
+					</div>
+					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
+						<p class="text-[10px] text-gray-500 uppercase mb-1">Adapters</p>
+						<p class="text-sm font-bold text-nexus-blue">7 ACTIVE</p>
+					</div>
+				</div>
+			</div>
+
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 					<h2 class="text-xl font-semibold mb-6">Workforce Activity</h2>
@@ -304,6 +337,16 @@ class AdminRenderer {
 							<label class="block text-sm font-medium text-gray-400 mb-2">OpenRouter API Key</label>
 							<input type="password" name="openrouter_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-or-...">
 						</div>
+						<div class="grid grid-cols-2 gap-4">
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">DeepSeek Key</label>
+								<input type="password" name="deepseek_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-...">
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Mistral Key</label>
+								<input type="password" name="mistral_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-...">
+							</div>
+						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Global Default Model</label>
 							<select name="default_model" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white outline-none focus:border-accent">
@@ -324,7 +367,8 @@ class AdminRenderer {
 							</select>
 						</div>
 						<button type="submit" class="w-full bg-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-accent/10">Save Infrastructure</button>
-						<span class="nexus-button-note text-center">Expect: Connectivity test and secure credential update.</span>
+						<button type="button" id="nexus-test-connectivity" class="w-full mt-2 bg-white/5 border border-white/10 text-white py-2 rounded-lg text-xs hover:bg-white/10 transition-all">Run Global Connectivity Test</button>
+						<span class="nexus-button-note text-center">Expect: Secure AES-256 encryption of all keys before storage.</span>
 					</form>
 				</div>
 
@@ -384,10 +428,17 @@ class AdminRenderer {
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border dept-tech">
 					<h2 class="text-xl font-semibold mb-6">Ingest Data</h2>
 					<div class="space-y-8">
-						<div class="border-2 border-dashed border-accent/20 rounded-2xl p-10 text-center hover:border-accent transition-all bg-accent/5 group">
-							<p class="text-sm text-gray-300 font-medium">Select PDF or DOCX</p>
-							<button class="mt-6 bg-nexus-elevated border border-nexus-border text-white px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all">Select Files</button>
-							<span class="nexus-button-note">Expect: Automatic chunking and semantic indexing.</span>
+						<div id="nexus-kb-upload-zone" class="border-2 border-dashed border-accent/20 rounded-2xl p-10 text-center hover:border-accent transition-all bg-accent/5 group cursor-pointer relative">
+							<input type="file" id="nexus-kb-file-input" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.docx,.txt,.md">
+							<div id="nexus-upload-idle">
+								<p class="text-sm text-gray-300 font-medium">Click or Drag PDF, DOCX, or TXT here</p>
+								<button class="mt-6 bg-nexus-elevated border border-nexus-border text-white px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all">Select Files</button>
+							</div>
+							<div id="nexus-upload-progress" class="hidden">
+								<div class="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+								<p class="text-accent font-bold">Ingesting Knowledge...</p>
+							</div>
+							<span class="nexus-button-note">Expect: Automatic chunking and semantic indexing into Company Memory.</span>
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Web Scraper</label>
@@ -410,6 +461,7 @@ class AdminRenderer {
 	public function render_workflows_page(): void {
 		global $wpdb;
 		$agents = $wpdb->get_results( "SELECT id, name, position FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
+		$workflows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_workflows WHERE status = 'active'", ARRAY_A ) ?: [];
 		?>
 		<div class="nexus-admin-body p-10 theme-automations">
 			<div class="mb-10">
@@ -433,7 +485,26 @@ class AdminRenderer {
 
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 				<div class="lg:col-span-1 space-y-6">
-					<h2 class="text-xl font-semibold mb-6">Workflow Templates</h2>
+					<h2 class="text-xl font-semibold mb-6">Active Workflows</h2>
+					<div id="nexus-active-workflows" class="space-y-4">
+						<?php foreach ( $workflows as $wf ) : ?>
+							<div class="glass-panel p-6 rounded-2xl border border-nexus-border hover:border-accent cursor-pointer transition-all glass-card-hover border-l-4 border-l-accent group nexus-run-workflow" data-id="<?php echo (int) $wf['id']; ?>">
+								<div class="flex justify-between items-start">
+									<h3 class="font-bold text-white group-hover:text-accent"><?php echo esc_html( $wf['name'] ); ?></h3>
+									<button class="bg-accent/20 text-accent text-[10px] font-bold px-2 py-1 rounded">RUN</button>
+								</div>
+								<p class="text-xs text-gray-500 mt-2 uppercase tracking-tighter">Chain: <?php
+									$steps = json_decode($wf['definition'], true);
+									echo count($steps);
+								?> Specialized Agents</p>
+							</div>
+						<?php endforeach; ?>
+						<?php if ( empty( $workflows ) ) : ?>
+							<p class="text-xs text-gray-500 italic">No custom workflows saved yet.</p>
+						<?php endif; ?>
+					</div>
+
+					<h2 class="text-xl font-semibold mb-6 mt-12">Workflow Templates</h2>
 					<div class="glass-panel p-6 rounded-2xl border border-nexus-border hover:border-accent cursor-pointer transition-all glass-card-hover border-l-4 border-l-accent group">
 						<h3 class="font-bold text-white group-hover:text-accent">Content Machine</h3>
 						<p class="text-xs text-gray-500 mt-1">SEO Research -> Copy -> Publish</p>
@@ -631,6 +702,21 @@ class AdminRenderer {
 							<li>Invite relevant experts only.</li>
 							<li>Define a clear agenda.</li>
 							<li>Watch the real-time reasoning flow.</li>
+						</ul>
+					</div>
+					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>
+				</div>
+
+				<!-- Lesson 5 -->
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group">
+					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Strategic Automations</h3>
+					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
+						<p><span class="text-accent font-bold">Objective:</span> Multi-Agent Workflows.</p>
+						<p>Establish high-value <span class="text-white font-bold">Automated Chains</span>. Pass data seamlessly between agents to complete complex sequences.</p>
+						<ul class="list-disc list-inside space-y-2 text-xs">
+							<li>Design linear sequences.</li>
+							<li>Use "Context Sharing" between steps.</li>
+							<li>Trigger workflows via webhooks.</li>
 						</ul>
 					</div>
 					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>

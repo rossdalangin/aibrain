@@ -47,6 +47,14 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/kb/upload', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $kb_controller, 'upload_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/billing/plans', [
 			[
 				'methods'             => WP_REST_Server::READABLE,
@@ -123,6 +131,14 @@ class RestHandler {
 
 		register_rest_route( $this->namespace, '/workflows', [
 			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$repo = new \NexusAI\Workforce\Repositories\WorkflowRepository();
+					return new \WP_REST_Response( $repo->get_all(), 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
 				'methods'             => WP_REST_Server::CREATABLE,
 				'callback'            => function( \WP_REST_Request $request ) {
 					$params = $request->get_params();
@@ -133,6 +149,26 @@ class RestHandler {
 						'status'     => 'active'
 					] );
 					return new \WP_REST_Response( [ 'id' => $id ], 201 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/workflows/run/(?P<id>\d+)', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$id = (int) $request['id'];
+					$params = $request->get_params();
+					$repo = new \NexusAI\Workforce\Repositories\WorkflowRepository();
+					$workflow = $repo->get_by_id( $id );
+
+					if ( ! $workflow ) return new \WP_REST_Response( [ 'message' => 'Workflow not found' ], 404 );
+
+					$engine = new \NexusAI\Workforce\AI\Workflows\ExecutionEngine();
+					$result = $engine->run( [ 'steps' => json_decode( $workflow['definition'], true ) ], $params['input'] ?? '' );
+
+					return new \WP_REST_Response( $result, 200 );
 				},
 				'permission_callback' => [ $this, 'check_permission' ],
 			],
