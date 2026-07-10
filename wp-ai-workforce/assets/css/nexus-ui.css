@@ -77,3 +77,28 @@
   70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
 }
+
+/* Multi-Agent Collaboration Wave */
+.collab-wave {
+  background: linear-gradient(-45deg, #7C3AED, #06B6D4, #F59E0B, #10B981);
+  background-size: 400% 400%;
+  animation: gradient-wave 15s ease infinite;
+}
+
+@keyframes gradient-wave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Shimmer Effect for Loading States */
+.nexus-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

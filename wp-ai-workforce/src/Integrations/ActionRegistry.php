@@ -7,6 +7,7 @@ use NexusAI\Workforce\Integrations\Actions\BaseAction;
 use NexusAI\Workforce\Integrations\Actions\CreatePostAction;
 use NexusAI\Workforce\Integrations\Actions\ManageUserAction;
 use NexusAI\Workforce\Integrations\Actions\AnalyticsReportAction;
+use NexusAI\Workforce\Integrations\Actions\WooCommerceAction;
 
 /**
  * Registry for all AI-executable actions.
@@ -23,6 +24,7 @@ class ActionRegistry {
 		$this->register( new CreatePostAction() );
 		$this->register( new ManageUserAction() );
 		$this->register( new AnalyticsReportAction() );
+		$this->register( new WooCommerceAction() );
 	}
 
 	/**
