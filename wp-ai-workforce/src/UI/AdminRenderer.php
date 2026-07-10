@@ -102,13 +102,19 @@ class AdminRenderer {
 		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
-			<div class="mb-10">
-				<h2 class="text-sm font-semibold text-nexus-violet uppercase tracking-widest mb-2">Talent Management</h2>
-				<h1 class="text-4xl font-bold text-white">Hire & Manage AI Agents</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Build your virtual executive team. Each agent you hire has a unique personality, specific professional goals, and access to your company knowledge. Deploy specialized agents for Marketing, Sales, Development, and more.</p>
+			<div class="mb-10 flex justify-between items-end">
+				<div>
+					<h2 class="text-sm font-semibold text-nexus-violet uppercase tracking-widest mb-2">Talent Management</h2>
+					<h1 class="text-4xl font-bold text-white">Hire & Manage AI Agents</h1>
+					<p class="text-gray-400 mt-2 max-w-2xl">Build your virtual executive team. Each agent you hire has a unique personality, specific professional goals, and access to your company knowledge.</p>
+				</div>
+				<div class="flex gap-2 bg-nexus-elevated p-1 rounded-xl border border-nexus-border">
+					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold bg-nexus-violet text-white" data-tab="hiring">In-House</button>
+					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold text-gray-400 hover:text-white transition-all" data-tab="marketplace">Global Marketplace</button>
+				</div>
 			</div>
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+			<div id="nexus-hiring-tab" class="nexus-tab-content grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 					<div class="mb-6 flex justify-between items-start">
 						<div>
@@ -186,6 +192,38 @@ class AdminRenderer {
 					<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 						<h3 class="text-lg font-medium mb-4">Current Workforce</h3>
 						<div class="text-sm text-gray-500 italic">No agents hired yet.</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="nexus-marketplace-tab" class="nexus-tab-content hidden">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					<!-- Marketplace Item -->
+					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-nexus-gold transition-all group">
+						<div class="w-16 h-16 rounded-2xl bg-nexus-gold/10 flex items-center justify-center text-nexus-gold mb-6 group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+						</div>
+						<h3 class="text-xl font-bold text-white">Grant Writer Pro</h3>
+						<p class="text-sm text-gray-500 mt-2">Specialized in winning high-value federal and private grants. Trained on 5,000+ winning proposals.</p>
+						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-gold/20 hover:bg-nexus-gold text-nexus-gold hover:text-black font-bold py-3 rounded-xl transition-all" data-agent="grant_writer">Install for $49/mo</button>
+					</div>
+
+					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-nexus-blue transition-all group">
+						<div class="w-16 h-16 rounded-2xl bg-nexus-blue/10 flex items-center justify-center text-nexus-blue mb-6 group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+						</div>
+						<h3 class="text-xl font-bold text-white">Legal Advisor (LLM)</h3>
+						<p class="text-sm text-gray-500 mt-2">Drafts contracts, reviews TOS, and provides compliance audits based on latest EU/US regulations.</p>
+						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-blue/20 hover:bg-nexus-blue text-nexus-blue hover:text-white font-bold py-3 rounded-xl transition-all" data-agent="legal_advisor">Install for $99/mo</button>
+					</div>
+
+					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-nexus-violet transition-all group">
+						<div class="w-16 h-16 rounded-2xl bg-nexus-violet/10 flex items-center justify-center text-nexus-violet mb-6 group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+						</div>
+						<h3 class="text-xl font-bold text-white">WP Plugin Architect</h3>
+						<p class="text-sm text-gray-500 mt-2">Writes production-ready, secure WordPress code following PSR-12 and VIP standards.</p>
+						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-violet/20 hover:bg-nexus-violet text-nexus-violet hover:text-white font-bold py-3 rounded-xl transition-all" data-agent="wp_architect">Install for $79/mo</button>
 					</div>
 				</div>
 			</div>
@@ -361,6 +399,78 @@ class AdminRenderer {
 	/**
 	 * Render the role-specific tutorials page.
 	 */
+	/**
+	 * Render the "Collaboration Hub" (AI Meetings) page.
+	 */
+	public function render_meetings_page(): void {
+		echo $this->get_brand_styles();
+		global $wpdb;
+		$agents = $wpdb->get_results( "SELECT id, name, position, avatar FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
+		?>
+		<div class="nexus-admin-body p-8">
+			<div class="mb-10 flex justify-between items-end">
+				<div>
+					<h2 class="text-sm font-semibold text-nexus-blue uppercase tracking-widest mb-2">Strategic Intelligence</h2>
+					<h1 class="text-4xl font-bold text-white">Collaboration Hub</h1>
+					<p class="text-gray-400 mt-2 max-w-2xl">Start a virtual meeting. Gather your AI executives to brainstorm, solve problems, and reach a consensus on complex business decisions.</p>
+				</div>
+				<button id="nexus-start-meeting-btn" class="bg-nexus-violet hover:bg-violet-600 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-nexus-violet/20">
+					Start New Meeting
+				</button>
+			</div>
+
+			<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+				<!-- Meeting Controls Sidebar -->
+				<div class="lg:col-span-1 space-y-6">
+					<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
+						<h3 class="text-sm font-bold text-gray-400 uppercase tracking-tighter mb-4">Invite Participants</h3>
+						<div class="space-y-3">
+							<?php foreach ( $agents as $agent ) : ?>
+								<label class="flex items-center gap-3 p-3 rounded-xl bg-nexus-elevated border border-nexus-border hover:border-nexus-violet cursor-pointer transition-all">
+									<input type="checkbox" class="nexus-meeting-invitee w-4 h-4 rounded border-gray-600 bg-gray-700 text-nexus-violet focus:ring-nexus-violet" value="<?php echo (int) $agent['id']; ?>">
+									<span class="text-sm font-medium text-white"><?php echo esc_html( $agent['name'] ); ?> (<?php echo esc_html( $agent['position'] ); ?>)</span>
+								</label>
+							<?php endforeach; ?>
+						</div>
+					</div>
+
+					<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
+						<h3 class="text-sm font-bold text-gray-400 uppercase tracking-tighter mb-4">Meeting Agenda</h3>
+						<textarea id="nexus-meeting-agenda" class="w-full h-32 bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-white text-sm" placeholder="Define the problem or goal for the team to discuss..."></textarea>
+					</div>
+				</div>
+
+				<!-- Live Transcription Area -->
+				<div class="lg:col-span-3">
+					<div id="nexus-meeting-room" class="glass-panel rounded-3xl border border-nexus-border min-h-[600px] flex flex-col overflow-hidden">
+						<div class="p-6 border-b border-nexus-border bg-nexus-elevated/30 flex justify-between items-center">
+							<div class="flex items-center gap-4">
+								<div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
+								<h2 class="font-bold text-white">Live Transcription</h2>
+							</div>
+							<div class="flex gap-2">
+								<span class="text-xs text-gray-500 bg-nexus-border px-3 py-1 rounded-full">Real-time Reasoning Enabled</span>
+							</div>
+						</div>
+
+						<div id="nexus-meeting-transcript" class="flex-1 p-8 space-y-8 overflow-y-auto max-h-[500px]">
+							<div class="flex flex-col items-center justify-center h-full text-center text-gray-500">
+								<svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9l-4 4v-4H3a2 2 0 01-2-2V10a2 2 0 012-2h2m3.382-7.034l.437.218a1 1 0 01.39 1.17l-.5 1.5a1 1 0 01-1.17.39l-1.5-.5a1 1 0 01-.39-1.17l.5-1.5a1 1 0 011.17-.39zM15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+								<p>Configure participants and agenda to start the meeting.</p>
+							</div>
+						</div>
+
+						<div class="p-6 bg-nexus-elevated/30 border-t border-nexus-border flex gap-4">
+							<input type="text" id="nexus-meeting-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white" placeholder="Type a message or instruction to the team...">
+							<button id="nexus-send-meeting-msg" class="bg-nexus-blue hover:bg-blue-600 text-white font-bold px-8 rounded-xl transition-all">Send</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
 	public function render_tutorials_page(): void {
 		$level = $_GET['level'] ?? 'employee';
 		echo $this->get_brand_styles();

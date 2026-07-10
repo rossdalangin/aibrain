@@ -35,9 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
         hireForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(hireForm);
-            const data = Object.fromEntries(formData.entries());
+            const rawData = Object.fromEntries(formData.entries());
 
-            nexusFetch('employees', 'POST', data).then(res => {
+            // Align with backend controller expectations
+            const payload = {
+                name: rawData.name,
+                position: rawData.position,
+                role_description: rawData.identity,
+                prompt_template: rawData.mission,
+                model_settings: {
+                    model: rawData.model,
+                    temperature: parseFloat(rawData.temperature),
+                    provider: 'openai' // Default or based on model
+                }
+            };
+
+            nexusFetch('employees', 'POST', payload).then(res => {
                 alert('Agent deployed successfully!');
                 window.location.reload();
             });
@@ -133,4 +146,99 @@ document.addEventListener('DOMContentLoaded', function() {
         const response = await fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/${endpoint}`, options);
         return response.json();
     }
+
+    // 5. AI Meeting Collaboration Hub
+    const startMeetingBtn = document.getElementById('nexus-start-meeting-btn');
+    const meetingTranscript = document.getElementById('nexus-meeting-transcript');
+    const meetingInput = document.getElementById('nexus-meeting-input');
+    const sendMeetingBtn = document.getElementById('nexus-send-meeting-msg');
+
+    if (startMeetingBtn) {
+        startMeetingBtn.addEventListener('click', function() {
+            const invitees = Array.from(document.querySelectorAll('.nexus-meeting-invitee:checked')).map(cb => cb.value);
+            const agenda = document.getElementById('nexus-meeting-agenda').value;
+
+            if (invitees.length === 0) return alert('Invite at least one AI participant.');
+            if (!agenda) return alert('Please define an agenda for the meeting.');
+
+            startMeetingBtn.innerText = 'Collaborating...';
+            meetingTranscript.innerHTML = `<div class="p-4 rounded-xl bg-nexus-violet/10 border border-nexus-violet/20 italic text-nexus-violet">Meeting initialized. Agenda: ${agenda}</div>`;
+
+            // Start the recursive multi-agent chain via REST
+            runMeetingRound(invitees, agenda);
+        });
+    }
+
+    function runMeetingRound(invitees, agenda, round = 1) {
+        if (round > 5) { // Cap for MVP safety
+            meetingTranscript.innerHTML += `<div class="p-4 rounded-xl bg-green-500/10 border border-green-500/20 italic text-green-500">Meeting concluded. Consensus reached.</div>`;
+            startMeetingBtn.innerText = 'Start New Meeting';
+            return;
+        }
+
+        const nextAgentId = invitees[(round - 1) % invitees.length];
+
+        nexusFetch(`chat/meeting`, 'POST', {
+            agent_id: nextAgentId,
+            agenda: agenda,
+            round: round,
+            invitees: invitees
+        }).then(res => {
+            const entry = document.createElement('div');
+            entry.className = 'flex gap-4 items-start animate-fade-in-up';
+            entry.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-nexus-violet flex items-center justify-center font-bold text-white shrink-0">
+                    ${res.agent_name.charAt(0)}
+                </div>
+                <div class="flex-1">
+                    <p class="font-bold text-white mb-1">${res.agent_name} <span class="text-xs text-gray-500 font-normal ml-2">${res.position}</span></p>
+                    <div class="p-4 rounded-2xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed">
+                        ${res.content}
+                    </div>
+                </div>
+            `;
+            meetingTranscript.appendChild(entry);
+            meetingTranscript.scrollTop = meetingTranscript.scrollHeight;
+
+            // Chain to next agent after a short "thinking" delay
+            setTimeout(() => runMeetingRound(invitees, agenda, round + 1), 2000);
+        });
+    }
+
+    // 6. Marketplace Tabs & Install
+    const tabButtons = document.querySelectorAll('.nexus-tab-btn');
+    const tabContents = document.querySelectorAll('.nexus-tab-content');
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.tab;
+
+            tabButtons.forEach(b => b.classList.remove('bg-nexus-violet', 'text-white'));
+            tabButtons.forEach(b => b.classList.add('text-gray-400'));
+            btn.classList.remove('text-gray-400');
+            btn.classList.add('bg-nexus-violet', 'text-white');
+
+            tabContents.forEach(content => {
+                if (content.id === `nexus-${target}-tab`) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    const installButtons = document.querySelectorAll('.nexus-marketplace-install');
+    installButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const agentKey = btn.dataset.agent;
+            btn.innerText = 'Installing...';
+
+            nexusFetch('marketplace/import', 'POST', { agent_key: agentKey }).then(res => {
+                btn.innerText = 'Installed ✓';
+                btn.classList.replace('bg-nexus-gold/20', 'bg-green-500/20');
+                btn.classList.replace('text-nexus-gold', 'text-green-500');
+            });
+        });
+    });
 });

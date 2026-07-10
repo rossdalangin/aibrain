@@ -43,6 +43,15 @@ class Plugin {
 
 		add_submenu_page(
 			'nexus-ai-workforce',
+			__( 'AI Meetings', 'nexus-ai-workforce' ),
+			'Collaboration Hub',
+			'manage_options',
+			'nexus-ai-workforce-meetings',
+			[ $this, 'render_meetings_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
 			__( 'Workforce', 'nexus-ai-workforce' ),
 			'Hire AI Agents',
 			'manage_options',
@@ -118,6 +127,12 @@ class Plugin {
 	public function render_workflows_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_workflows_page();
+		}
+	}
+
+	public function render_meetings_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_meetings_page();
 		}
 	}
 

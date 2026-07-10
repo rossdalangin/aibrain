@@ -79,9 +79,10 @@ class Orchestrator {
 	 * @param string $request   The user request.
 	 * @param array  $agent_data The primary agent data (employee).
 	 * @param string $company_context General company context.
+	 * @param int    $conversation_id Optional conversation ID for memory.
 	 * @return string           Final response.
 	 */
-	public function process_request( string $request, array $agent_data, string $company_context = '', string $department_context = '' ): string {
+	public function process_request( string $request, array $agent_data, string $company_context = '', string $department_context = '', int $conversation_id = 0 ): string {
 		// 1. Perform RAG search
 		$kb_context = $this->searcher->search( $request, [ 'agent_id' => $agent_data['id'] ?? 0 ] );
 
@@ -94,8 +95,19 @@ class Orchestrator {
 
 		$messages = [
 			[ 'role' => 'system', 'content' => $system_prompt ],
-			[ 'role' => 'user', 'content' => $request ],
 		];
+
+		// 3. Inject Conversation Memory if available
+		if ( $conversation_id > 0 && class_exists( 'NexusAI\\Workforce\\Repositories\\MessageRepository' ) ) {
+			$msg_repo = new \NexusAI\Workforce\Repositories\MessageRepository();
+			$history = $msg_repo->get_conversation_messages( $conversation_id, 10 );
+			foreach ( array_reverse( $history ) as $msg ) {
+				$role = ( $msg['sender_type'] === 'user' ) ? 'user' : 'assistant';
+				$messages[] = [ 'role' => $role, 'content' => $msg['content'] ];
+			}
+		}
+
+		$messages[] = [ 'role' => 'user', 'content' => $request ];
 
 		$settings = $this->parse_settings( $agent_data['model_settings'] ?? '{}' );
 		$settings['tools'] = $this->action_registry->get_tools_definition();
