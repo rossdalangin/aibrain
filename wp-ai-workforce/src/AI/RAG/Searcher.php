@@ -16,8 +16,25 @@ class Searcher {
 	 * @return string          Concatenated context.
 	 */
 	public function search( string $query, array $filters = [] ): string {
-		// In a production scenario, we would generate embeddings and query SQLite-vss or Pinecone.
-		// For MVP, we return a conceptual placeholder.
-		return "";
+		global $wpdb;
+
+		// 1. Keyword-based matching as a robust fallback for SQLite-vss
+		$table = $wpdb->prefix . 'ai_knowledge_chunks';
+
+		$results = $wpdb->get_results( $wpdb->prepare(
+			"SELECT content FROM $table WHERE content LIKE %s LIMIT 3",
+			'%' . $wpdb->esc_like( $query ) . '%'
+		), ARRAY_A );
+
+		if ( empty( $results ) ) {
+			return "";
+		}
+
+		$context = "Relevant information from Knowledge Base:\n";
+		foreach ( $results as $row ) {
+			$context .= "- " . $row['content'] . "\n";
+		}
+
+		return $context;
 	}
 }

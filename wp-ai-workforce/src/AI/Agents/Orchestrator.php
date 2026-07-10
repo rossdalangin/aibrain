@@ -81,14 +81,15 @@ class Orchestrator {
 	 * @param string $company_context General company context.
 	 * @return string           Final response.
 	 */
-	public function process_request( string $request, array $agent_data, string $company_context = '' ): string {
+	public function process_request( string $request, array $agent_data, string $company_context = '', string $department_context = '' ): string {
 		// 1. Perform RAG search
 		$kb_context = $this->searcher->search( $request, [ 'agent_id' => $agent_data['id'] ?? 0 ] );
 
-		// 2. Build system prompt with RAG context
+		// 2. Build system prompt with context layers
 		$system_prompt = $this->prompt_builder->build( array_merge( $agent_data, [
-			'company_context' => $company_context,
-			'kb_context'      => $kb_context
+			'company_context'    => $company_context,
+			'department_context' => $department_context,
+			'kb_context'         => $kb_context
 		] ) );
 
 		$messages = [
