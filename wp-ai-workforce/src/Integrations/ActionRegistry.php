@@ -9,8 +9,6 @@ use NexusAI\Workforce\Integrations\Actions\ManageUserAction;
 use NexusAI\Workforce\Integrations\Actions\AnalyticsReportAction;
 use NexusAI\Workforce\Integrations\Actions\WooCommerceAction;
 use NexusAI\Workforce\Integrations\Actions\WebhookAction;
-use NexusAI\Workforce\Integrations\Actions\CommentManagementAction;
-use NexusAI\Workforce\Integrations\Actions\MediaGenerationAction;
 
 /**
  * Registry for all AI-executable actions.
@@ -29,8 +27,6 @@ class ActionRegistry {
 		$this->register( new AnalyticsReportAction() );
 		$this->register( new WooCommerceAction() );
 		$this->register( new WebhookAction() );
-		$this->register( new CommentManagementAction() );
-		$this->register( new MediaGenerationAction() );
 	}
 
 	/**

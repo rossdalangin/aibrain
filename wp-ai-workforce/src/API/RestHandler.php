@@ -47,14 +47,6 @@ class RestHandler {
 			],
 		] );
 
-		register_rest_route( $this->namespace, '/chat/meeting', [
-			[
-				'methods'             => WP_REST_Server::CREATABLE,
-				'callback'            => [ $chat_controller, 'run_meeting_step' ],
-				'permission_callback' => [ $this, 'check_permission' ],
-			],
-		] );
-
 		register_rest_route( $this->namespace, '/billing/plans', [
 			[
 				'methods'             => WP_REST_Server::READABLE,

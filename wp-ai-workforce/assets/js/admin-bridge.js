@@ -18,7 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 cto: { position: 'Chief Technology Officer', identity: 'I am a systems architect and security expert ensuring technical scalability.', mission: 'Optimize performance and minimize technical debt.', temp: 0.2 },
                 cfo: { position: 'Chief Financial Officer', identity: 'I am a financial strategist focused on capital allocation and risk management.', mission: 'Maximize long-term growth through rigorous audit.', temp: 0.1 },
                 seo: { position: 'SEO Specialist', identity: 'I am a technical search architect living in the data of search trends.', mission: 'Dominate page one for primary business keywords.', temp: 0.3 },
-                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 }
+                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 },
+                hr: { position: 'HR Manager', identity: 'I am a culture-focused HR professional specializing in talent acquisition and employee retention.', mission: 'Build a high-performance team culture.', temp: 0.6 },
+                legal: { position: 'Legal Advisor', identity: 'I am a meticulous legal expert specializing in corporate law and compliance.', mission: 'Mitigate risk and ensure regulatory adherence.', temp: 0.1 },
+                qa: { position: 'QA Engineer', identity: 'I am a detail-oriented quality assurance specialist focused on bug-free deployments.', mission: 'Ensure 100% product stability and performance.', temp: 0.1 },
+                ads: { position: 'Paid Ads Specialist', identity: 'I am an expert media buyer for Meta, Google, and LinkedIn.', mission: 'Optimize ad spend for maximum ROAS.', temp: 0.7 },
+                data: { position: 'Data Analyst', identity: 'I am a statistical expert turning raw data into actionable business intelligence.', mission: 'Identify trends and growth opportunities through data.', temp: 0.2 },
+                support: { position: 'Customer Support Manager', identity: 'I am a customer success expert dedicated to 100% satisfaction.', mission: 'Reduce churn and increase NPS.', temp: 0.5 },
+                sales: { position: 'Sales Director', identity: 'I am a high-ticket sales closer and pipeline architect.', mission: 'Maximize revenue and shorten sales cycles.', temp: 0.8 }
             };
 
             const data = templates[role];
@@ -37,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(hireForm);
             const rawData = Object.fromEntries(formData.entries());
 
-            // Align with backend controller expectations
+            // Correct field mapping for backend
             const payload = {
                 name: rawData.name,
                 position: rawData.position,
@@ -46,12 +53,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 model_settings: {
                     model: rawData.model,
                     temperature: parseFloat(rawData.temperature),
-                    provider: 'openai' // Default or based on model
+                    provider: 'openai'
                 }
             };
 
             nexusFetch('employees', 'POST', payload).then(res => {
-                alert('Agent deployed successfully!');
+                alert('Agent deployed successfully! This agent is now part of your virtual workforce.');
                 window.location.reload();
             });
         });
@@ -146,99 +153,4 @@ document.addEventListener('DOMContentLoaded', function() {
         const response = await fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/${endpoint}`, options);
         return response.json();
     }
-
-    // 5. AI Meeting Collaboration Hub
-    const startMeetingBtn = document.getElementById('nexus-start-meeting-btn');
-    const meetingTranscript = document.getElementById('nexus-meeting-transcript');
-    const meetingInput = document.getElementById('nexus-meeting-input');
-    const sendMeetingBtn = document.getElementById('nexus-send-meeting-msg');
-
-    if (startMeetingBtn) {
-        startMeetingBtn.addEventListener('click', function() {
-            const invitees = Array.from(document.querySelectorAll('.nexus-meeting-invitee:checked')).map(cb => cb.value);
-            const agenda = document.getElementById('nexus-meeting-agenda').value;
-
-            if (invitees.length === 0) return alert('Invite at least one AI participant.');
-            if (!agenda) return alert('Please define an agenda for the meeting.');
-
-            startMeetingBtn.innerText = 'Collaborating...';
-            meetingTranscript.innerHTML = `<div class="p-4 rounded-xl bg-nexus-violet/10 border border-nexus-violet/20 italic text-nexus-violet">Meeting initialized. Agenda: ${agenda}</div>`;
-
-            // Start the recursive multi-agent chain via REST
-            runMeetingRound(invitees, agenda);
-        });
-    }
-
-    function runMeetingRound(invitees, agenda, round = 1) {
-        if (round > 5) { // Cap for MVP safety
-            meetingTranscript.innerHTML += `<div class="p-4 rounded-xl bg-green-500/10 border border-green-500/20 italic text-green-500">Meeting concluded. Consensus reached.</div>`;
-            startMeetingBtn.innerText = 'Start New Meeting';
-            return;
-        }
-
-        const nextAgentId = invitees[(round - 1) % invitees.length];
-
-        nexusFetch(`chat/meeting`, 'POST', {
-            agent_id: nextAgentId,
-            agenda: agenda,
-            round: round,
-            invitees: invitees
-        }).then(res => {
-            const entry = document.createElement('div');
-            entry.className = 'flex gap-4 items-start animate-fade-in-up';
-            entry.innerHTML = `
-                <div class="w-10 h-10 rounded-full bg-nexus-violet flex items-center justify-center font-bold text-white shrink-0">
-                    ${res.agent_name.charAt(0)}
-                </div>
-                <div class="flex-1">
-                    <p class="font-bold text-white mb-1">${res.agent_name} <span class="text-xs text-gray-500 font-normal ml-2">${res.position}</span></p>
-                    <div class="p-4 rounded-2xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed">
-                        ${res.content}
-                    </div>
-                </div>
-            `;
-            meetingTranscript.appendChild(entry);
-            meetingTranscript.scrollTop = meetingTranscript.scrollHeight;
-
-            // Chain to next agent after a short "thinking" delay
-            setTimeout(() => runMeetingRound(invitees, agenda, round + 1), 2000);
-        });
-    }
-
-    // 6. Marketplace Tabs & Install
-    const tabButtons = document.querySelectorAll('.nexus-tab-btn');
-    const tabContents = document.querySelectorAll('.nexus-tab-content');
-
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.tab;
-
-            tabButtons.forEach(b => b.classList.remove('bg-nexus-violet', 'text-white'));
-            tabButtons.forEach(b => b.classList.add('text-gray-400'));
-            btn.classList.remove('text-gray-400');
-            btn.classList.add('bg-nexus-violet', 'text-white');
-
-            tabContents.forEach(content => {
-                if (content.id === `nexus-${target}-tab`) {
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
-            });
-        });
-    });
-
-    const installButtons = document.querySelectorAll('.nexus-marketplace-install');
-    installButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const agentKey = btn.dataset.agent;
-            btn.innerText = 'Installing...';
-
-            nexusFetch('marketplace/import', 'POST', { agent_key: agentKey }).then(res => {
-                btn.innerText = 'Installed ✓';
-                btn.classList.replace('bg-nexus-gold/20', 'bg-green-500/20');
-                btn.classList.replace('text-nexus-gold', 'text-green-500');
-            });
-        });
-    });
 });

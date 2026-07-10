@@ -2,9 +2,14 @@
 
 :root {
   --nexus-violet: #7C3AED;
+  --nexus-blue: #0ea5e9;
+  --nexus-gold: #f59e0b;
+  --nexus-green: #10b981;
+  --nexus-red: #ef4444;
   --nexus-bg: #0A0A0B;
-  --nexus-surface: #141416;
-  --nexus-border: rgba(39, 39, 42, 0.5);
+  --nexus-surface: #121214;
+  --nexus-elevated: #1a1a1e;
+  --nexus-border: rgba(255, 255, 255, 0.08);
 }
 
 .nexus-admin-body {
@@ -15,12 +20,29 @@
 
 /* Glassmorphism Panels */
 .glass-panel {
-  background: rgba(20, 20, 22, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--nexus-border);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
+
+.glass-card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-5px);
+  border-color: var(--nexus-violet);
+  background: rgba(18, 18, 20, 0.95);
+  box-shadow: 0 20px 60px rgba(124, 58, 237, 0.15);
+}
+
+/* Department Gradients */
+.dept-exec { background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), transparent); }
+.dept-marketing { background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), transparent); }
+.dept-tech { background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent); }
+.dept-legal { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), transparent); }
 
 /* Premium Gradient Borders */
 .gradient-border {
@@ -76,6 +98,22 @@
   0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.7); }
   70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+}
+
+.nexus-pro-tip {
+  border-left: 3px solid var(--nexus-gold);
+  background: rgba(245, 158, 11, 0.05);
+  padding: 1rem;
+  border-radius: 0 1rem 1rem 0;
+  font-size: 0.85rem;
+  color: #d1d5db;
+}
+
+.nexus-button-note {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  display: block;
 }
 
 /* Multi-Agent Collaboration Wave */
