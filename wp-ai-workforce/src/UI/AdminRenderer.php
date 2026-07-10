@@ -33,9 +33,14 @@ class AdminRenderer {
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<!-- Form Section -->
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<div class="mb-6">
-						<h2 class="text-xl font-semibold">Hire New AI Agent</h2>
-						<p class="text-xs text-gray-500 mt-1 italic">Pro-Tip: Agents with 'Logical' personality work best with Temperature set to 0.2.</p>
+						<div class="mb-6 flex justify-between items-start">
+							<div>
+								<h2 class="text-xl font-semibold">Hire New AI Agent</h2>
+								<p class="text-xs text-gray-500 mt-1 italic">Pro-Tip: Agents with 'Logical' personality work best with Temperature set to 0.2.</p>
+							</div>
+							<a href="#" class="text-nexus-violet hover:text-white transition-colors" title="View Hiring Guide">
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+							</a>
 					</div>
 					<form id="nexus-hire-agent-form" class="space-y-6">
 						<div>
@@ -135,9 +140,14 @@ class AdminRenderer {
 
 			<div class="max-w-2xl">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<div class="mb-6">
-						<h2 class="text-xl font-semibold">Global AI Settings</h2>
-						<p class="text-xs text-gray-500 mt-1 italic">Security: All keys are AES-256 encrypted using your site's unique AUTH_KEY.</p>
+						<div class="mb-6 flex justify-between items-start">
+							<div>
+								<h2 class="text-xl font-semibold">Global AI Settings</h2>
+								<p class="text-xs text-gray-500 mt-1 italic">Security: All keys are AES-256 encrypted using your site's unique AUTH_KEY.</p>
+							</div>
+							<a href="#" class="text-nexus-violet hover:text-white transition-colors" title="View Security Documentation">
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+							</a>
 					</div>
 					<form id="nexus-settings-form" class="space-y-8">
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -251,9 +261,14 @@ class AdminRenderer {
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<!-- Ingestion Section -->
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<div class="mb-6">
-						<h2 class="text-xl font-semibold">Ingest Information</h2>
-						<p class="text-xs text-gray-500 mt-1 italic">Performance: For best RAG results, keep your PDF files under 5MB for faster indexing.</p>
+						<div class="mb-6 flex justify-between items-start">
+							<div>
+								<h2 class="text-xl font-semibold">Ingest Information</h2>
+								<p class="text-xs text-gray-500 mt-1 italic">Performance: For best RAG results, keep your PDF files under 5MB for faster indexing.</p>
+							</div>
+							<a href="#" class="text-nexus-blue hover:text-white transition-colors" title="View Ingestion Guide">
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+							</a>
 					</div>
 
 					<div class="space-y-8">
