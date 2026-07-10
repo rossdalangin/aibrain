@@ -74,7 +74,7 @@ class Plugin {
 			'Learning Center',
 			'read',
 			'nexus-ai-workforce-tutorials',
-			[ $this, 'render_tutorials_page' ]
+			[ $this, 'render_admin_tutorials_page' ]
 		);
 
 		add_submenu_page(
@@ -121,7 +121,7 @@ class Plugin {
 		}
 	}
 
-	public function render_tutorials_page() {
+	public function render_admin_tutorials_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_tutorials_page();
 		}

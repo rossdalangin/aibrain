@@ -4,6 +4,31 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
 
+    // 0. Agent Template Selection
+    const templateSelector = document.getElementById('nexus-agent-template-selector');
+    if (templateSelector) {
+        templateSelector.addEventListener('change', function() {
+            const role = templateSelector.value;
+            const hireForm = document.getElementById('nexus-hire-agent-form');
+            if (!role || !hireForm) return;
+
+            const templates = {
+                ceo: { position: 'Chief Executive Officer', identity: 'I am a visionary enterprise leader focused on high-level strategy and ROI.', mission: 'Synthesize data into clear action plans.', temp: 0.4 },
+                cmo: { position: 'Chief Marketing Officer', identity: 'I am a data-driven growth architect specializing in high-conversion funnels.', mission: 'Maximize CPA and brand narrative consistency.', temp: 0.8 },
+                cto: { position: 'Chief Technology Officer', identity: 'I am a systems architect and security expert ensuring technical scalability.', mission: 'Optimize performance and minimize technical debt.', temp: 0.2 },
+                cfo: { position: 'Chief Financial Officer', identity: 'I am a financial strategist focused on capital allocation and risk management.', mission: 'Maximize long-term growth through rigorous audit.', temp: 0.1 },
+                seo: { position: 'SEO Specialist', identity: 'I am a technical search architect living in the data of search trends.', mission: 'Dominate page one for primary business keywords.', temp: 0.3 },
+                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 }
+            };
+
+            const data = templates[role];
+            hireForm.querySelector('[name="position"]').value = data.position;
+            hireForm.querySelector('[name="identity"]').value = data.identity;
+            hireForm.querySelector('[name="mission"]').value = data.mission;
+            hireForm.querySelector('[name="temperature"]').value = data.temp;
+        });
+    }
+
     // 1. Hire Agent Form Submission
     const hireForm = document.getElementById('nexus-hire-agent-form');
     if (hireForm) {
