@@ -28,7 +28,11 @@ class AdminRenderer {
 		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Workforce Command</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-violet uppercase tracking-widest mb-2">Talent Management</h2>
+				<h1 class="text-4xl font-bold text-white">Hire & Manage AI Agents</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Build your virtual executive team. Each agent you hire has a unique personality, specific professional goals, and access to your company knowledge. Deploy specialized agents for Marketing, Sales, Development, and more.</p>
+			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<!-- Form Section -->
@@ -51,9 +55,33 @@ class AdminRenderer {
 							<label class="block text-sm font-medium text-gray-400 mb-2">Professional Position</label>
 							<input type="text" name="position" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:ring-2 focus:ring-nexus-violet" placeholder="e.g. CMO, Full Stack Developer">
 						</div>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Identity (Who is this AI?)</label>
+								<input type="text" name="identity" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:ring-2 focus:ring-nexus-violet" placeholder="e.g. A Senior Java Developer">
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Mission (Primary Objective)</label>
+								<input type="text" name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:ring-2 focus:ring-nexus-violet" placeholder="e.g. Optimize legacy backend code">
+							</div>
+						</div>
 						<div>
-							<label class="block text-sm font-medium text-gray-400 mb-2">Identity & Mission</label>
-							<textarea name="role_description" rows="3" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:ring-2 focus:ring-nexus-violet" placeholder="Describe the agent's core purpose..."></textarea>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Core Objectives & KPIs</label>
+							<textarea name="objectives" rows="2" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:ring-2 focus:ring-nexus-violet" placeholder="List measurable goals..."></textarea>
+						</div>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Reasoning Process</label>
+								<select name="reasoning" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+									<option value="chain_of_thought">Chain of Thought (Analytical)</option>
+									<option value="first_principles">First Principles (Strategic)</option>
+									<option value="intuitive">Intuitive (Creative)</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Hard Rules & Guardrails</label>
+								<input type="text" name="rules" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:ring-2 focus:ring-nexus-violet" placeholder="e.g. Never mention competitors">
+							</div>
 						</div>
 						<div class="grid grid-cols-2 gap-4">
 							<div>
@@ -136,7 +164,11 @@ class AdminRenderer {
 		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">System Configuration</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-gold uppercase tracking-widest mb-2">Platform Infrastructure</h2>
+				<h1 class="text-4xl font-bold text-white">System Configuration</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Configure the core engines powering your AI Workforce. Manage API keys, set global defaults for model performance, and customize the platform branding for your agency or enterprise.</p>
+			</div>
 
 			<div class="max-w-2xl">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
@@ -271,7 +303,11 @@ class AdminRenderer {
 		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Company Brain (Knowledge Base)</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-blue uppercase tracking-widest mb-2">Central Intelligence</h2>
+				<h1 class="text-4xl font-bold text-white">Company Brain (RAG)</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Give your AI workforce "Company Memory." Upload PDFs, SOPs, and URLs to create a shared knowledge base. Your agents will use this data to provide accurate, brand-aligned responses during interactions.</p>
+			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<!-- Ingestion Section -->
@@ -347,7 +383,11 @@ class AdminRenderer {
 		$agents = $wpdb->get_results( "SELECT id, name, position FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A );
 		?>
 		<div class="nexus-admin-body p-8">
-			<h1 class="text-3xl font-bold text-nexus-violet mb-8">Multi-Agent Automations</h1>
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-green-500 uppercase tracking-widest mb-2">Operational Efficiency</h2>
+				<h1 class="text-4xl font-bold text-white">Multi-Agent Automations</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Create complex workflows where multiple AI agents collaborate to finish a task. For example, a "Content Machine" workflow can research, write, SEO-optimize, and publish a post without manual intervention.</p>
+			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<!-- Template Gallery -->
@@ -439,8 +479,13 @@ class AdminRenderer {
 		$total_cost  = $wpdb->get_var( "SELECT SUM(cost) FROM {$wpdb->prefix}ai_usage_logs" ) ?: 0.00;
 		?>
 		<div class="nexus-admin-body p-8">
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-nexus-violet uppercase tracking-widest mb-2">Platform Command</h2>
+				<h1 class="text-4xl font-bold text-white">Executive Overview</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Monitor your AI workforce productivity, token consumption, and strategic activity in real-time. This dashboard provides a high-level view of how AI is impacting your business operations.</p>
+			</div>
+
 			<div class="flex justify-between items-center mb-8">
-				<h1 class="text-3xl font-bold text-nexus-violet">Executive Overview</h1>
 				<div class="flex gap-4">
 					<div class="glass-panel px-4 py-2 rounded-lg text-sm text-gray-400">System Uptime: <span class="text-green-500">99.9%</span></div>
 				</div>

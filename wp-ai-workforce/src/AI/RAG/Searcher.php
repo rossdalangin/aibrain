@@ -18,13 +18,31 @@ class Searcher {
 	public function search( string $query, array $filters = [] ): string {
 		global $wpdb;
 
-		// 1. Keyword-based matching as a robust fallback for SQLite-vss
-		$table = $wpdb->prefix . 'ai_knowledge_chunks';
+		$chunks_table = $wpdb->prefix . 'ai_knowledge_chunks';
+		$docs_table   = $wpdb->prefix . 'ai_knowledge_documents';
+		$kb_table     = $wpdb->prefix . 'ai_knowledge_bases';
 
-		$results = $wpdb->get_results( $wpdb->prepare(
-			"SELECT content FROM $table WHERE content LIKE %s LIMIT 3",
-			'%' . $wpdb->esc_like( $query ) . '%'
-		), ARRAY_A );
+		// 1. Build secure query with departmental filtering
+		$sql = "SELECT c.content FROM $chunks_table c
+				JOIN $docs_table d ON c.doc_id = d.id
+				JOIN $kb_table k ON d.kb_id = k.id
+				WHERE c.content LIKE %s";
+
+		$params = [ '%' . $wpdb->esc_like( $query ) . '%' ];
+
+		if ( ! empty( $filters['dept_id'] ) ) {
+			$sql .= " AND (k.owner_type = 'department' AND k.owner_id = %d)";
+			$params[] = $filters['dept_id'];
+		} elseif ( ! empty( $filters['agent_id'] ) ) {
+			$sql .= " AND (k.owner_type = 'employee' AND k.owner_id = %d)";
+			$params[] = $filters['agent_id'];
+		} else {
+			$sql .= " AND k.owner_type = 'global'";
+		}
+
+		$sql .= " LIMIT 5";
+
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A );
 
 		if ( empty( $results ) ) {
 			return "";
