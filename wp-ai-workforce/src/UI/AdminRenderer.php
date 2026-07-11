@@ -448,6 +448,26 @@ class AdminRenderer {
 								<p class="text-xs text-gray-500">Hide "Nexus AI" branding and use "Platform Display Title" throughout the UI.</p>
 							</div>
 						</div>
+
+						<h3 class="text-sm font-bold text-white mt-10 mb-4 uppercase tracking-widest text-[10px]">Active Enterprise Tools</h3>
+						<div class="grid grid-cols-2 gap-3">
+							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between">
+								<span class="text-[10px] font-bold text-green-500">WP_POSTS</span>
+								<span class="text-[9px] text-green-500/50">ACTIVE</span>
+							</div>
+							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between">
+								<span class="text-[10px] font-bold text-green-500">WOOCOMMERCE</span>
+								<span class="text-[9px] text-green-500/50">ACTIVE</span>
+							</div>
+							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50">
+								<span class="text-[10px] font-bold text-nexus-blue">SLACK_HOOK</span>
+								<span class="text-[9px] text-nexus-blue/50">PENDING</span>
+							</div>
+							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50">
+								<span class="text-[10px] font-bold text-nexus-blue">DISCORD_HOOK</span>
+								<span class="text-[9px] text-nexus-blue/50">PENDING</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -682,7 +702,7 @@ class AdminRenderer {
 	public function render_meetings_page(): void {
 		echo $this->get_brand_styles();
 		global $wpdb;
-		$agents = $wpdb->get_results( "SELECT id, name, position, avatar FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
+		$agents = $wpdb->get_results( "SELECT id, name, position, avatar_url FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
 		?>
 		<div class="nexus-admin-body p-10 theme-meetings">
 			<div class="mb-10 flex justify-between items-end">

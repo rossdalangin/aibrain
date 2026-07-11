@@ -28,7 +28,29 @@ class Searcher {
 				JOIN $kb_table k ON d.kb_id = k.id
 				WHERE c.content LIKE %s";
 
-		$params = [ '%' . $wpdb->esc_like( $query ) . '%' ];
+		// 2. Multi-term weighting (Simulated semantic search)
+		$terms = explode(' ', $query);
+		$term_conditions = [];
+		$params = [];
+
+		// Prioritize exact match if multiple words
+		if (count($terms) > 1) {
+			$term_conditions[] = "c.content LIKE %s";
+			$params[] = '%' . $wpdb->esc_like($query) . '%';
+		}
+
+		foreach ($terms as $term) {
+			if (strlen($term) < 3) continue;
+			$term_conditions[] = "c.content LIKE %s";
+			$params[] = '%' . $wpdb->esc_like($term) . '%';
+		}
+
+		if (!empty($term_conditions)) {
+			$sql .= " AND (" . implode(' OR ', $term_conditions) . ")";
+		} else {
+			$sql .= " AND c.content LIKE %s";
+			$params[] = '%' . $wpdb->esc_like($query) . '%';
+		}
 
 		if ( ! empty( $filters['dept_id'] ) ) {
 			$sql .= " AND (k.owner_type = 'department' AND k.owner_id = %d)";

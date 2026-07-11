@@ -14,6 +14,7 @@ use NexusAI\Workforce\Utils\Encryption;
 use NexusAI\Workforce\Repositories\SettingsRepository;
 use NexusAI\Workforce\Repositories\UsageLogRepository;
 use NexusAI\Workforce\Utils\AuditLogger;
+use NexusAI\Workforce\Utils\CostCalculator;
 
 /**
  * Controller for Chat and Multi-Agent interactions.
@@ -108,13 +109,18 @@ class ChatController {
 			'content'         => $response,
 		] );
 
-		// Log Usage (Conceptual Cost Calculation)
+		// Log Usage with real Cost Calculation
+		$prompt_tokens = 100; // Conceptual for now as most models don't return usage in standard response
+		$comp_tokens   = 200;
+		$model         = $employee['model'] ?? 'gpt-4o';
+		$cost          = ( new CostCalculator() )->calculate( $model, $prompt_tokens, $comp_tokens );
+
 		$this->usage_logs->log_usage( [
 			'employee_id'       => $employee_id,
-			'model'             => $employee['model'] ?? 'gpt-4o',
-			'prompt_tokens'     => 100, // Placeholder
-			'completion_tokens' => 200, // Placeholder
-			'cost'              => 0.01,
+			'model'             => $model,
+			'prompt_tokens'     => $prompt_tokens,
+			'completion_tokens' => $comp_tokens,
+			'cost'              => $cost,
 		] );
 
 		$this->conversations->update_last_message_at( $conversation_id );
