@@ -48,6 +48,31 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/departments/(?P<id>\d+)', [
+			[
+				'methods'             => WP_REST_Server::DELETABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$id = (int) $request['id'];
+					global $wpdb;
+					$wpdb->delete( $wpdb->prefix . 'ai_departments', [ 'id' => $id ] );
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/conversations/(?P<id>\d+)', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$id = (int) $request['id'];
+					$repo = new \NexusAI\Workforce\Repositories\MessageRepository();
+					return new \WP_REST_Response( $repo->get_conversation_messages( $id ), 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/billing/cancel', [
 			[
 				'methods'             => WP_REST_Server::CREATABLE,
@@ -195,6 +220,19 @@ class RestHandler {
 						'is_active'  => 1
 					] );
 					return new \WP_REST_Response( [ 'id' => $id ], 201 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/workflows/(?P<id>\d+)', [
+			[
+				'methods'             => WP_REST_Server::DELETABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$id = (int) $request['id'];
+					global $wpdb;
+					$wpdb->update( $wpdb->prefix . 'ai_workflows', [ 'is_active' => 0 ], [ 'id' => $id ] );
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
 				},
 				'permission_callback' => [ $this, 'check_permission' ],
 			],

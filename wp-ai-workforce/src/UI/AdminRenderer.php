@@ -206,6 +206,23 @@ class AdminRenderer {
 					</div>
 				</div>
 			</div>
+
+			<!-- Archive Viewer Modal -->
+			<div id="nexus-archive-modal" class="fixed inset-0 z-[10000] hidden">
+				<div class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+				<div class="absolute inset-x-20 top-20 bottom-20 glass-panel rounded-3xl border border-nexus-border flex flex-col overflow-hidden shadow-2xl">
+					<div class="p-8 border-b border-nexus-border flex justify-between items-center bg-nexus-elevated/50">
+						<div>
+							<h2 id="nexus-archive-title" class="text-2xl font-bold text-white uppercase tracking-tighter">Session Transcript</h2>
+							<p id="nexus-archive-meta" class="text-xs text-gray-500 mt-1">Archived intelligence record</p>
+						</div>
+						<button id="nexus-close-archive" class="text-gray-400 hover:text-white bg-white/5 px-4 py-2 rounded-xl">Close Archive</button>
+					</div>
+					<div id="nexus-archive-content" class="flex-1 p-10 overflow-y-auto space-y-6 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+						<!-- Messages will appear here -->
+					</div>
+				</div>
+			</div>
 		</div>
 		<?php
 	}
@@ -256,7 +273,8 @@ class AdminRenderer {
 									<span class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">Active Agents: <?php
 										echo (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE department_id = %d", $dept['id'] ) );
 									?></span>
-									<button class="text-xs text-accent hover:underline">Manage Team</button>
+									<button class="nexus-delete-dept text-xs text-red-500/50 hover:text-red-500 transition-all" data-id="<?php echo (int) $dept['id']; ?>">Delete Dept</button>
+									<button class="text-xs text-accent hover:underline font-bold">Manage Team</button>
 								</div>
 							</div>
 						<?php endforeach; ?>
@@ -418,8 +436,24 @@ class AdminRenderer {
 						<p class="text-6xl font-black mt-2 text-white">ACTIVE</p>
 					</div>
 					<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-						<h3 class="text-lg font-medium mb-4">Current Workforce</h3>
-						<div class="text-sm text-gray-500 italic">Start by selecting a template or creating a custom agent.</div>
+						<h3 class="text-lg font-bold mb-6">Current Workforce</h3>
+						<div class="space-y-4">
+							<?php
+							global $wpdb;
+							$active_agents = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
+							foreach ( $active_agents as $a ) : ?>
+								<div class="p-4 rounded-xl bg-white/5 border border-white/5 flex justify-between items-center group">
+									<div>
+										<p class="font-bold text-white"><?php echo esc_html( $a['name'] ); ?></p>
+										<p class="text-[10px] text-gray-500 uppercase"><?php echo esc_html( $a['position'] ); ?></p>
+									</div>
+									<button class="nexus-delete-agent opacity-0 group-hover:opacity-100 text-red-500 text-xs transition-all" data-id="<?php echo (int) $a['id']; ?>">Terminate</button>
+								</div>
+							<?php endforeach; ?>
+							<?php if ( empty( $active_agents ) ) : ?>
+								<div class="text-sm text-gray-500 italic">Start by selecting a template or creating a custom agent.</div>
+							<?php endif; ?>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -718,10 +752,13 @@ class AdminRenderer {
 					<h2 class="text-xl font-semibold mb-6">Active Workflows</h2>
 					<div id="nexus-active-workflows" class="space-y-4">
 						<?php foreach ( $workflows as $wf ) : ?>
-							<div class="glass-panel p-6 rounded-2xl border border-nexus-border hover:border-accent cursor-pointer transition-all glass-card-hover border-l-4 border-l-accent group nexus-run-workflow" data-id="<?php echo (int) $wf['id']; ?>">
+							<div class="glass-panel p-6 rounded-2xl border border-nexus-border transition-all glass-card-hover border-l-4 border-l-accent group relative">
 								<div class="flex justify-between items-start">
 									<h3 class="font-bold text-white group-hover:text-accent"><?php echo esc_html( $wf['name'] ); ?></h3>
-									<button class="bg-accent/20 text-accent text-[10px] font-bold px-2 py-1 rounded">RUN</button>
+									<div class="flex gap-2">
+										<button class="bg-accent/20 text-accent text-[10px] font-bold px-2 py-1 rounded nexus-run-workflow" data-id="<?php echo (int) $wf['id']; ?>">RUN</button>
+										<button class="bg-red-500/10 text-red-500 text-[10px] font-bold px-2 py-1 rounded hover:bg-red-500 hover:text-white transition-all nexus-delete-workflow" data-id="<?php echo (int) $wf['id']; ?>">✕</button>
+									</div>
 								</div>
 								<p class="text-xs text-gray-500 mt-2 uppercase tracking-tighter">Chain: <?php
 									$steps = json_decode($wf['definition'], true);
@@ -927,8 +964,8 @@ class AdminRenderer {
 									</td>
 									<td class="py-5 px-2 text-xs opacity-50"><?php echo esc_html( $conv['created_at'] ); ?></td>
 									<td class="py-5 px-2 text-right">
-										<button class="bg-white/5 hover:bg-white/10 text-white px-4 py-1 rounded-lg text-[10px] font-bold transition-all">View Transcript</button>
-										<button class="bg-accent/20 hover:bg-accent text-accent hover:text-black px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2">Export MD</button>
+										<button class="nexus-view-transcript bg-white/5 hover:bg-white/10 text-white px-4 py-1 rounded-lg text-[10px] font-bold transition-all" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">View Transcript</button>
+										<button class="nexus-export-md bg-accent/20 hover:bg-accent text-accent hover:text-black px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">Export MD</button>
 									</td>
 								</tr>
 							<?php endforeach; ?>

@@ -64,6 +64,22 @@ class SettingsController {
 			$data['company_name'] = sanitize_text_field( $params['company_name'] );
 		}
 
+		if ( isset( $params['ui_color'] ) ) {
+			$data['ui_color'] = sanitize_hex_color( $params['ui_color'] );
+		}
+
+		if ( isset( $params['agency_logo'] ) ) {
+			$data['agency_logo'] = esc_url_raw( $params['agency_logo'] );
+		}
+
+		if ( isset( $params['platform_title'] ) ) {
+			$data['platform_title'] = sanitize_text_field( $params['platform_title'] );
+		}
+
+		if ( isset( $params['agency_mode'] ) ) {
+			$data['agency_mode'] = (bool) $params['agency_mode'];
+		}
+
 		$success = $this->repository->update( $data );
 		return new WP_REST_Response( [ 'success' => $success ], 200 );
 	}

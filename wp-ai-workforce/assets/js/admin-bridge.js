@@ -4,7 +4,22 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
 
-    // 0. Agent Template Selection
+    // --- 0. Core Helper ---
+    async function nexusFetch(endpoint, method = 'GET', data = null) {
+        const options = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': nexus_ai_data.nonce
+            }
+        };
+        if (data) options.body = JSON.stringify(data);
+
+        const response = await fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/${endpoint}`, options);
+        return response.json();
+    }
+
+    // --- 1. Agent Template Selection ---
     const templateSelector = document.getElementById('nexus-agent-template-selector');
     if (templateSelector) {
         templateSelector.addEventListener('change', function() {
@@ -36,148 +51,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 19. Department Performance Chart
-    const deptCtx = document.getElementById('nexus-dept-chart');
-    if (deptCtx && typeof Chart !== 'undefined') {
-        new Chart(deptCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Marketing', 'IT', 'Sales', 'Finance', 'Legal'],
-                datasets: [{
-                    label: 'Tasks Completed',
-                    data: [120, 190, 85, 45, 30],
-                    backgroundColor: ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444'],
-                    borderRadius: 10
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
-                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
-                }
-            }
-        });
-    }
-
-    // 12. Purge Logs
-    const purgeBtn = document.getElementById('nexus-purge-logs');
-    if (purgeBtn) {
-        purgeBtn.addEventListener('click', function() {
-            if (!confirm('Are you sure you want to purge all system logs?')) return;
-            purgeBtn.innerText = 'Purging...';
-            nexusFetch('status/purge', 'POST').then(res => {
-                alert('System logs purged.');
-                window.location.reload();
-            });
-        });
-    }
-
-    // 11. Wipe Memory
-    const wipeBtn = document.getElementById('nexus-wipe-memory');
-    if (wipeBtn) {
-        wipeBtn.addEventListener('click', function() {
-            if (!confirm('Are you sure you want to PERMANENTLY wipe all company memory? This cannot be undone.')) return;
-
-            wipeBtn.innerText = 'Wiping...';
-            nexusFetch('kb/wipe', 'POST').then(res => {
-                alert('Memory wiped successfully.');
-                window.location.reload();
-            });
-        });
-    }
-
-    // 10. Enterprise Analytics (Chart.js)
-    const consumptionCtx = document.getElementById('nexus-consumption-chart');
-    if (consumptionCtx && typeof Chart !== 'undefined') {
-        new Chart(consumptionCtx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                datasets: [{
-                    label: 'Token Usage',
-                    data: [12000, 19000, 3000, 5000],
-                    borderColor: '#7C3AED',
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(124, 58, 237, 0.1)'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' } },
-                    x: { grid: { display: false } }
-                }
-            }
-        });
-    }
-
-    const efficiencyCtx = document.getElementById('nexus-efficiency-chart');
-    if (efficiencyCtx && typeof Chart !== 'undefined') {
-        new Chart(efficiencyCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Marketing', 'IT', 'Legal', 'Executive'],
-                datasets: [{
-                    data: [45, 25, 15, 15],
-                    backgroundColor: ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8' } } }
-            }
-        });
-    }
-
-    // 7. KB File Upload
-    const kbFileInput = document.getElementById('nexus-kb-file-input');
-    const uploadIdle = document.getElementById('nexus-upload-idle');
-    const uploadProgress = document.getElementById('nexus-upload-progress');
-
-    if (kbFileInput) {
-        kbFileInput.addEventListener('change', function() {
-            if (!kbFileInput.files[0]) return;
-
-            uploadIdle.classList.add('hidden');
-            uploadProgress.classList.remove('hidden');
-
-            const formData = new FormData();
-            formData.append('file', kbFileInput.files[0]);
-
-            fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/kb/upload`, {
-                method: 'POST',
-                headers: { 'X-WP-Nonce': nexus_ai_data.nonce },
-                body: formData
-            })
-            .then(res => res.json())
-            .then(data => {
-                uploadProgress.classList.add('hidden');
-                uploadIdle.classList.remove('hidden');
-                if (data.success) {
-                    alert('Document ingested successfully! Chunks created: ' + data.chunks);
-                } else {
-                    alert('Upload failed: ' + (data.message || 'Unknown error'));
-                }
-            });
-        });
-    }
-
-    // 1. Hire Agent Form Submission
+    // --- 2. Hire Agent Form ---
     const hireForm = document.getElementById('nexus-hire-agent-form');
     if (hireForm) {
         hireForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(hireForm);
-            const rawData = Object.fromEntries(formData.entries());
+            const btn = hireForm.querySelector('button[type="submit"]');
+            btn.innerText = 'Initializing Persona...';
+            btn.classList.add('opacity-50', 'pointer-events-none');
 
+            const rawData = Object.fromEntries(new FormData(hireForm).entries());
             const payload = {
                 name: rawData.name,
                 position: rawData.position,
@@ -191,68 +74,78 @@ document.addEventListener('DOMContentLoaded', function() {
                     voice: rawData.voice
                 }
             };
-
-            nexusFetch('employees', 'POST', payload).then(res => {
-                alert('Agent deployed successfully! This expert is now ready for deployment.');
+            nexusFetch('employees', 'POST', payload).then(() => {
+                btn.innerText = 'Deployed ✓';
+                alert('Agent deployed successfully!');
                 window.location.reload();
             });
         });
     }
 
-    // 2. Settings Form Submission
+    // --- 3. Settings Form ---
     const settingsForm = document.getElementById('nexus-settings-form');
     if (settingsForm) {
         settingsForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(settingsForm);
-            const data = Object.fromEntries(formData.entries());
-
-            nexusFetch('settings', 'POST', data).then(res => {
+            nexusFetch('settings', 'POST', Object.fromEntries(new FormData(settingsForm).entries())).then(() => {
                 alert('Configuration saved.');
             });
         });
     }
 
-    // 3. KB URL Ingestion
+    // --- 4. Knowledge Base ---
     const kbIndexBtn = document.getElementById('nexus-kb-index-btn');
     if (kbIndexBtn) {
-        kbIndexBtn.addEventListener('click', function(e) {
+        kbIndexBtn.addEventListener('click', function() {
             const urlInput = document.getElementById('nexus-kb-url-input');
             const target = document.getElementById('nexus-kb-target').value;
-
             if (urlInput && urlInput.value) {
                 kbIndexBtn.innerText = 'Indexing...';
-                nexusFetch('kb/ingest', 'POST', {
-                    url: urlInput.value,
-                    target: target
-                }).then(res => {
+                nexusFetch('kb/ingest', 'POST', { url: urlInput.value, target: target }).then(() => {
                     kbIndexBtn.innerText = 'Index';
-                    alert('Knowledge indexed for target: ' + target.toUpperCase());
+                    alert('Indexed for: ' + target.toUpperCase());
                     window.location.reload();
                 });
             }
         });
     }
 
-    // 4. Visual Workflow Builder
-    const openBuilderBtn = document.getElementById('nexus-open-visual-builder');
-    const closeBuilderBtn = document.getElementById('nexus-close-builder');
-    const builderModal = document.getElementById('nexus-visual-builder-modal');
+    const kbFileInput = document.getElementById('nexus-kb-file-input');
+    if (kbFileInput) {
+        kbFileInput.addEventListener('change', function() {
+            if (!kbFileInput.files[0]) return;
+            const formData = new FormData();
+            formData.append('file', kbFileInput.files[0]);
+            fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/kb/upload`, {
+                method: 'POST',
+                headers: { 'X-WP-Nonce': nexus_ai_data.nonce },
+                body: formData
+            }).then(res => res.json()).then(data => {
+                if (data.success) {
+                    alert('Ingested successfully! Chunks: ' + data.chunks);
+                    window.location.reload();
+                }
+            });
+        });
+    }
+
+    const wipeBtn = document.getElementById('nexus-wipe-memory');
+    if (wipeBtn) {
+        wipeBtn.addEventListener('click', function() {
+            if (confirm('Wipe all memory?')) {
+                nexusFetch('kb/wipe', 'POST').then(() => window.location.reload());
+            }
+        });
+    }
+
+    // --- 5. Visual Workflow Builder ---
     const canvas = document.getElementById('nexus-workflow-canvas');
-
-    if (openBuilderBtn && builderModal) {
-        openBuilderBtn.addEventListener('click', () => builderModal.classList.remove('hidden'));
-    }
-    if (closeBuilderBtn && builderModal) {
-        closeBuilderBtn.addEventListener('click', () => builderModal.classList.add('hidden'));
-    }
-
-    // Drag & Drop Logic
     const draggables = document.querySelectorAll('.nexus-draggable-agent');
-    draggables.forEach(draggable => {
-        draggable.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('agent_id', draggable.dataset.id);
-            e.dataTransfer.setData('agent_name', draggable.querySelector('p').innerText);
+
+    draggables.forEach(d => {
+        d.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('agent_id', d.dataset.id);
+            e.dataTransfer.setData('agent_name', d.querySelector('p').innerText);
         });
     });
 
@@ -262,29 +155,26 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const id = e.dataTransfer.getData('agent_id');
             const name = e.dataTransfer.getData('agent_name');
+            const stepCount = canvas.querySelectorAll('.nexus-workflow-step').length + 1;
 
-            // Create a step element on the canvas
             const step = document.createElement('div');
             step.className = 'nexus-workflow-step p-6 rounded-2xl bg-nexus-surface border border-nexus-violet animate-fade-in-up mb-4 w-72 shadow-xl relative z-10';
             step.dataset.agentId = id;
             step.innerHTML = `
                 <div class="flex justify-between items-center mb-3">
-                    <p class="text-nexus-violet font-bold text-xs uppercase tracking-widest">Step ${canvas.querySelectorAll('.nexus-workflow-step').length + 1}</p>
-                    <button class="text-gray-600 hover:text-red-500 transition-colors" onclick="this.parentElement.parentElement.remove()">✕</button>
+                    <p class="text-nexus-violet font-bold text-xs uppercase tracking-widest">Step ${stepCount}</p>
+                    <button class="text-gray-600 hover:text-red-500 transition-colors nexus-step-delete">✕</button>
                 </div>
                 <p class="text-white font-bold">${name}</p>
-                <textarea placeholder="Define the specific task for this agent..." class="nexus-step-task w-full bg-nexus-bg border border-nexus-border rounded-xl mt-3 p-3 text-xs text-white outline-none focus:border-nexus-violet h-20"></textarea>
+                <textarea placeholder="Define task..." class="nexus-step-task w-full bg-nexus-bg border border-nexus-border rounded-xl mt-3 p-3 text-xs text-white outline-none focus:border-nexus-violet h-20"></textarea>
             `;
-
-            if (canvas.querySelector('.text-center')) {
-                canvas.innerHTML = ''; // Clear placeholder
-            }
+            if (canvas.querySelector('.text-center')) canvas.innerHTML = '';
             canvas.appendChild(step);
         });
     }
 
-    const saveWorkflowBtn = document.querySelector('button[id="nexus-save-workflow-btn"]') || document.querySelector('button.bg-accent.text-white.px-8.py-3.rounded-xl.font-bold');
-    if (saveWorkflowBtn && (saveWorkflowBtn.innerText.includes('Save Workflow') || saveWorkflowBtn.id === 'nexus-save-workflow-btn')) {
+    const saveWorkflowBtn = document.getElementById('nexus-save-workflow-btn');
+    if (saveWorkflowBtn) {
         saveWorkflowBtn.addEventListener('click', function() {
             const steps = [];
             document.querySelectorAll('.nexus-workflow-step').forEach((step, index) => {
@@ -294,283 +184,237 @@ document.addEventListener('DOMContentLoaded', function() {
                     task_description: step.querySelector('.nexus-step-task').value
                 });
             });
-
-            if (steps.length === 0) return alert('Add at least one step to the workflow.');
-
-            saveWorkflowBtn.innerText = 'Saving...';
-            nexusFetch('workflows', 'POST', { steps: steps, name: 'Custom Workflow ' + Date.now() }).then(res => {
-                saveWorkflowBtn.innerText = 'Saved ✓';
-                setTimeout(() => saveWorkflowBtn.innerText = 'Save Workflow', 2000);
+            if (steps.length === 0) return;
+            nexusFetch('workflows', 'POST', { steps: steps, name: 'Custom Workflow ' + Date.now() }).then(() => {
+                alert('Workflow Saved');
+                window.location.reload();
             });
         });
     }
 
-    // 8. Run Workflow
-    document.querySelectorAll('.nexus-run-workflow').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const id = btn.dataset.id;
-            const input = prompt('Enter the initial trigger for this workflow (e.g. "Draft a 500 word blog post about solar energy"):');
-            if (!input) return;
+    // --- 6. Global Click Handlers (Delegation) ---
+    document.addEventListener('click', function(e) {
+        // Modal Toggles
+        if (e.target.closest('#nexus-open-visual-builder')) {
+            document.getElementById('nexus-visual-builder-modal')?.classList.remove('hidden');
+        }
+        if (e.target.closest('#nexus-close-builder')) {
+            document.getElementById('nexus-visual-builder-modal')?.classList.add('hidden');
+        }
+        if (e.target.closest('#nexus-close-results')) {
+            document.getElementById('nexus-workflow-results-modal')?.classList.add('hidden');
+        }
 
-            const resultsModal = document.getElementById('nexus-workflow-results-modal');
-            const workflowLog = document.getElementById('nexus-workflow-log');
+        // Canvas Maintenance
+        if (e.target.closest('#nexus-clear-canvas')) {
+            if (canvas) canvas.innerHTML = '<div class="text-center"><p class="text-gray-500 font-bold uppercase tracking-widest text-sm">Drop Agents Here</p></div>';
+        }
 
-            resultsModal.classList.remove('hidden');
-            workflowLog.innerHTML = `<div class="p-6 rounded-2xl bg-accent/10 border border-accent/20 italic text-accent animate-pulse">Initializing execution sequence... Input: "${input}"</div>`;
+        // --- Strategic Archive ---
+        const viewTranscriptBtn = e.target.closest('.nexus-view-transcript');
+        if (viewTranscriptBtn) {
+            const id = viewTranscriptBtn.dataset.id;
+            const title = viewTranscriptBtn.dataset.title;
+            const modal = document.getElementById('nexus-archive-modal');
+            const container = document.getElementById('nexus-archive-content');
 
-            nexusFetch(`workflows/run/${id}`, 'POST', { input: input }).then(res => {
-                workflowLog.innerHTML = ''; // Clear init message
+            modal.classList.remove('hidden');
+            document.getElementById('nexus-archive-title').innerText = title;
+            container.innerHTML = '<p class="text-accent animate-pulse text-center py-10">Retrieving intelligence records...</p>';
 
-                let fullText = '';
-                res.results.forEach((step, index) => {
-                    fullText += `[${step.step} - ${step.agent}]\n${step.output}\n\n`;
-                    const entry = document.createElement('div');
-                    entry.className = 'flex gap-6 items-start animate-fade-in-up';
-                    entry.style.animationDelay = `${index * 0.2}s`;
-                    entry.innerHTML = `
-                        <div class="w-12 h-12 rounded-full bg-nexus-elevated border border-accent flex items-center justify-center font-bold text-accent shrink-0">
-                            ${index + 1}
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between items-center mb-2">
-                                <p class="font-bold text-white uppercase tracking-widest text-[10px] opacity-50">${step.step} • ${step.agent}</p>
-                                <button class="text-[10px] text-accent hover:text-white" onclick="navigator.clipboard.writeText(\`${step.output.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); alert('Step output copied!')">Copy Output</button>
-                            </div>
-                            <div class="p-6 rounded-3xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed shadow-xl">
-                                ${step.output}
+            nexusFetch(`conversations/${id}`, 'GET').then(messages => {
+                container.innerHTML = '';
+                messages.forEach(msg => {
+                    const isUser = msg.sender_type === 'user';
+                    container.innerHTML += `
+                        <div class="flex gap-4 items-start ${isUser ? 'justify-end' : ''}">
+                            <div class="max-w-[80%] p-6 rounded-3xl ${isUser ? 'bg-accent/10 border border-accent/20' : 'bg-white/5 border border-white/5 shadow-xl'}">
+                                <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">${msg.sender_type}</p>
+                                <p class="text-sm text-gray-200 leading-relaxed">${msg.content}</p>
+                                <p class="text-[9px] text-gray-600 mt-4">${msg.created_at}</p>
                             </div>
                         </div>
                     `;
-                    workflowLog.appendChild(entry);
                 });
-
-                const final = document.createElement('div');
-                final.className = 'p-6 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-500 font-bold text-center mt-10 flex flex-col items-center gap-4';
-                final.innerHTML = `
-                    <p>WORKFLOW SEQUENCE COMPLETED SUCCESSFULLY ✓</p>
-                    <button class="bg-green-500 text-black px-6 py-2 rounded-xl text-xs" onclick="navigator.clipboard.writeText(\`${fullText.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); alert('Full trace copied!')">Copy Full Trace</button>
-                `;
-                workflowLog.appendChild(final);
             });
+        }
+
+        if (e.target.closest('#nexus-close-archive')) {
+            document.getElementById('nexus-archive-modal')?.classList.add('hidden');
+        }
+
+        const exportMDBtn = e.target.closest('.nexus-export-md');
+        if (exportMDBtn) {
+            const id = exportMDBtn.dataset.id;
+            const title = exportMDBtn.dataset.title;
+
+            nexusFetch(`conversations/${id}`, 'GET').then(messages => {
+                let md = `# ${title}\n\n`;
+                messages.forEach(msg => {
+                    md += `### ${msg.sender_type.toUpperCase()} (${msg.created_at})\n${msg.content}\n\n---\n\n`;
+                });
+                const blob = new Blob([md], { type: 'text/markdown' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${title.replace(/\s+/g, '_')}_transcript.md`;
+                a.click();
+            });
+        }
+
+        // Agent Deletion
+        const delAgentBtn = e.target.closest('.nexus-delete-agent');
+        if (delAgentBtn) {
+            if (confirm('Are you sure you want to terminate this agent contract?')) {
+                const id = delAgentBtn.dataset.id;
+                nexusFetch(`employees/${id}`, 'DELETE').then(() => window.location.reload());
+            }
+        }
+
+        // Dept Deletion
+        const delDeptBtn = e.target.closest('.nexus-delete-dept');
+        if (delDeptBtn) {
+            if (confirm('Delete this department? Active agents will be unassigned.')) {
+                const id = delDeptBtn.dataset.id;
+                nexusFetch(`departments/${id}`, 'DELETE').then(() => window.location.reload());
+            }
+        }
+
+        // Step Deletion
+        if (e.target.closest('.nexus-step-delete')) {
+            e.target.closest('.nexus-workflow-step').remove();
+            document.querySelectorAll('.nexus-workflow-step').forEach((s, i) => {
+                const label = s.querySelector('p.text-nexus-violet');
+                if (label) label.innerText = 'Step ' + (i + 1);
+            });
+        }
+
+        // Workflow Deletion
+        const delWfBtn = e.target.closest('.nexus-delete-workflow');
+        if (delWfBtn) {
+            if (confirm('Delete this automation?')) {
+                const id = delWfBtn.dataset.id;
+                nexusFetch(`workflows/${id}`, 'DELETE').then(() => window.location.reload());
+            }
+        }
+
+        // Run Workflow
+        const runWfBtn = e.target.closest('.nexus-run-workflow');
+        if (runWfBtn) {
+            const id = runWfBtn.dataset.id;
+            const input = prompt('Enter trigger:');
+            if (!input) return;
+            document.getElementById('nexus-workflow-results-modal')?.classList.remove('hidden');
+            const log = document.getElementById('nexus-workflow-log');
+            log.innerHTML = '<p class="text-accent animate-pulse">Initializing...</p>';
+            nexusFetch(`workflows/run/${id}`, 'POST', { input: input }).then(res => {
+                log.innerHTML = '';
+                res.results.forEach((step, idx) => {
+                    log.innerHTML += `<div class="p-6 bg-white/5 rounded-2xl mb-4 border border-white/5">
+                        <p class="text-[10px] text-accent uppercase font-bold mb-2">${step.step} - ${step.agent}</p>
+                        <p class="text-sm text-gray-300">${step.output}</p>
+                    </div>`;
+                });
+            });
+        }
+    });
+
+    // --- 7. Billing ---
+    document.querySelectorAll('.nexus-select-plan').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const plan = btn.dataset.plan;
+            btn.innerText = 'Activating...';
+            nexusFetch('billing/upgrade', 'POST', { plan: plan }).then(() => window.location.reload());
         });
     });
 
-    const closeResultsBtn = document.getElementById('nexus-close-results');
-    if (closeResultsBtn) {
-        closeResultsBtn.addEventListener('click', () => document.getElementById('nexus-workflow-results-modal').classList.add('hidden'));
-    }
-
-    // 9. Connectivity Test
-    const testBtn = document.getElementById('nexus-test-connectivity');
-    if (testBtn) {
-        testBtn.addEventListener('click', function() {
-            testBtn.innerText = 'Testing All Endpoints...';
-            nexusFetch('status', 'GET').then(res => {
-                testBtn.innerText = 'All Systems Operational ✓';
-                setTimeout(() => testBtn.innerText = 'Run Global Connectivity Test', 3000);
-            });
+    const cancelSubBtn = document.getElementById('nexus-cancel-sub');
+    if (cancelSubBtn) {
+        cancelSubBtn.addEventListener('click', function() {
+            if (confirm('Proceed with cancellation?')) {
+                cancelSubBtn.innerText = 'Cancelling...';
+                nexusFetch('billing/cancel', 'POST').then(() => window.location.reload());
+            }
         });
     }
 
-    // 5. AI Meeting Collaboration Hub
+    // --- 8. Meetings ---
     const startMeetingBtn = document.getElementById('nexus-start-meeting-btn');
-    const meetingTranscript = document.getElementById('nexus-meeting-transcript');
-    const meetingInput = document.getElementById('nexus-meeting-input');
-    const sendMeetingBtn = document.getElementById('nexus-send-meeting-msg');
-
     if (startMeetingBtn) {
         startMeetingBtn.addEventListener('click', function() {
             const invitees = Array.from(document.querySelectorAll('.nexus-meeting-invitee:checked')).map(cb => cb.value);
             const agenda = document.getElementById('nexus-meeting-agenda').value;
-
-            if (invitees.length === 0) return alert('Invite at least one AI participant.');
-            if (!agenda) return alert('Please define an agenda for the meeting.');
-
-            startMeetingBtn.innerText = 'Collaborating...';
-            meetingTranscript.innerHTML = `<div class="p-4 rounded-xl bg-nexus-violet/10 border border-nexus-violet/20 italic text-nexus-violet">Meeting initialized. Agenda: ${agenda}</div>`;
-
-            // Start the recursive multi-agent chain via REST
+            if (invitees.length === 0 || !agenda) return;
+            document.getElementById('nexus-meeting-transcript').innerHTML = '<p class="text-accent italic">Meeting Started...</p>';
             runMeetingRound(invitees, agenda);
         });
     }
 
     function runMeetingRound(invitees, agenda, round = 1) {
-        if (round > 5) { // Cap for MVP safety
-            meetingTranscript.innerHTML += `<div class="p-4 rounded-xl bg-green-500/10 border border-green-500/20 italic text-green-500 text-center font-bold">Consensus reached. Final strategy finalized.</div>`;
-            startMeetingBtn.innerText = 'Start Strategic Meeting';
+        if (round > 5) {
+            document.getElementById('nexus-meeting-transcript').innerHTML += '<p class="text-green-500 font-bold text-center mt-4">Consensus Reached.</p>';
+            document.getElementById('nexus-meeting-summarize')?.classList.remove('hidden');
             return;
         }
-
-        const nextAgentId = invitees[(round - 1) % invitees.length];
-
-        nexusFetch(`chat/meeting`, 'POST', {
-            agent_id: nextAgentId,
-            agenda: agenda,
-            round: round,
-            invitees: invitees
-        }).then(res => {
-            const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444', '#f97316'];
-            const agentColor = colors[round % colors.length];
-
-            const entry = document.createElement('div');
-            entry.className = 'flex gap-4 items-start animate-fade-in-up';
-            entry.innerHTML = `
-                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0 shadow-lg" style="background-color: ${agentColor}">
-                    ${res.agent_name.charAt(0)}
+        const nextId = invitees[(round - 1) % invitees.length];
+        nexusFetch('chat/meeting', 'POST', { agent_id: nextId, agenda: agenda, round: round }).then(res => {
+            const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981'];
+            const bubble = `<div class="flex gap-4 items-start animate-fade-in-up">
+                <div class="w-10 h-10 rounded-full shrink-0 flex items-center justify-center font-bold text-white" style="background-color: ${colors[round%4]}">${res.agent_name[0]}</div>
+                <div class="flex-1 p-4 bg-white/5 rounded-2xl border-l-4" style="border-color: ${colors[round%4]}">
+                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">${res.agent_name} (${res.position})</p>
+                    <p class="text-sm text-gray-200">${res.content}</p>
                 </div>
-                <div class="flex-1">
-                    <p class="font-bold text-white mb-1">${res.agent_name} <span class="text-xs text-gray-500 font-normal ml-2">${res.position}</span></p>
-                    <div class="p-6 rounded-3xl bg-nexus-elevated border-l-4 text-gray-300 text-sm leading-relaxed shadow-xl" style="border-color: ${agentColor}">
-                        ${res.content}
-                    </div>
-                </div>
-            `;
-            meetingTranscript.appendChild(entry);
-            meetingTranscript.scrollTop = meetingTranscript.scrollHeight;
-
-            // Chain to next agent after a short "thinking" delay
+            </div>`;
+            const transcript = document.getElementById('nexus-meeting-transcript');
+            if (round === 1) transcript.innerHTML = '';
+            transcript.innerHTML += bubble;
+            transcript.scrollTop = transcript.scrollHeight;
             setTimeout(() => runMeetingRound(invitees, agenda, round + 1), 2000);
         });
     }
 
-    // 6. Marketplace Tabs & Install
-    const tabButtons = document.querySelectorAll('.nexus-tab-btn');
-    const tabContents = document.querySelectorAll('.nexus-tab-content');
+    // --- 9. Department Creation ---
+    const createDeptForm = document.getElementById('nexus-create-dept-form');
+    if (createDeptForm) {
+        createDeptForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = createDeptForm.querySelector('button[type="submit"]');
+            btn.innerText = 'Structuring Organization...';
+            btn.classList.add('opacity-50', 'pointer-events-none');
 
-    tabButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.tab;
-
-            tabButtons.forEach(b => b.classList.remove('bg-accent', 'text-white'));
-            tabButtons.forEach(b => b.classList.add('text-gray-400'));
-            btn.classList.remove('text-gray-400');
-            btn.classList.add('bg-accent', 'text-white');
-
-            tabContents.forEach(content => {
-                if (content.id === `nexus-${target}-tab`) {
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
+            const data = Object.fromEntries(new FormData(createDeptForm).entries());
+            nexusFetch('departments', 'POST', data).then(() => {
+                alert('Department initialized successfully.');
+                window.location.reload();
             });
         });
-    });
+    }
 
-    const installButtons = document.querySelectorAll('.nexus-marketplace-install');
-    installButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const agentKey = btn.dataset.agent;
-            btn.innerText = 'Installing...';
-
-            nexusFetch('marketplace/import', 'POST', { agent_key: agentKey }).then(res => {
-                btn.innerText = 'Installed ✓';
-                btn.classList.replace('bg-nexus-gold/20', 'bg-green-500/20');
-                btn.classList.replace('text-nexus-gold', 'text-green-500');
-            });
+    // --- 10. Analytics (Chart.js) ---
+    const consumptionCtx = document.getElementById('nexus-consumption-chart');
+    if (consumptionCtx && typeof Chart !== 'undefined') {
+        new Chart(consumptionCtx, {
+            type: 'line',
+            data: {
+                labels: ['W1', 'W2', 'Week 3', 'Week 4'],
+                datasets: [{ label: 'Usage', data: [12, 19, 3, 5], borderColor: '#7C3AED', tension: 0.4 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
         });
-    });
-
-    /**
-     * Helper to wrap WP REST API calls
-     */
-    async function nexusFetch(endpoint, method = 'GET', data = null) {
-        const options = {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'X-WP-Nonce': nexus_ai_data.nonce
-            }
-        };
-        if (data) options.body = JSON.stringify(data);
-
-        const response = await fetch(`${nexus_ai_data.rest_url}nexus-ai/v1/${endpoint}`, options);
-        return response.json();
     }
 });
 
-// 15. Visual Builder Reliability & Cleanup
+// 20. Purge Logs Action
 document.addEventListener('click', function(e) {
-    // Better modal toggle
-    const openBtn = e.target.closest('#nexus-open-visual-builder');
-    if (openBtn) {
-        const modal = document.getElementById('nexus-visual-builder-modal');
-        if (modal) modal.classList.remove('hidden');
-    }
-
-    const closeBtn = e.target.closest('#nexus-close-builder');
-    if (closeBtn) {
-        const modal = document.getElementById('nexus-visual-builder-modal');
-        if (modal) modal.classList.add('hidden');
-    }
-
-    // Clear Canvas
-    const clearBtn = e.target.closest('#nexus-clear-canvas');
-    if (clearBtn) {
-        const canvas = document.getElementById('nexus-workflow-canvas');
-        if (canvas) {
-            canvas.innerHTML = '<div class="text-center"><p class="text-gray-500 font-bold uppercase tracking-widest text-sm">Drop Agents Here to Initialize Sequence</p></div>';
+    const purgeBtn = e.target.closest('#nexus-purge-logs');
+    if (purgeBtn) {
+        if (confirm('Are you sure you want to purge all usage and audit logs? This action is irreversible.')) {
+            purgeBtn.innerText = 'Purging Data...';
+            nexusFetch('status/purge', 'POST').then(() => {
+                alert('System logs purged successfully.');
+                window.location.reload();
+            });
         }
     }
-
-    // Step Deletion Logic (Fix for global context)
-    const delBtn = e.target.closest('.nexus-workflow-step button');
-    if (delBtn) {
-        delBtn.closest('.nexus-workflow-step').remove();
-        // Re-index remaining steps
-        document.querySelectorAll('.nexus-workflow-step').forEach((step, idx) => {
-            const stepLabel = step.querySelector('p.text-nexus-violet');
-            if (stepLabel) stepLabel.innerText = 'Step ' + (idx + 1);
-        });
-    }
 });
-
-// 16. Subscription Cancellation
-const cancelSubBtn = document.getElementById('nexus-cancel-sub');
-if (cancelSubBtn) {
-    cancelSubBtn.addEventListener('click', function() {
-        if (!confirm('Warning: Cancelling your plan will deactivate all agents at the end of your billing cycle. Proceed?')) return;
-
-        cancelSubBtn.innerText = 'Processing...';
-        nexusFetch('billing/cancel', 'POST').then(res => {
-            alert('Cancellation request received.');
-            window.location.reload();
-        });
-    });
-}
-
-// 17. Meeting Summarization & Export
-function updateMeetingUI(isConcluded = false) {
-    const summarizeBtn = document.getElementById('nexus-meeting-summarize');
-    if (summarizeBtn && isConcluded) {
-        summarizeBtn.classList.remove('hidden');
-        summarizeBtn.addEventListener('click', function() {
-            const transcript = document.getElementById('nexus-meeting-transcript').innerText;
-            navigator.clipboard.writeText(transcript);
-            alert('Meeting minutes copied to clipboard!');
-            summarizeBtn.innerText = 'COPIED ✓';
-        });
-    }
-}
-
-// Intercept original meeting logic to show summarize button
-const originalRunMeetingRound = runMeetingRound;
-runMeetingRound = function(invitees, agenda, round = 1) {
-    if (round > 5) {
-        updateMeetingUI(true);
-    }
-    originalRunMeetingRound(invitees, agenda, round);
-};
-
-// 18. Department Creation
-const createDeptForm = document.getElementById('nexus-create-dept-form');
-if (createDeptForm) {
-    createDeptForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(createDeptForm).entries());
-
-        nexusFetch('departments', 'POST', data).then(res => {
-            alert('Department initialized successfully.');
-            window.location.reload();
-        });
-    });
-}

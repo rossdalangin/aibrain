@@ -155,6 +155,28 @@
 .bg-accent { background-color: var(--nexus-accent); }
 .border-accent { border-color: var(--nexus-accent); }
 
+/* Form Enhancements */
+label {
+  color: #e5e7eb !important; /* Lighter text for labels */
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="url"],
+textarea,
+select {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--nexus-accent) !important;
+  box-shadow: 0 0 15px -5px var(--nexus-accent) !important;
+  outline: none !important;
+}
+
 /* Colorful Buttons */
 .nexus-btn-vibrant {
   position: relative;
