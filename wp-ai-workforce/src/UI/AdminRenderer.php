@@ -145,6 +145,34 @@ class AdminRenderer {
 				</div>
 			</div>
 
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-12">
+				<div class="lg:col-span-2 glass-panel p-8 rounded-3xl border border-nexus-border">
+					<h2 class="text-xl font-bold mb-6">Departmental Performance</h2>
+					<div class="h-80">
+						<canvas id="nexus-dept-chart"></canvas>
+					</div>
+				</div>
+				<div class="lg:col-span-1 glass-panel p-8 rounded-3xl border border-nexus-border">
+					<h2 class="text-xl font-bold mb-6 italic">Activity Stream</h2>
+					<div class="space-y-6">
+						<div class="flex gap-4">
+							<div class="w-2 h-10 bg-accent rounded-full"></div>
+							<div>
+								<p class="text-xs font-bold text-white uppercase">Knowledge Base Update</p>
+								<p class="text-[11px] text-gray-500">Market_Analysis_2025.pdf indexed.</p>
+							</div>
+						</div>
+						<div class="flex gap-4 opacity-70">
+							<div class="w-2 h-10 bg-nexus-blue rounded-full"></div>
+							<div>
+								<p class="text-xs font-bold text-white uppercase">Meeting Concluded</p>
+								<p class="text-[11px] text-gray-500">Q4 Strategy finalized by CEO & CMO.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 					<h2 class="text-xl font-semibold mb-6">Workforce Activity</h2>
@@ -185,6 +213,65 @@ class AdminRenderer {
 	/**
 	 * Render the "Hire Agent" workforce management page.
 	 */
+	/**
+	 * Render the Departments (Org Structure) page.
+	 */
+	public function render_departments_page(): void {
+		echo $this->get_brand_styles();
+		global $wpdb;
+		$depts = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_departments ORDER BY name ASC", ARRAY_A ) ?: [];
+		?>
+		<div class="nexus-admin-body p-10 theme-workforce">
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Organizational Design</h2>
+				<h1 class="text-4xl font-bold text-white">Company Departments</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Define your company's organizational structure. Assign agents to departments to enable context-sharing and specialized reporting.</p>
+			</div>
+
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+				<div class="lg:col-span-1">
+					<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
+						<h2 class="text-xl font-bold mb-6">Create New Department</h2>
+						<form id="nexus-create-dept-form" class="space-y-6">
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Department Name</label>
+								<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. Marketing, IT, Finance">
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Description</label>
+								<textarea name="description" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What does this department handle?"></textarea>
+							</div>
+							<button type="submit" class="w-full bg-accent text-white font-bold py-3 rounded-xl nexus-btn-vibrant">Initialize Department</button>
+						</form>
+					</div>
+				</div>
+
+				<div class="lg:col-span-2">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<?php foreach ( $depts as $dept ) : ?>
+							<div class="glass-panel p-6 rounded-2xl border border-nexus-border glass-card-hover">
+								<h3 class="text-xl font-bold text-white mb-2"><?php echo esc_html( $dept['name'] ); ?></h3>
+								<p class="text-sm text-gray-500 mb-4"><?php echo esc_html( $dept['description'] ); ?></p>
+								<div class="flex justify-between items-center mt-6 pt-4 border-t border-nexus-border/30">
+									<span class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">Active Agents: <?php
+										echo (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE department_id = %d", $dept['id'] ) );
+									?></span>
+									<button class="text-xs text-accent hover:underline">Manage Team</button>
+								</div>
+							</div>
+						<?php endforeach; ?>
+						<?php if ( empty( $depts ) ) : ?>
+							<div class="col-span-2 glass-panel p-20 rounded-3xl border-2 border-dashed border-nexus-border text-center">
+								<p class="text-gray-500 italic">No departments initialized yet. Create your first one to organize your workforce.</p>
+							</div>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
 	public function render_workforce_page(): void {
 		echo $this->get_brand_styles();
 		?>
@@ -256,23 +343,32 @@ class AdminRenderer {
 						<p class="text-[10px] text-gray-500 mt-3">Expect: Instant population of professional identity and mission constraints.</p>
 					</div>
 
-					<form id="nexus-hire-agent-form" class="space-y-6">
-						<div>
-							<label class="block text-sm font-medium text-gray-400 mb-2">Agent Name</label>
-							<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. Sarah">
-						</div>
-						<div>
-							<label class="block text-sm font-medium text-gray-400 mb-2">Professional Position</label>
-							<input type="text" name="position" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. CMO, Full Stack Developer">
-						</div>
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-							<div>
-								<label class="block text-sm font-medium text-gray-400 mb-2">Identity (Persona)</label>
-								<textarea name="identity" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Who is this AI?"></textarea>
+					<form id="nexus-hire-agent-form" class="space-y-8">
+						<!-- Phase 1: Identity -->
+						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 1: Professional Identity</p>
+							<div class="space-y-4">
+								<div>
+									<label class="block text-sm font-medium text-gray-400 mb-2">Agent Name</label>
+									<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. Sarah">
+								</div>
+								<div>
+									<label class="block text-sm font-medium text-gray-400 mb-2">Professional Position</label>
+									<input type="text" name="position" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. CMO, Full Stack Developer">
+								</div>
 							</div>
-							<div>
-								<label class="block text-sm font-medium text-gray-400 mb-2">Mission (Primary Objective)</label>
-								<textarea name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What is its main goal?"></textarea>
+						</div>
+						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 2: Core Reasoning</p>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								<div>
+									<label class="block text-sm font-medium text-gray-400 mb-2">Identity (Persona)</label>
+									<textarea name="identity" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Who is this AI?"></textarea>
+								</div>
+								<div>
+									<label class="block text-sm font-medium text-gray-400 mb-2">Mission (Primary Objective)</label>
+									<textarea name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What is its main goal?"></textarea>
+								</div>
 							</div>
 						</div>
 						<div class="grid grid-cols-2 gap-6">
@@ -525,10 +621,23 @@ class AdminRenderer {
 							<span class="nexus-button-note">Expect: Automatic chunking and semantic indexing into Company Memory.</span>
 						</div>
 						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Assign Knowledge To</label>
+							<select id="nexus-kb-target" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-white mb-6">
+								<option value="global">Global Company Brain</option>
+								<?php
+								global $wpdb;
+								$agents = $wpdb->get_results( "SELECT id, name FROM {$wpdb->prefix}ai_employees", ARRAY_A );
+								foreach ( $agents as $agent ) {
+									echo '<option value="agent-' . (int) $agent['id'] . '">Agent: ' . esc_html( $agent['name'] ) . '</option>';
+								}
+								?>
+							</select>
+						</div>
+						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Web Scraper</label>
 							<div class="flex gap-2">
-								<input type="url" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white outline-none focus:border-accent" placeholder="https://...">
-								<button class="bg-accent text-white px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all">Index</button>
+								<input type="url" id="nexus-kb-url-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white outline-none focus:border-accent" placeholder="https://...">
+								<button id="nexus-kb-index-btn" class="bg-accent text-white px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all">Index</button>
 							</div>
 							<span class="nexus-button-note">Expect: Recursive crawling of the provided URL.</span>
 						</div>
@@ -781,6 +890,59 @@ class AdminRenderer {
 	/**
 	 * Render the Billing & Plans page.
 	 */
+	/**
+	 * Render the Strategic Archive (Conversation Library).
+	 */
+	public function render_archive_page(): void {
+		echo $this->get_brand_styles();
+		global $wpdb;
+		$convs = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_conversations ORDER BY created_at DESC", ARRAY_A ) ?: [];
+		?>
+		<div class="nexus-admin-body p-10 theme-settings">
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Institutional Knowledge</h2>
+				<h1 class="text-4xl font-bold text-white">Strategic Archive</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Access all past AI meetings, workflow traces, and single-agent interactions. Filter by type to find specific strategic decisions.</p>
+			</div>
+
+			<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
+				<div class="overflow-x-auto">
+					<table class="w-full text-left text-sm text-gray-400">
+						<thead class="text-xs uppercase text-gray-500 border-b border-nexus-border">
+							<tr>
+								<th class="pb-4 px-2">Session Title</th>
+								<th class="pb-4 px-2">Type</th>
+								<th class="pb-4 px-2">Date</th>
+								<th class="pb-4 px-2 text-right">Actions</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-nexus-border/50">
+							<?php foreach ( $convs as $conv ) : ?>
+								<tr>
+									<td class="py-5 px-2 font-bold text-white"><?php echo esc_html( $conv['title'] ?: 'Untitled Session' ); ?></td>
+									<td class="py-5 px-2">
+										<span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase border border-accent/20">
+											<?php echo esc_html( $conv['type'] ); ?>
+										</span>
+									</td>
+									<td class="py-5 px-2 text-xs opacity-50"><?php echo esc_html( $conv['created_at'] ); ?></td>
+									<td class="py-5 px-2 text-right">
+										<button class="bg-white/5 hover:bg-white/10 text-white px-4 py-1 rounded-lg text-[10px] font-bold transition-all">View Transcript</button>
+										<button class="bg-accent/20 hover:bg-accent text-accent hover:text-black px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2">Export MD</button>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+							<?php if ( empty( $convs ) ) : ?>
+								<tr><td colspan="4" class="py-12 text-center italic opacity-30">Archive is currently empty.</td></tr>
+							<?php endif; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
 	public function render_billing_page(): void {
 		echo $this->get_brand_styles();
 		$active_plan = get_option( 'nexus_ai_active_plan', 'starter' );

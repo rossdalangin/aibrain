@@ -33,6 +33,7 @@ class RestHandler {
 		$marketplace_controller = new MarketplaceController();
 		$kb_controller = new KBController();
 		$billing_controller = new BillingController();
+		$dept_controller = new DepartmentController();
 
 		register_rest_route( $this->namespace, '/settings', [
 			[
@@ -215,6 +216,19 @@ class RestHandler {
 
 					return new \WP_REST_Response( $result, 200 );
 				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/departments', [
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $dept_controller, 'get_items' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $dept_controller, 'create_item' ],
 				'permission_callback' => [ $this, 'check_permission' ],
 			],
 		] );

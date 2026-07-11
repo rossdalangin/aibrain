@@ -36,6 +36,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 19. Department Performance Chart
+    const deptCtx = document.getElementById('nexus-dept-chart');
+    if (deptCtx && typeof Chart !== 'undefined') {
+        new Chart(deptCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Marketing', 'IT', 'Sales', 'Finance', 'Legal'],
+                datasets: [{
+                    label: 'Tasks Completed',
+                    data: [120, 190, 85, 45, 30],
+                    backgroundColor: ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444'],
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    }
+
     // 12. Purge Logs
     const purgeBtn = document.getElementById('nexus-purge-logs');
     if (purgeBtn) {
@@ -188,15 +214,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 3. KB URL Ingestion
-    const kbForm = document.querySelector('button[class*="bg-nexus-violet"]'); // Simple selector for MVP
-    if (kbForm && kbForm.innerText === 'Index') {
-        kbForm.addEventListener('click', function(e) {
-            const urlInput = document.querySelector('input[type="url"]');
+    const kbIndexBtn = document.getElementById('nexus-kb-index-btn');
+    if (kbIndexBtn) {
+        kbIndexBtn.addEventListener('click', function(e) {
+            const urlInput = document.getElementById('nexus-kb-url-input');
+            const target = document.getElementById('nexus-kb-target').value;
+
             if (urlInput && urlInput.value) {
-                kbForm.innerText = 'Indexing...';
-                nexusFetch('kb/ingest', 'POST', { url: urlInput.value }).then(res => {
-                    kbForm.innerText = 'Index';
-                    alert('URL content indexed into Company Brain!');
+                kbIndexBtn.innerText = 'Indexing...';
+                nexusFetch('kb/ingest', 'POST', {
+                    url: urlInput.value,
+                    target: target
+                }).then(res => {
+                    kbIndexBtn.innerText = 'Index';
+                    alert('Knowledge indexed for target: ' + target.toUpperCase());
                     window.location.reload();
                 });
             }
@@ -529,3 +560,17 @@ runMeetingRound = function(invitees, agenda, round = 1) {
     }
     originalRunMeetingRound(invitees, agenda, round);
 };
+
+// 18. Department Creation
+const createDeptForm = document.getElementById('nexus-create-dept-form');
+if (createDeptForm) {
+    createDeptForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(createDeptForm).entries());
+
+        nexusFetch('departments', 'POST', data).then(res => {
+            alert('Department initialized successfully.');
+            window.location.reload();
+        });
+    });
+}

@@ -31,6 +31,7 @@ class KBController {
 	public function ingest_item( WP_REST_Request $request ): WP_REST_Response {
 		$params = $request->get_params();
 		$url    = esc_url_raw( $params['url'] ?? '' );
+		$target = sanitize_text_field( $params['target'] ?? 'global' );
 
 		if ( empty( $url ) ) {
 			return new WP_REST_Response( [ 'message' => 'URL is required' ], 400 );
@@ -48,9 +49,26 @@ class KBController {
 		// 2. Chunk text
 		$chunks = $this->chunker->chunk( $text );
 
-		// 3. Store document metadata
+		// 3. Resolve KB ID (Handle target isolation)
+		$kb_id = 1; // Default
+		if ( strpos( $target, 'agent-' ) === 0 ) {
+			$agent_id = (int) str_replace( 'agent-', '', $target );
+			// Find or create agent-specific KB
+			global $wpdb;
+			$kb_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}ai_knowledge_bases WHERE owner_type = 'employee' AND owner_id = %d", $agent_id ) );
+			if ( ! $kb_id ) {
+				$wpdb->insert( $wpdb->prefix . 'ai_knowledge_bases', [
+					'name' => "Agent KB $agent_id",
+					'owner_type' => 'employee',
+					'owner_id' => $agent_id
+				] );
+				$kb_id = $wpdb->insert_id;
+			}
+		}
+
+		// 4. Store document metadata
 		$doc_id = $this->repository->create( [
-			'kb_id'       => 1, // Default Global KB
+			'kb_id'       => $kb_id,
 			'type'        => 'url',
 			'source_path' => $url,
 			'status'      => 'indexed',

@@ -52,11 +52,29 @@ class Plugin {
 
 		add_submenu_page(
 			'nexus-ai-workforce',
+			__( 'Archive', 'nexus-ai-workforce' ),
+			'Strategic Archive',
+			'manage_options',
+			'nexus-ai-workforce-archive',
+			[ $this, 'render_archive_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
 			__( 'Workforce', 'nexus-ai-workforce' ),
 			'Hire AI Agents',
 			'manage_options',
 			'nexus-ai-workforce-employees',
 			[ $this, 'render_workforce_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
+			__( 'Departments', 'nexus-ai-workforce' ),
+			'Org Structure',
+			'manage_options',
+			'nexus-ai-workforce-departments',
+			[ $this, 'render_departments_page' ]
 		);
 
 		add_submenu_page(
@@ -115,6 +133,12 @@ class Plugin {
 		}
 	}
 
+	public function render_departments_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_departments_page();
+		}
+	}
+
 	public function render_settings_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_settings_page();
@@ -142,6 +166,12 @@ class Plugin {
 	public function render_meetings_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_meetings_page();
+		}
+	}
+
+	public function render_archive_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_archive_page();
 		}
 	}
 
