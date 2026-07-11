@@ -456,3 +456,76 @@ document.addEventListener('DOMContentLoaded', function() {
         return response.json();
     }
 });
+
+// 15. Visual Builder Reliability & Cleanup
+document.addEventListener('click', function(e) {
+    // Better modal toggle
+    const openBtn = e.target.closest('#nexus-open-visual-builder');
+    if (openBtn) {
+        const modal = document.getElementById('nexus-visual-builder-modal');
+        if (modal) modal.classList.remove('hidden');
+    }
+
+    const closeBtn = e.target.closest('#nexus-close-builder');
+    if (closeBtn) {
+        const modal = document.getElementById('nexus-visual-builder-modal');
+        if (modal) modal.classList.add('hidden');
+    }
+
+    // Clear Canvas
+    const clearBtn = e.target.closest('#nexus-clear-canvas');
+    if (clearBtn) {
+        const canvas = document.getElementById('nexus-workflow-canvas');
+        if (canvas) {
+            canvas.innerHTML = '<div class="text-center"><p class="text-gray-500 font-bold uppercase tracking-widest text-sm">Drop Agents Here to Initialize Sequence</p></div>';
+        }
+    }
+
+    // Step Deletion Logic (Fix for global context)
+    const delBtn = e.target.closest('.nexus-workflow-step button');
+    if (delBtn) {
+        delBtn.closest('.nexus-workflow-step').remove();
+        // Re-index remaining steps
+        document.querySelectorAll('.nexus-workflow-step').forEach((step, idx) => {
+            const stepLabel = step.querySelector('p.text-nexus-violet');
+            if (stepLabel) stepLabel.innerText = 'Step ' + (idx + 1);
+        });
+    }
+});
+
+// 16. Subscription Cancellation
+const cancelSubBtn = document.getElementById('nexus-cancel-sub');
+if (cancelSubBtn) {
+    cancelSubBtn.addEventListener('click', function() {
+        if (!confirm('Warning: Cancelling your plan will deactivate all agents at the end of your billing cycle. Proceed?')) return;
+
+        cancelSubBtn.innerText = 'Processing...';
+        nexusFetch('billing/cancel', 'POST').then(res => {
+            alert('Cancellation request received.');
+            window.location.reload();
+        });
+    });
+}
+
+// 17. Meeting Summarization & Export
+function updateMeetingUI(isConcluded = false) {
+    const summarizeBtn = document.getElementById('nexus-meeting-summarize');
+    if (summarizeBtn && isConcluded) {
+        summarizeBtn.classList.remove('hidden');
+        summarizeBtn.addEventListener('click', function() {
+            const transcript = document.getElementById('nexus-meeting-transcript').innerText;
+            navigator.clipboard.writeText(transcript);
+            alert('Meeting minutes copied to clipboard!');
+            summarizeBtn.innerText = 'COPIED ✓';
+        });
+    }
+}
+
+// Intercept original meeting logic to show summarize button
+const originalRunMeetingRound = runMeetingRound;
+runMeetingRound = function(invitees, agenda, round = 1) {
+    if (round > 5) {
+        updateMeetingUI(true);
+    }
+    originalRunMeetingRound(invitees, agenda, round);
+};

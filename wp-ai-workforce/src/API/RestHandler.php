@@ -47,6 +47,17 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/billing/cancel', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function() {
+					update_option( 'nexus_ai_cancel_pending', true );
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/chat/meeting', [
 			[
 				'methods'             => WP_REST_Server::CREATABLE,

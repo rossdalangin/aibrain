@@ -24,12 +24,17 @@
 
 /* Luxury Glassmorphism */
 .glass-panel {
-  background: rgba(18, 18, 20, 0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--nexus-border);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(18, 18, 20, 0.7);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  background: rgba(22, 22, 24, 0.85);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .glass-card-hover:hover {
@@ -121,6 +126,29 @@
 .nexus-admin-body > div:nth-child(2) { animation-delay: 0.2s; }
 .nexus-admin-body > div:nth-child(3) { animation-delay: 0.3s; }
 .nexus-admin-body > div:nth-child(4) { animation-delay: 0.4s; }
+
+/* Sidebar Navigation Overrides */
+#adminmenu {
+  background-color: var(--nexus-bg) !important;
+}
+
+#adminmenu .wp-has-current-submenu .wp-submenu {
+  background-color: var(--nexus-surface) !important;
+}
+
+/* Modal Transitions */
+#nexus-visual-builder-modal, #nexus-workflow-results-modal {
+  transition: opacity 0.4s ease-out;
+}
+
+.modal-content-zoom {
+  animation: modal-zoom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modal-zoom {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
 
 /* Typography */
 .text-accent { color: var(--nexus-accent); }

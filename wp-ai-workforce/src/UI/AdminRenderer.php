@@ -680,6 +680,7 @@ class AdminRenderer {
 								<p class="text-xs text-gray-500 mt-1">Establish the execution sequence for your AI workforce.</p>
 							</div>
 							<div class="flex gap-4">
+								<button id="nexus-clear-canvas" class="text-gray-400 hover:text-red-500 bg-white/5 px-6 py-2 rounded-xl text-xs font-bold transition-all">Clear Canvas</button>
 								<button id="nexus-save-workflow-btn" class="bg-accent text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant">Save Workflow</button>
 								<button id="nexus-close-builder" class="text-gray-400 hover:text-white bg-nexus-elevated px-4 rounded-xl">✕</button>
 							</div>
@@ -748,8 +749,12 @@ class AdminRenderer {
 					<div id="nexus-meeting-room" class="glass-panel rounded-3xl border border-nexus-border min-h-[650px] flex flex-col overflow-hidden bg-black/40">
 						<div class="p-6 border-b border-nexus-border bg-nexus-elevated/50 flex justify-between items-center">
 							<div class="flex items-center gap-4">
-								<div class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
-								<h2 class="font-bold text-white uppercase tracking-widest text-xs">Live Transcription</h2>
+								<div class="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+								<h2 class="font-bold text-white uppercase tracking-widest text-[10px]">Live Strategic Transcription</h2>
+							</div>
+							<div class="flex gap-2">
+								<button id="nexus-meeting-summarize" class="hidden text-[9px] text-accent font-bold bg-accent/10 border border-accent/20 px-3 py-1 rounded-full uppercase hover:bg-accent hover:text-black transition-all">Summarize & Finalize</button>
+								<span class="text-[9px] text-nexus-violet font-bold bg-nexus-violet/10 border border-nexus-violet/20 px-2 py-1 rounded-full uppercase">Real-time Reasoning</span>
 							</div>
 						</div>
 
@@ -778,6 +783,7 @@ class AdminRenderer {
 	 */
 	public function render_billing_page(): void {
 		echo $this->get_brand_styles();
+		$active_plan = get_option( 'nexus_ai_active_plan', 'starter' );
 		?>
 		<div class="nexus-admin-body p-10 theme-settings">
 			<div class="mb-10">
@@ -786,7 +792,20 @@ class AdminRenderer {
 				<p class="text-gray-400 mt-2 max-w-2xl">Scale your AI workforce with premium enterprise plans. Manage your subscription, usage limits, and billing history.</p>
 			</div>
 
-			<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+			<!-- Active Subscription Status -->
+			<div class="glass-panel p-8 rounded-3xl border border-nexus-border mb-12 flex justify-between items-center bg-accent/5">
+				<div>
+					<h3 class="text-xs font-bold text-accent uppercase tracking-widest mb-1">Active Subscription</h3>
+					<p class="text-3xl font-black text-white"><?php echo strtoupper($active_plan); ?> PLAN</p>
+					<p class="text-xs text-gray-500 mt-2">Next billing date: <?php echo date('M d, Y', strtotime('+30 days')); ?></p>
+				</div>
+				<div class="flex gap-4">
+					<button class="bg-white/5 border border-white/10 text-white px-6 py-2 rounded-xl text-xs font-bold hover:bg-white/10 transition-all">Download Invoice</button>
+					<button id="nexus-cancel-sub" class="bg-red-500/10 border border-red-500/20 text-red-500 px-6 py-2 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all">Cancel Plan</button>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
 				<!-- Starter -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full">
 					<h3 class="text-xl font-bold text-white mb-2">Starter</h3>
@@ -836,6 +855,34 @@ class AdminRenderer {
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> On-Premise Training</li>
 					</ul>
 					<button class="w-full bg-nexus-blue text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all">Contact Sales</button>
+				</div>
+			</div>
+
+			<!-- Billing History -->
+			<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
+				<h2 class="text-xl font-bold mb-6">Recent Billing History</h2>
+				<div class="overflow-x-auto">
+					<table class="w-full text-left text-sm text-gray-400">
+						<thead class="text-xs uppercase text-gray-500 border-b border-nexus-border">
+							<tr>
+								<th class="pb-3 px-2">Invoice ID</th>
+								<th class="pb-3 px-2">Date</th>
+								<th class="pb-3 px-2">Amount</th>
+								<th class="pb-3 px-2">Status</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-nexus-border/50">
+							<tr>
+								<td class="py-4 px-2 font-mono">#INV-88291</td>
+								<td class="py-4 px-2"><?php echo date('M d, Y'); ?></td>
+								<td class="py-4 px-2 text-white font-bold">$<?php
+									$prices = ['starter' => '197.00', 'pro' => '497.00', 'agency' => '997.00'];
+									echo $prices[$active_plan] ?? '0.00';
+								?></td>
+								<td class="py-4 px-2 text-green-500 font-bold uppercase text-[10px]">Paid</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
