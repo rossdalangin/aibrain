@@ -145,6 +145,19 @@ class Migration {
 				is_active TINYINT(1) DEFAULT 1,
 				expires_at DATETIME
 			) $charset_collate;",
+
+			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}ai_audit_logs (
+				id BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+				user_id BIGINT(20) UNSIGNED,
+				action_type VARCHAR(100),
+				description TEXT,
+				agent_id BIGINT(20) UNSIGNED,
+				metadata JSON,
+				ip_address VARCHAR(45),
+				created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+				KEY user_id (user_id),
+				KEY action_type (action_type)
+			) $charset_collate;",
 		];
 
 		foreach ( $tables as $sql ) {

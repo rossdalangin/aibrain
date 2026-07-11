@@ -124,6 +124,27 @@ class AdminRenderer {
 				</div>
 			</div>
 
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-12">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
+					<h2 class="text-xl font-bold mb-6 flex justify-between items-center">
+						Consumption Trends
+						<span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Last 30 Days</span>
+					</h2>
+					<div class="h-64">
+						<canvas id="nexus-consumption-chart"></canvas>
+					</div>
+				</div>
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
+					<h2 class="text-xl font-bold mb-6 flex justify-between items-center">
+						Workforce Efficiency
+						<span class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Output Metrics</span>
+					</h2>
+					<div class="h-64">
+						<canvas id="nexus-efficiency-chart"></canvas>
+					</div>
+				</div>
+			</div>
+
 			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 					<h2 class="text-xl font-semibold mb-6">Workforce Activity</h2>
@@ -136,15 +157,23 @@ class AdminRenderer {
 					</div>
 				</div>
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border bg-accent/5">
-					<h2 class="text-xl font-semibold mb-6">Quick Actions</h2>
-					<div class="grid grid-cols-2 gap-4">
-						<button class="p-4 rounded-xl bg-nexus-elevated border border-nexus-border hover:border-nexus-violet text-left transition-all group">
-							<p class="font-bold text-sm group-hover:text-nexus-violet">Initialize Meeting</p>
-							<p class="text-[10px] text-gray-500 mt-1 uppercase">Expect: Collaborative debate session between agents.</p>
+					<h2 class="text-xl font-semibold mb-6">Enterprise Quick-Tools</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+						<button class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-nexus-violet text-left transition-all group nexus-btn-vibrant theme-overview">
+							<p class="font-bold text-sm text-white group-hover:text-accent">Prompt Rewriter</p>
+							<p class="text-[10px] text-gray-500 mt-1 uppercase">Refine agent instructions for GPT-4o.</p>
 						</button>
-						<button class="p-4 rounded-xl bg-nexus-elevated border border-nexus-border hover:border-nexus-blue text-left transition-all group">
-							<p class="font-bold text-sm group-hover:text-nexus-blue">Sync Global Memory</p>
-							<p class="text-[10px] text-gray-500 mt-1 uppercase">Expect: Re-indexing of all RAG documents.</p>
+						<button class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-nexus-blue text-left transition-all group nexus-btn-vibrant theme-kb">
+							<p class="font-bold text-sm text-white group-hover:text-accent">Context Optimizer</p>
+							<p class="text-[10px] text-gray-500 mt-1 uppercase">Prune redundant Company Brain chunks.</p>
+						</button>
+						<button id="nexus-purge-logs" class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-red-500 text-left transition-all group">
+							<p class="font-bold text-sm text-white group-hover:text-red-500">System Purge</p>
+							<p class="text-[10px] text-gray-500 mt-1 uppercase">Clear all usage logs and transcripts.</p>
+						</button>
+						<button class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-accent text-left transition-all group nexus-btn-vibrant theme-learning">
+							<p class="font-bold text-sm text-white group-hover:text-accent">ROAS Audit</p>
+							<p class="text-[10px] text-gray-500 mt-1 uppercase">Generate instant marketing report.</p>
 						</button>
 					</div>
 				</div>
@@ -244,6 +273,27 @@ class AdminRenderer {
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Mission (Primary Objective)</label>
 								<textarea name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What is its main goal?"></textarea>
+							</div>
+						</div>
+						<div class="grid grid-cols-2 gap-6">
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Communication Tone</label>
+								<select name="personality" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+									<option value="professional">Professional & Direct</option>
+									<option value="creative">Creative & Enthusiastic</option>
+									<option value="analytical">Analytical & Fact-based</option>
+									<option value="motivational">Visionary & Motivational</option>
+									<option value="technical">Technical & Precise</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Voice Identity</label>
+								<select name="voice" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+									<option value="onyx">OpenAI - Onyx (Deep)</option>
+									<option value="nova">OpenAI - Nova (Energetic)</option>
+									<option value="shimmer">OpenAI - Shimmer (Soft)</option>
+									<option value="eleven_multilingual">ElevenLabs - Professional</option>
+								</select>
 							</div>
 						</div>
 						<div class="grid grid-cols-2 gap-4">
@@ -387,9 +437,16 @@ class AdminRenderer {
 							<label class="block text-sm font-medium text-gray-400 mb-2">Primary Accent Color</label>
 							<input type="color" name="ui_color" class="w-20 h-12 bg-nexus-elevated border border-nexus-border rounded-lg p-1 text-white cursor-pointer" value="#7C3AED">
 						</div>
+						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Platform Display Title</label>
+							<input type="text" name="platform_title" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="Nexus AI Workforce">
+						</div>
 						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
 							<p class="text-sm font-bold text-white mb-2 uppercase">Agency Mode</p>
-							<p class="text-xs text-gray-500">Enable to hide all Harborne AI references for client sites.</p>
+							<div class="flex items-center gap-4">
+								<input type="checkbox" name="agency_mode" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-accent">
+								<p class="text-xs text-gray-500">Hide "Nexus AI" branding and use "Platform Display Title" throughout the UI.</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -405,10 +462,13 @@ class AdminRenderer {
 		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-10 theme-kb">
-			<div class="mb-10">
-				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
-				<h1 class="text-4xl font-bold text-white">Company Brain (RAG)</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Give your AI workforce "Company Memory." Upload your unique business data to ground agent responses.</p>
+			<div class="mb-10 flex justify-between items-end">
+				<div>
+					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
+					<h1 class="text-4xl font-bold text-white">Company Brain (RAG)</h1>
+					<p class="text-gray-400 mt-2 max-w-2xl">Give your AI workforce "Company Memory." Upload your unique business data to ground agent responses.</p>
+				</div>
+				<button id="nexus-wipe-memory" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-6 py-2 rounded-xl text-xs font-bold transition-all border border-red-500/20">Wipe All Memory</button>
 			</div>
 
 			<div class="nexus-step-guide">
@@ -452,6 +512,43 @@ class AdminRenderer {
 							</div>
 							<span class="nexus-button-note">Expect: Recursive crawling of the provided URL.</span>
 						</div>
+					</div>
+				</div>
+
+				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
+					<h2 class="text-xl font-semibold mb-6">Document Library</h2>
+					<?php
+					global $wpdb;
+					$docs = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_knowledge_documents ORDER BY created_at DESC", ARRAY_A ) ?: [];
+					?>
+					<div class="overflow-x-auto">
+						<table class="w-full text-left text-sm text-gray-400">
+							<thead class="text-xs uppercase text-gray-500 border-b border-nexus-border">
+								<tr>
+									<th class="pb-3 px-2">Type</th>
+									<th class="pb-3 px-2">Source</th>
+									<th class="pb-3 px-2">Status</th>
+									<th class="pb-3 px-2">Created</th>
+								</tr>
+							</thead>
+							<tbody class="divide-y divide-nexus-border/50">
+								<?php foreach ( $docs as $doc ) : ?>
+									<tr>
+										<td class="py-4 px-2 uppercase text-[10px] font-bold"><?php echo esc_html( $doc['type'] ); ?></td>
+										<td class="py-4 px-2 truncate max-w-[150px]"><?php echo esc_html( basename($doc['source_path']) ); ?></td>
+										<td class="py-4 px-2">
+											<span class="px-2 py-1 rounded-full bg-green-500/10 text-green-500 text-[10px] font-bold uppercase">
+												<?php echo esc_html( $doc['status'] ); ?>
+											</span>
+										</td>
+										<td class="py-4 px-2 text-[10px]"><?php echo esc_html( $doc['created_at'] ); ?></td>
+									</tr>
+								<?php endforeach; ?>
+								<?php if ( empty( $docs ) ) : ?>
+									<tr><td colspan="4" class="py-8 text-center italic opacity-50">No documents indexed yet.</td></tr>
+								<?php endif; ?>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -520,6 +617,23 @@ class AdminRenderer {
 						<h2 class="text-3xl font-bold mb-4 text-white uppercase tracking-tighter">Workflow Canvas</h2>
 						<button id="nexus-open-visual-builder" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-12 rounded-xl transition-all shadow-lg shadow-accent/20">Open Visual Builder</button>
 						<span class="nexus-button-note mt-4">Expect: Fullscreen drag-and-drop orchestration environment.</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Workflow Results Modal -->
+			<div id="nexus-workflow-results-modal" class="fixed inset-0 z-[10000] hidden">
+				<div class="absolute inset-0 bg-black/90 backdrop-blur-md"></div>
+				<div class="absolute inset-x-10 top-20 bottom-20 glass-panel rounded-3xl border border-nexus-border flex flex-col overflow-hidden shadow-2xl">
+					<div class="p-8 border-b border-nexus-border flex justify-between items-center bg-nexus-elevated/50">
+						<div>
+							<h2 class="text-2xl font-bold text-white uppercase tracking-tighter">Workflow Execution Trace</h2>
+							<p class="text-xs text-gray-500 mt-1">Real-time status of multi-agent collaboration</p>
+						</div>
+						<button id="nexus-close-results" class="text-gray-400 hover:text-white bg-white/5 px-4 py-2 rounded-xl">Close Trace</button>
+					</div>
+					<div id="nexus-workflow-log" class="flex-1 p-10 overflow-y-auto space-y-6 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
+						<!-- Log entries will appear here -->
 					</div>
 				</div>
 			</div>
@@ -639,6 +753,75 @@ class AdminRenderer {
 	/**
 	 * Render the role-specific tutorials page.
 	 */
+	/**
+	 * Render the Billing & Plans page.
+	 */
+	public function render_billing_page(): void {
+		echo $this->get_brand_styles();
+		?>
+		<div class="nexus-admin-body p-10 theme-settings">
+			<div class="mb-10">
+				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Commerce</h2>
+				<h1 class="text-4xl font-bold text-white">Plans & Subscriptions</h1>
+				<p class="text-gray-400 mt-2 max-w-2xl">Scale your AI workforce with premium enterprise plans. Manage your subscription, usage limits, and billing history.</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+				<!-- Starter -->
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full">
+					<h3 class="text-xl font-bold text-white mb-2">Starter</h3>
+					<p class="text-3xl font-black text-white mb-6">$197<span class="text-sm text-gray-500 font-normal">/mo</span></p>
+					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 3 AI Agents</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Basic Company Brain</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Standard Support</li>
+					</ul>
+					<button class="w-full bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition-all">Current Plan</button>
+				</div>
+
+				<!-- Pro -->
+				<div class="glass-panel p-8 rounded-3xl border-2 border-accent flex flex-col h-full relative overflow-hidden">
+					<div class="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold px-4 py-1 rounded-bl-xl uppercase">Most Popular</div>
+					<h3 class="text-xl font-bold text-white mb-2">Professional</h3>
+					<p class="text-3xl font-black text-white mb-6">$497<span class="text-sm text-gray-500 font-normal">/mo</span></p>
+					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 15 AI Agents</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Advanced RAG Engine</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Multi-Agent Workflows</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Priority API Access</li>
+					</ul>
+					<button class="w-full bg-accent text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all nexus-btn-vibrant">Upgrade to Pro</button>
+				</div>
+
+				<!-- Agency -->
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full">
+					<h3 class="text-xl font-bold text-white mb-2">Agency</h3>
+					<p class="text-3xl font-black text-white mb-6">$997<span class="text-sm text-gray-500 font-normal">/mo</span></p>
+					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Unlimited Agents</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> White Labeling</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Client Portals</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 24/7 Dedicated Support</li>
+					</ul>
+					<button class="w-full bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition-all">Select Plan</button>
+				</div>
+
+				<!-- Enterprise -->
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full bg-nexus-violet/5">
+					<h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
+					<p class="text-3xl font-black text-white mb-6 italic">Custom</p>
+					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Local Ollama Hosting</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Custom SLA</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> On-Premise Training</li>
+					</ul>
+					<button class="w-full bg-nexus-blue text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all">Contact Sales</button>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
 	public function render_tutorials_page(): void {
 		$level = $_GET['level'] ?? 'employee';
 		echo $this->get_brand_styles();

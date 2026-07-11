@@ -13,6 +13,7 @@ use NexusAI\Workforce\AI\Factories\ModelFactory;
 use NexusAI\Workforce\Utils\Encryption;
 use NexusAI\Workforce\Repositories\SettingsRepository;
 use NexusAI\Workforce\Repositories\UsageLogRepository;
+use NexusAI\Workforce\Utils\AuditLogger;
 
 /**
  * Controller for Chat and Multi-Agent interactions.
@@ -37,6 +38,36 @@ class ChatController {
 		$user_id = get_current_user_id();
 		$items = $this->conversations->get_user_conversations( $user_id );
 		return new WP_REST_Response( $items, 200 );
+	}
+
+	/**
+	 * Single step in a multi-agent meeting.
+	 */
+	public function run_meeting_step( WP_REST_Request $request ): WP_REST_Response {
+		$params = $request->get_params();
+		$agent_id = (int) $params['agent_id'];
+		$agenda   = sanitize_textarea_field( $params['agenda'] );
+		$round    = (int) $params['round'];
+
+		$agent = $this->employees->get_by_id( $agent_id );
+		if ( ! $agent ) {
+			return new WP_REST_Response( [ 'error' => 'Agent not found' ], 404 );
+		}
+
+		$orchestrator = $this->get_orchestrator( $agent );
+
+		// Specialized Meeting Prompt
+		$prompt = "We are in a strategic meeting. ROUND: $round. AGENDA: $agenda.
+		As the {$agent['position']}, give your expert opinion or contribution to the goal.
+		Keep it professional, concise, and focused on your specific role KPIs.";
+
+		$response = $orchestrator->process_request( $prompt, $agent );
+
+		return new WP_REST_Response( [
+			'agent_name' => $agent['name'],
+			'position'   => $agent['position'],
+			'content'    => $response
+		], 200 );
 	}
 
 	public function send_message( WP_REST_Request $request ): WP_REST_Response {
@@ -87,6 +118,8 @@ class ChatController {
 		] );
 
 		$this->conversations->update_last_message_at( $conversation_id );
+
+		( new AuditLogger() )->log( 'ai_chat', "Agent interaction complete.", $employee_id, [ 'conversation_id' => $conversation_id ] );
 
 		return new WP_REST_Response( [ 'response' => $response, 'conversation_id' => $conversation_id ], 200 );
 	}

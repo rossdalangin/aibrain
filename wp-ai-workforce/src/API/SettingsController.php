@@ -7,6 +7,7 @@ use WP_REST_Request;
 use WP_REST_Response;
 use NexusAI\Workforce\Repositories\SettingsRepository;
 use NexusAI\Workforce\Utils\Encryption;
+use NexusAI\Workforce\Utils\AuditLogger;
 
 /**
  * Controller for managing plugin settings.

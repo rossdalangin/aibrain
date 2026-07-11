@@ -47,6 +47,40 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/chat/meeting', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $chat_controller, 'run_meeting_step' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/status/purge', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function() {
+					global $wpdb;
+					$wpdb->query( "DELETE FROM {$wpdb->prefix}ai_usage_logs" );
+					$wpdb->query( "DELETE FROM {$wpdb->prefix}ai_audit_logs" );
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/kb/wipe', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function() {
+					global $wpdb;
+					$wpdb->query( "DELETE FROM {$wpdb->prefix}ai_knowledge_chunks" );
+					$wpdb->query( "DELETE FROM {$wpdb->prefix}ai_knowledge_documents" );
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/kb/upload', [
 			[
 				'methods'             => WP_REST_Server::CREATABLE,

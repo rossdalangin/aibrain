@@ -8,6 +8,7 @@ use WP_REST_Response;
 use NexusAI\Workforce\AI\RAG\Parser;
 use NexusAI\Workforce\AI\RAG\Chunker;
 use NexusAI\Workforce\Repositories\DocumentRepository;
+use NexusAI\Workforce\Utils\AuditLogger;
 
 /**
  * Controller for Knowledge Base ingestion.
@@ -63,6 +64,8 @@ class KBController {
 				'content' => $chunk,
 			] );
 		}
+
+		( new AuditLogger() )->log( 'kb_ingest', "URL content indexed: $url", 0, [ 'doc_id' => $doc_id ] );
 
 		return new WP_REST_Response( [ 'success' => true, 'doc_id' => $doc_id, 'chunks' => count( $chunks ) ], 200 );
 	}

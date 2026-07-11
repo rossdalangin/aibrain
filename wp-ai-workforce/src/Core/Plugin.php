@@ -43,6 +43,15 @@ class Plugin {
 
 		add_submenu_page(
 			'nexus-ai-workforce',
+			__( 'Collaboration', 'nexus-ai-workforce' ),
+			'Collaboration Hub',
+			'manage_options',
+			'nexus-ai-workforce-meetings',
+			[ $this, 'render_meetings_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
 			__( 'Workforce', 'nexus-ai-workforce' ),
 			'Hire AI Agents',
 			'manage_options',
@@ -75,6 +84,15 @@ class Plugin {
 			'read',
 			'nexus-ai-workforce-tutorials',
 			[ $this, 'render_admin_tutorials_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
+			__( 'Billing', 'nexus-ai-workforce' ),
+			'Plans & Billing',
+			'manage_options',
+			'nexus-ai-workforce-billing',
+			[ $this, 'render_billing_page' ]
 		);
 
 		add_submenu_page(
@@ -121,9 +139,21 @@ class Plugin {
 		}
 	}
 
+	public function render_meetings_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_meetings_page();
+		}
+	}
+
 	public function render_admin_tutorials_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_tutorials_page();
+		}
+	}
+
+	public function render_billing_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_billing_page();
 		}
 	}
 
@@ -132,8 +162,9 @@ class Plugin {
 			return;
 		}
 
-		// Enqueue Tailwind CDN for immediate preview in development
+		// Enqueue Tailwind and Chart.js CDNs
 		wp_enqueue_script( 'nexus-ai-tailwind', 'https://cdn.tailwindcss.com', [], '3.3.0' );
+		wp_enqueue_script( 'nexus-ai-chartjs', 'https://cdn.jsdelivr.net/npm/chart.js', [], '4.4.0' );
 
 		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 3 ) ), [], '1.0.0' );
 

@@ -6,6 +6,7 @@ namespace NexusAI\Workforce\API;
 use WP_REST_Request;
 use WP_REST_Response;
 use NexusAI\Workforce\Repositories\EmployeeRepository;
+use NexusAI\Workforce\Utils\AuditLogger;
 
 /**
  * Controller for AI Employee REST endpoints.
@@ -51,6 +52,9 @@ class EmployeeController {
 		];
 
 		$id = $this->repository->create( $data );
+
+		( new AuditLogger() )->log( 'employee_hired', "Deployed new AI agent: {$data['name']} as {$data['position']}", $id );
+
 		return new WP_REST_Response( [ 'id' => $id ], 201 );
 	}
 

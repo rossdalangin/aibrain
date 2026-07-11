@@ -18,7 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 cto: { position: 'Chief Technology Officer', identity: 'I am a systems architect and security expert ensuring technical scalability.', mission: 'Optimize performance and minimize technical debt.', temp: 0.2 },
                 cfo: { position: 'Chief Financial Officer', identity: 'I am a financial strategist focused on capital allocation and risk management.', mission: 'Maximize long-term growth through rigorous audit.', temp: 0.1 },
                 seo: { position: 'SEO Specialist', identity: 'I am a technical search architect living in the data of search trends.', mission: 'Dominate page one for primary business keywords.', temp: 0.3 },
-                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 }
+                copywriter: { position: 'Copywriter', identity: 'I am a master of words and consumer psychology.', mission: 'Craft high-conversion direct response copy.', temp: 0.9 },
+                hr: { position: 'HR Manager', identity: 'I am a culture-focused HR professional specializing in talent acquisition and employee retention.', mission: 'Build a high-performance team culture.', temp: 0.6 },
+                legal: { position: 'Legal Advisor', identity: 'I am a meticulous legal expert specializing in corporate law and compliance.', mission: 'Mitigate risk and ensure regulatory adherence.', temp: 0.1 },
+                qa: { position: 'QA Engineer', identity: 'I am a detail-oriented quality assurance specialist focused on bug-free deployments.', mission: 'Ensure 100% product stability and performance.', temp: 0.1 },
+                ads: { position: 'Paid Ads Specialist', identity: 'I am an expert media buyer for Meta, Google, and LinkedIn.', mission: 'Optimize ad spend for maximum ROAS.', temp: 0.7 },
+                data: { position: 'Data Analyst', identity: 'I am a statistical expert turning raw data into actionable business intelligence.', mission: 'Identify trends and growth opportunities through data.', temp: 0.2 },
+                support: { position: 'Customer Support Manager', identity: 'I am a customer success expert dedicated to 100% satisfaction.', mission: 'Reduce churn and increase NPS.', temp: 0.5 },
+                sales: { position: 'Sales Director', identity: 'I am a high-ticket sales closer and pipeline architect.', mission: 'Maximize revenue and shorten sales cycles.', temp: 0.8 }
             };
 
             const data = templates[role];
@@ -26,6 +33,81 @@ document.addEventListener('DOMContentLoaded', function() {
             hireForm.querySelector('[name="identity"]').value = data.identity;
             hireForm.querySelector('[name="mission"]').value = data.mission;
             hireForm.querySelector('[name="temperature"]').value = data.temp;
+        });
+    }
+
+    // 12. Purge Logs
+    const purgeBtn = document.getElementById('nexus-purge-logs');
+    if (purgeBtn) {
+        purgeBtn.addEventListener('click', function() {
+            if (!confirm('Are you sure you want to purge all system logs?')) return;
+            purgeBtn.innerText = 'Purging...';
+            nexusFetch('status/purge', 'POST').then(res => {
+                alert('System logs purged.');
+                window.location.reload();
+            });
+        });
+    }
+
+    // 11. Wipe Memory
+    const wipeBtn = document.getElementById('nexus-wipe-memory');
+    if (wipeBtn) {
+        wipeBtn.addEventListener('click', function() {
+            if (!confirm('Are you sure you want to PERMANENTLY wipe all company memory? This cannot be undone.')) return;
+
+            wipeBtn.innerText = 'Wiping...';
+            nexusFetch('kb/wipe', 'POST').then(res => {
+                alert('Memory wiped successfully.');
+                window.location.reload();
+            });
+        });
+    }
+
+    // 10. Enterprise Analytics (Chart.js)
+    const consumptionCtx = document.getElementById('nexus-consumption-chart');
+    if (consumptionCtx && typeof Chart !== 'undefined') {
+        new Chart(consumptionCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Token Usage',
+                    data: [12000, 19000, 3000, 5000],
+                    borderColor: '#7C3AED',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(124, 58, 237, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    }
+
+    const efficiencyCtx = document.getElementById('nexus-efficiency-chart');
+    if (efficiencyCtx && typeof Chart !== 'undefined') {
+        new Chart(efficiencyCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Marketing', 'IT', 'Legal', 'Executive'],
+                datasets: [{
+                    data: [45, 25, 15, 15],
+                    backgroundColor: ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8' } } }
+            }
         });
     }
 
@@ -68,10 +150,24 @@ document.addEventListener('DOMContentLoaded', function() {
         hireForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(hireForm);
-            const data = Object.fromEntries(formData.entries());
+            const rawData = Object.fromEntries(formData.entries());
 
-            nexusFetch('employees', 'POST', data).then(res => {
-                alert('Agent deployed successfully!');
+            const payload = {
+                name: rawData.name,
+                position: rawData.position,
+                role_description: rawData.identity,
+                prompt_template: rawData.mission,
+                model_settings: {
+                    model: rawData.model,
+                    temperature: parseFloat(rawData.temperature),
+                    provider: 'openai',
+                    personality: rawData.personality,
+                    voice: rawData.voice
+                }
+            };
+
+            nexusFetch('employees', 'POST', payload).then(res => {
+                alert('Agent deployed successfully! This expert is now ready for deployment.');
                 window.location.reload();
             });
         });
@@ -185,18 +281,53 @@ document.addEventListener('DOMContentLoaded', function() {
             const input = prompt('Enter the initial trigger for this workflow (e.g. "Draft a 500 word blog post about solar energy"):');
             if (!input) return;
 
-            const runBtn = btn.querySelector('button');
-            runBtn.innerText = 'RUNNING...';
-            btn.classList.add('opacity-50', 'pointer-events-none');
+            const resultsModal = document.getElementById('nexus-workflow-results-modal');
+            const workflowLog = document.getElementById('nexus-workflow-log');
+
+            resultsModal.classList.remove('hidden');
+            workflowLog.innerHTML = `<div class="p-6 rounded-2xl bg-accent/10 border border-accent/20 italic text-accent animate-pulse">Initializing execution sequence... Input: "${input}"</div>`;
 
             nexusFetch(`workflows/run/${id}`, 'POST', { input: input }).then(res => {
-                runBtn.innerText = 'COMPLETED ✓';
-                btn.classList.remove('opacity-50', 'pointer-events-none');
-                console.log('Workflow Result:', res);
-                alert('Workflow execution complete. Check console for full trace.');
+                workflowLog.innerHTML = ''; // Clear init message
+
+                let fullText = '';
+                res.results.forEach((step, index) => {
+                    fullText += `[${step.step} - ${step.agent}]\n${step.output}\n\n`;
+                    const entry = document.createElement('div');
+                    entry.className = 'flex gap-6 items-start animate-fade-in-up';
+                    entry.style.animationDelay = `${index * 0.2}s`;
+                    entry.innerHTML = `
+                        <div class="w-12 h-12 rounded-full bg-nexus-elevated border border-accent flex items-center justify-center font-bold text-accent shrink-0">
+                            ${index + 1}
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-center mb-2">
+                                <p class="font-bold text-white uppercase tracking-widest text-[10px] opacity-50">${step.step} • ${step.agent}</p>
+                                <button class="text-[10px] text-accent hover:text-white" onclick="navigator.clipboard.writeText(\`${step.output.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); alert('Step output copied!')">Copy Output</button>
+                            </div>
+                            <div class="p-6 rounded-3xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed shadow-xl">
+                                ${step.output}
+                            </div>
+                        </div>
+                    `;
+                    workflowLog.appendChild(entry);
+                });
+
+                const final = document.createElement('div');
+                final.className = 'p-6 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-500 font-bold text-center mt-10 flex flex-col items-center gap-4';
+                final.innerHTML = `
+                    <p>WORKFLOW SEQUENCE COMPLETED SUCCESSFULLY ✓</p>
+                    <button class="bg-green-500 text-black px-6 py-2 rounded-xl text-xs" onclick="navigator.clipboard.writeText(\`${fullText.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); alert('Full trace copied!')">Copy Full Trace</button>
+                `;
+                workflowLog.appendChild(final);
             });
         });
     });
+
+    const closeResultsBtn = document.getElementById('nexus-close-results');
+    if (closeResultsBtn) {
+        closeResultsBtn.addEventListener('click', () => document.getElementById('nexus-workflow-results-modal').classList.add('hidden'));
+    }
 
     // 9. Connectivity Test
     const testBtn = document.getElementById('nexus-test-connectivity');
@@ -209,6 +340,104 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // 5. AI Meeting Collaboration Hub
+    const startMeetingBtn = document.getElementById('nexus-start-meeting-btn');
+    const meetingTranscript = document.getElementById('nexus-meeting-transcript');
+    const meetingInput = document.getElementById('nexus-meeting-input');
+    const sendMeetingBtn = document.getElementById('nexus-send-meeting-msg');
+
+    if (startMeetingBtn) {
+        startMeetingBtn.addEventListener('click', function() {
+            const invitees = Array.from(document.querySelectorAll('.nexus-meeting-invitee:checked')).map(cb => cb.value);
+            const agenda = document.getElementById('nexus-meeting-agenda').value;
+
+            if (invitees.length === 0) return alert('Invite at least one AI participant.');
+            if (!agenda) return alert('Please define an agenda for the meeting.');
+
+            startMeetingBtn.innerText = 'Collaborating...';
+            meetingTranscript.innerHTML = `<div class="p-4 rounded-xl bg-nexus-violet/10 border border-nexus-violet/20 italic text-nexus-violet">Meeting initialized. Agenda: ${agenda}</div>`;
+
+            // Start the recursive multi-agent chain via REST
+            runMeetingRound(invitees, agenda);
+        });
+    }
+
+    function runMeetingRound(invitees, agenda, round = 1) {
+        if (round > 5) { // Cap for MVP safety
+            meetingTranscript.innerHTML += `<div class="p-4 rounded-xl bg-green-500/10 border border-green-500/20 italic text-green-500 text-center font-bold">Consensus reached. Final strategy finalized.</div>`;
+            startMeetingBtn.innerText = 'Start Strategic Meeting';
+            return;
+        }
+
+        const nextAgentId = invitees[(round - 1) % invitees.length];
+
+        nexusFetch(`chat/meeting`, 'POST', {
+            agent_id: nextAgentId,
+            agenda: agenda,
+            round: round,
+            invitees: invitees
+        }).then(res => {
+            const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444', '#f97316'];
+            const agentColor = colors[round % colors.length];
+
+            const entry = document.createElement('div');
+            entry.className = 'flex gap-4 items-start animate-fade-in-up';
+            entry.innerHTML = `
+                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0 shadow-lg" style="background-color: ${agentColor}">
+                    ${res.agent_name.charAt(0)}
+                </div>
+                <div class="flex-1">
+                    <p class="font-bold text-white mb-1">${res.agent_name} <span class="text-xs text-gray-500 font-normal ml-2">${res.position}</span></p>
+                    <div class="p-6 rounded-3xl bg-nexus-elevated border-l-4 text-gray-300 text-sm leading-relaxed shadow-xl" style="border-color: ${agentColor}">
+                        ${res.content}
+                    </div>
+                </div>
+            `;
+            meetingTranscript.appendChild(entry);
+            meetingTranscript.scrollTop = meetingTranscript.scrollHeight;
+
+            // Chain to next agent after a short "thinking" delay
+            setTimeout(() => runMeetingRound(invitees, agenda, round + 1), 2000);
+        });
+    }
+
+    // 6. Marketplace Tabs & Install
+    const tabButtons = document.querySelectorAll('.nexus-tab-btn');
+    const tabContents = document.querySelectorAll('.nexus-tab-content');
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.tab;
+
+            tabButtons.forEach(b => b.classList.remove('bg-accent', 'text-white'));
+            tabButtons.forEach(b => b.classList.add('text-gray-400'));
+            btn.classList.remove('text-gray-400');
+            btn.classList.add('bg-accent', 'text-white');
+
+            tabContents.forEach(content => {
+                if (content.id === `nexus-${target}-tab`) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    const installButtons = document.querySelectorAll('.nexus-marketplace-install');
+    installButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const agentKey = btn.dataset.agent;
+            btn.innerText = 'Installing...';
+
+            nexusFetch('marketplace/import', 'POST', { agent_key: agentKey }).then(res => {
+                btn.innerText = 'Installed ✓';
+                btn.classList.replace('bg-nexus-gold/20', 'bg-green-500/20');
+                btn.classList.replace('text-nexus-gold', 'text-green-500');
+            });
+        });
+    });
 
     /**
      * Helper to wrap WP REST API calls
