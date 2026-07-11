@@ -5,6 +5,25 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- 0. Core Helper ---
+    function showToast(message, type = 'success') {
+        let container = document.getElementById('nexus-toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'nexus-toast-container';
+            document.body.appendChild(container);
+        }
+        const toast = document.createElement('div');
+        toast.className = `nexus-toast nexus-toast-${type}`;
+        toast.innerHTML = `<span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(100%)';
+            toast.style.transition = 'all 0.5s ease';
+            setTimeout(() => toast.remove(), 500);
+        }, 4000);
+    }
+
     async function nexusFetch(endpoint, method = 'GET', data = null) {
         const options = {
             method: method,
@@ -29,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const templates = {
                 ceo: { position: 'Chief Executive Officer', identity: 'I am a visionary enterprise leader focused on high-level strategy and ROI.', mission: 'Synthesize data into clear action plans.', temp: 0.4 },
+                coo: { position: 'Chief Operating Officer', identity: 'I am an operations expert focused on efficiency, productivity, and scaling internal processes.', mission: 'Minimize friction and maximize departmental output.', temp: 0.3 },
                 cmo: { position: 'Chief Marketing Officer', identity: 'I am a data-driven growth architect specializing in high-conversion funnels.', mission: 'Maximize CPA and brand narrative consistency.', temp: 0.8 },
                 cto: { position: 'Chief Technology Officer', identity: 'I am a systems architect and security expert ensuring technical scalability.', mission: 'Optimize performance and minimize technical debt.', temp: 0.2 },
                 cfo: { position: 'Chief Financial Officer', identity: 'I am a financial strategist focused on capital allocation and risk management.', mission: 'Maximize long-term growth through rigorous audit.', temp: 0.1 },
@@ -40,7 +60,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 ads: { position: 'Paid Ads Specialist', identity: 'I am an expert media buyer for Meta, Google, and LinkedIn.', mission: 'Optimize ad spend for maximum ROAS.', temp: 0.7 },
                 data: { position: 'Data Analyst', identity: 'I am a statistical expert turning raw data into actionable business intelligence.', mission: 'Identify trends and growth opportunities through data.', temp: 0.2 },
                 support: { position: 'Customer Support Manager', identity: 'I am a customer success expert dedicated to 100% satisfaction.', mission: 'Reduce churn and increase NPS.', temp: 0.5 },
-                sales: { position: 'Sales Director', identity: 'I am a high-ticket sales closer and pipeline architect.', mission: 'Maximize revenue and shorten sales cycles.', temp: 0.8 }
+                sales: { position: 'Sales Director', identity: 'I am a high-ticket sales closer and pipeline architect.', mission: 'Maximize revenue and shorten sales cycles.', temp: 0.8 },
+                wp_dev: { position: 'WordPress Developer', identity: 'I am an expert in the WordPress core, hooks, and database schema.', mission: 'Build secure, scalable, and high-performance plugins and themes.', temp: 0.2 },
+                react_dev: { position: 'React Developer', identity: 'I am a frontend architect specializing in modern React, Redux, and Tailwind.', mission: 'Create beautiful, responsive, and high-performance user interfaces.', temp: 0.4 },
+                social: { position: 'Social Media Manager', identity: 'I am a content strategist focused on community engagement and viral growth.', mission: 'Increase brand awareness and audience engagement across all platforms.', temp: 0.9 },
+                pm: { position: 'Project Manager', identity: 'I am an expert in Agile, Scrum, and Kanban methodologies.', mission: 'Ensure on-time delivery of high-quality products within budget.', temp: 0.5 },
+                ux: { position: 'UX Designer', identity: 'I am a user-centric design expert focused on friction-less experiences.', mission: 'Maximize usability and aesthetic appeal through data-driven design.', temp: 0.8 },
+                prompt: { position: 'Prompt Engineer', identity: 'I am an expert in LLM psychology and instruction optimization.', mission: 'Engineer the most efficient and accurate prompts for complex tasks.', temp: 0.6 },
+                exec_asst: { position: 'Executive Assistant', identity: 'I am a highly organized administrative professional specializing in schedule management and prioritization.', mission: 'Maximize executive focus and efficiency.', temp: 0.4 },
+                bookkeeper: { position: 'Bookkeeper', identity: 'I am a meticulous financial record-keeper specializing in accurate data entry and reconciliation.', mission: 'Maintain flawless financial records and transparency.', temp: 0.1 },
+                va: { position: 'Virtual Assistant', identity: 'I am a versatile remote professional capable of handling diverse administrative and creative tasks.', mission: 'Provide high-quality, reliable support for daily operations.', temp: 0.7 },
+                prod_mgr: { position: 'Product Manager', identity: 'I am a strategic product leader focused on market-fit, roadmapping, and user value.', mission: 'Deliver successful products that solve real user problems.', temp: 0.6 },
+                graphic: { position: 'Graphic Designer', identity: 'I am a visual storyteller specializing in brand identity and digital assets.', mission: 'Create high-impact visual designs that elevate the brand.', temp: 0.9 },
+                video: { position: 'Video Editor', identity: 'I am a creative editor specializing in high-engagement video content for social and web.', mission: 'Produce compelling visual narratives that drive retention.', temp: 0.9 },
+                email: { position: 'Email Marketer', identity: 'I am a direct-response expert specializing in list segmentation and automated sequences.', mission: 'Maximize LTV and conversion via email channels.', temp: 0.8 },
+                php_dev: { position: 'PHP Developer', identity: 'I am a backend specialist in PHP 8.x, PSR standards, and security best practices.', mission: 'Build robust and performant server-side logic and integrations.', temp: 0.2 },
+                mkt_dir: { position: 'Marketing Director', identity: 'I am a high-level marketing strategist focused on brand positioning and market share.', mission: 'Drive global brand awareness and strategic marketing initiatives.', temp: 0.7 },
+                biz_analyst: { position: 'Business Analyst', identity: 'I am a strategic thinker focused on identifying business needs and determining solutions.', mission: 'Bridge the gap between business challenges and technology solutions.', temp: 0.3 },
+                affiliate: { position: 'Affiliate Manager', identity: 'I am a partnership expert focused on recruiting and optimizing affiliate networks.', mission: 'Maximize revenue through high-performance partnership channels.', temp: 0.8 },
+                ops_mgr: { position: 'Operations Manager', identity: 'I am an expert in streamlining internal workflows and resource management.', mission: 'Ensure operational excellence across all departments.', temp: 0.3 }
             };
 
             const data = templates[role];
@@ -76,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             nexusFetch('employees', 'POST', payload).then(() => {
                 btn.innerText = 'Deployed ✓';
-                alert('Agent deployed successfully!');
-                window.location.reload();
+                showToast('Agent deployed successfully!');
+                setTimeout(() => window.location.reload(), 1000);
             });
         });
     }
@@ -88,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
         settingsForm.addEventListener('submit', function(e) {
             e.preventDefault();
             nexusFetch('settings', 'POST', Object.fromEntries(new FormData(settingsForm).entries())).then(() => {
-                alert('Configuration saved.');
+                showToast('Infrastructure configuration saved.');
             });
         });
     }
@@ -103,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 kbIndexBtn.innerText = 'Indexing...';
                 nexusFetch('kb/ingest', 'POST', { url: urlInput.value, target: target }).then(() => {
                     kbIndexBtn.innerText = 'Index';
-                    alert('Indexed for: ' + target.toUpperCase());
-                    window.location.reload();
+                    showToast('URL successfully ingested into Company Brain.');
+                    setTimeout(() => window.location.reload(), 1000);
                 });
             }
         });
@@ -122,8 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 body: formData
             }).then(res => res.json()).then(data => {
                 if (data.success) {
-                    alert('Ingested successfully! Chunks: ' + data.chunks);
-                    window.location.reload();
+                    showToast(`Document ingested successfully. Created ${data.chunks} memory chunks.`);
+                    setTimeout(() => window.location.reload(), 1000);
                 }
             });
         });
@@ -186,17 +224,21 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             if (steps.length === 0) return;
             nexusFetch('workflows', 'POST', { steps: steps, name: 'Custom Workflow ' + Date.now() }).then(() => {
-                alert('Workflow Saved');
-                window.location.reload();
+                showToast('Multi-agent workflow orchestration saved.');
+                setTimeout(() => window.location.reload(), 1000);
             });
         });
     }
 
     // --- 6. Global Click Handlers (Delegation) ---
     document.addEventListener('click', function(e) {
-        // Modal Toggles
+        // Modal Toggles (Improved with .closest)
         if (e.target.closest('#nexus-open-visual-builder')) {
-            document.getElementById('nexus-visual-builder-modal')?.classList.remove('hidden');
+            const modal = document.getElementById('nexus-visual-builder-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.querySelector('.glass-panel').classList.add('modal-content-zoom');
+            }
         }
         if (e.target.closest('#nexus-close-builder')) {
             document.getElementById('nexus-visual-builder-modal')?.classList.add('hidden');
@@ -259,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 a.href = url;
                 a.download = `${title.replace(/\s+/g, '_')}_transcript.md`;
                 a.click();
+                showToast('Markdown transcript exported.');
             });
         }
 
@@ -267,7 +310,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (delAgentBtn) {
             if (confirm('Are you sure you want to terminate this agent contract?')) {
                 const id = delAgentBtn.dataset.id;
-                nexusFetch(`employees/${id}`, 'DELETE').then(() => window.location.reload());
+                const row = delAgentBtn.closest('.group');
+                row.classList.add('nexus-exit-animation');
+                setTimeout(() => {
+                    nexusFetch(`employees/${id}`, 'DELETE').then(() => window.location.reload());
+                }, 400);
             }
         }
 
@@ -276,7 +323,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (delDeptBtn) {
             if (confirm('Delete this department? Active agents will be unassigned.')) {
                 const id = delDeptBtn.dataset.id;
-                nexusFetch(`departments/${id}`, 'DELETE').then(() => window.location.reload());
+                const card = delDeptBtn.closest('.glass-panel');
+                card.classList.add('nexus-exit-animation');
+                setTimeout(() => {
+                    nexusFetch(`departments/${id}`, 'DELETE').then(() => window.location.reload());
+                }, 400);
             }
         }
 
@@ -302,20 +353,40 @@ document.addEventListener('DOMContentLoaded', function() {
         const runWfBtn = e.target.closest('.nexus-run-workflow');
         if (runWfBtn) {
             const id = runWfBtn.dataset.id;
-            const input = prompt('Enter trigger:');
+            const input = prompt('Enter the initial trigger for this workflow execution:');
             if (!input) return;
+
             document.getElementById('nexus-workflow-results-modal')?.classList.remove('hidden');
             const log = document.getElementById('nexus-workflow-log');
-            log.innerHTML = '<p class="text-accent animate-pulse">Initializing...</p>';
+            log.innerHTML = `<div class="p-6 rounded-2xl bg-accent/10 border border-accent/20 italic text-accent animate-pulse">Initializing execution sequence... Input: "${input}"</div>`;
+
             nexusFetch(`workflows/run/${id}`, 'POST', { input: input }).then(res => {
                 log.innerHTML = '';
                 res.results.forEach((step, idx) => {
-                    log.innerHTML += `<div class="p-6 bg-white/5 rounded-2xl mb-4 border border-white/5">
-                        <p class="text-[10px] text-accent uppercase font-bold mb-2">${step.step} - ${step.agent}</p>
-                        <p class="text-sm text-gray-300">${step.output}</p>
-                    </div>`;
+                    const fullText = `[${step.step} - ${step.agent}]\n${step.output}\n\n`;
+                    log.innerHTML += `
+                        <div class="flex gap-6 items-start animate-fade-in-up">
+                            <div class="w-12 h-12 rounded-full bg-nexus-elevated border border-accent flex items-center justify-center font-bold text-accent shrink-0">${idx + 1}</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-center mb-2">
+                                    <p class="font-bold text-white uppercase tracking-widest text-[10px] opacity-50">${step.step} • ${step.agent}</p>
+                                    <button class="text-[10px] text-accent hover:text-white" onclick="navigator.clipboard.writeText(\`${step.output.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); showToast('Output copied to clipboard.')">Copy</button>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed shadow-xl">${step.output}</div>
+                            </div>
+                        </div>`;
                 });
+                showToast('Workflow execution complete.');
             });
+        }
+
+        // Purge Logs
+        const purgeBtn = e.target.closest('#nexus-purge-logs');
+        if (purgeBtn) {
+            if (confirm('Are you sure you want to purge all usage and audit logs?')) {
+                purgeBtn.innerText = 'Purging...';
+                nexusFetch('status/purge', 'POST').then(() => window.location.reload());
+            }
         }
     });
 
@@ -345,25 +416,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const invitees = Array.from(document.querySelectorAll('.nexus-meeting-invitee:checked')).map(cb => cb.value);
             const agenda = document.getElementById('nexus-meeting-agenda').value;
             if (invitees.length === 0 || !agenda) return;
-            document.getElementById('nexus-meeting-transcript').innerHTML = '<p class="text-accent italic">Meeting Started...</p>';
+            document.getElementById('nexus-meeting-transcript').innerHTML = '<p class="text-accent italic">Strategic Session Initialized...</p>';
             runMeetingRound(invitees, agenda);
         });
     }
 
     function runMeetingRound(invitees, agenda, round = 1) {
         if (round > 5) {
-            document.getElementById('nexus-meeting-transcript').innerHTML += '<p class="text-green-500 font-bold text-center mt-4">Consensus Reached.</p>';
+            document.getElementById('nexus-meeting-transcript').innerHTML += '<p class="text-green-500 font-bold text-center mt-10 uppercase tracking-widest">Meeting Concluded. Strategic Consensus Finalized.</p>';
             document.getElementById('nexus-meeting-summarize')?.classList.remove('hidden');
             return;
         }
         const nextId = invitees[(round - 1) % invitees.length];
         nexusFetch('chat/meeting', 'POST', { agent_id: nextId, agenda: agenda, round: round }).then(res => {
-            const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981'];
-            const bubble = `<div class="flex gap-4 items-start animate-fade-in-up">
-                <div class="w-10 h-10 rounded-full shrink-0 flex items-center justify-center font-bold text-white" style="background-color: ${colors[round%4]}">${res.agent_name[0]}</div>
-                <div class="flex-1 p-4 bg-white/5 rounded-2xl border-l-4" style="border-color: ${colors[round%4]}">
-                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">${res.agent_name} (${res.position})</p>
-                    <p class="text-sm text-gray-200">${res.content}</p>
+            const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444', '#f97316'];
+            const agentColor = colors[round % colors.length];
+            const bubble = `<div class="flex gap-6 items-start animate-fade-in-up">
+                <div class="w-12 h-12 rounded-full shrink-0 flex items-center justify-center font-bold text-white shadow-xl" style="background-color: ${agentColor}">${res.agent_name[0]}</div>
+                <div class="flex-1 p-6 bg-white/5 rounded-3xl border-l-4 shadow-2xl" style="border-color: ${agentColor}">
+                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 tracking-widest">${res.agent_name} • ${res.position}</p>
+                    <p class="text-sm text-gray-200 leading-relaxed">${res.content}</p>
                 </div>
             </div>`;
             const transcript = document.getElementById('nexus-meeting-transcript');
@@ -385,8 +457,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const data = Object.fromEntries(new FormData(createDeptForm).entries());
             nexusFetch('departments', 'POST', data).then(() => {
-                alert('Department initialized successfully.');
-                window.location.reload();
+                showToast('Organizational department initialized.');
+                setTimeout(() => window.location.reload(), 1000);
             });
         });
     }
@@ -397,24 +469,10 @@ document.addEventListener('DOMContentLoaded', function() {
         new Chart(consumptionCtx, {
             type: 'line',
             data: {
-                labels: ['W1', 'W2', 'Week 3', 'Week 4'],
-                datasets: [{ label: 'Usage', data: [12, 19, 3, 5], borderColor: '#7C3AED', tension: 0.4 }]
+                labels: ['W1', 'W2', 'W3', 'W4'],
+                datasets: [{ label: 'Tokens', data: [12000, 19000, 3000, 5000], borderColor: '#7C3AED', tension: 0.4, fill: true, backgroundColor: 'rgba(124, 58, 237, 0.1)' }]
             },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { display: false } } } }
         });
-    }
-});
-
-// 20. Purge Logs Action
-document.addEventListener('click', function(e) {
-    const purgeBtn = e.target.closest('#nexus-purge-logs');
-    if (purgeBtn) {
-        if (confirm('Are you sure you want to purge all usage and audit logs? This action is irreversible.')) {
-            purgeBtn.innerText = 'Purging Data...';
-            nexusFetch('status/purge', 'POST').then(() => {
-                alert('System logs purged successfully.');
-                window.location.reload();
-            });
-        }
     }
 });

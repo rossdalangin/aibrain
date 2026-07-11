@@ -34,8 +34,8 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-overview">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Platform Command</h2>
-				<h1 class="text-4xl font-bold text-white">Executive Overview</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Monitor your AI workforce productivity, token consumption, and strategic activity in real-time.</p>
+				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Executive Overview</h1>
+				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Monitor your AI workforce productivity, token consumption, and strategic activity in real-time.</p>
 			</div>
 
 			<div class="nexus-step-guide">
@@ -95,7 +95,7 @@ class AdminRenderer {
 			<div class="glass-panel p-8 rounded-2xl border border-nexus-border mb-12 bg-white/5">
 				<div class="flex justify-between items-center mb-6">
 					<h2 class="text-xl font-bold flex items-center gap-3">
-						<span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+						<span class="status-pulse-live"></span>
 						System Core Integrity
 					</h2>
 					<span class="text-xs text-gray-500 uppercase font-bold tracking-widest">v1.0.0 Stable</span>
@@ -241,8 +241,8 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-workforce">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Organizational Design</h2>
-				<h1 class="text-4xl font-bold text-white">Company Departments</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Define your company's organizational structure. Assign agents to departments to enable context-sharing and specialized reporting.</p>
+				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Company Departments</h1>
+				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Define your company's organizational structure. Assign agents to departments to enable context-sharing and specialized reporting.</p>
 			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -297,8 +297,8 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2 text-green-500">Talent Management</h2>
-					<h1 class="text-4xl font-bold text-white">Hire & Manage AI Agents</h1>
-					<p class="text-gray-400 mt-2 max-w-2xl">Build your virtual executive team. Each agent you hire has a unique personality and specific professional goals.</p>
+					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Hire & Manage AI Agents</h1>
+					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Build your virtual executive team. Each agent you hire has a unique personality and specific professional goals.</p>
 				</div>
 				<div class="flex gap-2 bg-nexus-elevated p-1 rounded-xl border border-nexus-border">
 					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold bg-accent text-white" data-tab="hiring">In-House</button>
@@ -340,22 +340,45 @@ class AdminRenderer {
 							<option value="">-- Choose an Expert --</option>
 							<optgroup label="Executive Suite">
 								<option value="ceo">CEO - Strategic Visionary</option>
+								<option value="coo">COO - Operations Architect</option>
 								<option value="cto">CTO - Systems Architect</option>
 								<option value="cmo">CMO - Growth Architect</option>
 								<option value="cfo">CFO - Financial Strategist</option>
 							</optgroup>
 							<optgroup label="Marketing & Sales">
+								<option value="mkt_dir">Marketing Director - Strategy Lead</option>
 								<option value="seo">SEO Specialist - Traffic Growth</option>
 								<option value="copywriter">Copywriter - Conversion Expert</option>
 								<option value="ads">Paid Ads Specialist - ROAS Expert</option>
 								<option value="sales">Sales Director - Revenue Architect</option>
+								<option value="social">Social Media - Community Growth</option>
+								<option value="affiliate">Affiliate Manager - Channel Lead</option>
+							</optgroup>
+							<optgroup label="Engineering & Design">
+								<option value="wp_dev">WP Developer - Backend Specialist</option>
+								<option value="php_dev">PHP Developer - Systems Specialist</option>
+								<option value="react_dev">React Developer - UI/UX Architect</option>
+								<option value="ux">UX Designer - Experience Specialist</option>
+								<option value="qa">QA Engineer - Product Stability</option>
+								<option value="prompt">Prompt Engineer - AI Optimizer</option>
 							</optgroup>
 							<optgroup label="Operations & Support">
+								<option value="ops_mgr">Operations Manager - Scale Lead</option>
 								<option value="hr">HR Manager - Culture Builder</option>
 								<option value="legal">Legal Advisor - Risk Mitigator</option>
-								<option value="qa">QA Engineer - Product Stability</option>
+								<option value="pm">Project Manager - Agile Delivery</option>
+								<option value="biz_analyst">Business Analyst - Logic Lead</option>
 								<option value="data">Data Analyst - Business Intelligence</option>
 								<option value="support">Customer Support Manager - Success Expert</option>
+								<option value="prod_mgr">Product Manager - Roadmap Expert</option>
+							</optgroup>
+							<optgroup label="Content & Admin">
+								<option value="exec_asst">Executive Assistant - Logic Guru</option>
+								<option value="bookkeeper">Bookkeeper - Precision Master</option>
+								<option value="va">Virtual Assistant - Multi-Tasker</option>
+								<option value="graphic">Graphic Designer - Visual Lead</option>
+								<option value="video">Video Editor - Engagement Lead</option>
+								<option value="email">Email Marketer - Retention Expert</option>
 							</optgroup>
 						</select>
 						<p class="text-[10px] text-gray-500 mt-3">Expect: Instant population of professional identity and mission constraints.</p>
@@ -466,7 +489,7 @@ class AdminRenderer {
 						</div>
 						<h3 class="text-xl font-bold text-white">Grant Writer Pro</h3>
 						<p class="text-sm text-gray-500 mt-2">Specialized in winning high-value federal and private grants.</p>
-						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-gold/20 hover:bg-nexus-gold text-nexus-gold hover:text-black font-bold py-3 rounded-xl transition-all" data-agent="grant_writer">Install Role</button>
+						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-gold/20 hover:bg-nexus-gold text-nexus-gold hover:text-black font-bold py-3 rounded-xl transition-all nexus-btn-vibrant">Install Role</button>
 						<span class="nexus-button-note">Expect: Expert persona added to your workforce.</span>
 					</div>
 				</div>
@@ -484,8 +507,8 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-settings">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Infrastructure</h2>
-				<h1 class="text-4xl font-bold text-white">System Configuration</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Manage the core engines and branding of your AI platform.</p>
+				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">System Configuration</h1>
+				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Manage the core engines and branding of your AI platform.</p>
 			</div>
 
 			<div class="nexus-step-guide">
@@ -513,9 +536,13 @@ class AdminRenderer {
 							<label class="block text-sm font-medium text-gray-400 mb-2">Anthropic API Key</label>
 							<input type="password" name="claude_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-ant-...">
 						</div>
-						<div>
-							<label class="block text-sm font-medium text-gray-400 mb-2">Google Gemini API Key</label>
-							<input type="password" name="gemini_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="AIza...">
+						<div class="dept-marketing p-4 rounded-xl border border-nexus-blue/10">
+							<label class="block text-sm font-bold text-white mb-2 flex items-center gap-2">
+								<svg class="w-4 h-4 text-nexus-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/></svg>
+								Google Gemini Key
+							</label>
+							<input type="password" name="gemini_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-nexus-blue outline-none" placeholder="AIza...">
+							<p class="text-[9px] text-gray-500 mt-2">Required for Gemini 1.5 Pro/Flash integration.</p>
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">OpenRouter API Key</label>
@@ -551,7 +578,7 @@ class AdminRenderer {
 							</select>
 						</div>
 						<button type="submit" class="w-full bg-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-accent/10 nexus-btn-vibrant">Save Infrastructure</button>
-						<button type="button" id="nexus-test-connectivity" class="w-full mt-2 bg-white/5 border border-white/10 text-white py-2 rounded-lg text-xs hover:bg-white/10 transition-all">Run Global Connectivity Test</button>
+						<button type="button" id="nexus-test-connectivity" class="w-full mt-2 bg-white/5 border border-white/10 text-white py-2 rounded-lg text-xs hover:bg-white/10 transition-all nexus-btn-vibrant">Run Global Connectivity Test</button>
 						<span class="nexus-button-note text-center">Expect: Secure AES-256 encryption of all keys before storage.</span>
 					</form>
 				</div>
@@ -581,19 +608,19 @@ class AdminRenderer {
 
 						<h3 class="text-sm font-bold text-white mt-10 mb-4 uppercase tracking-widest text-[10px]">Active Enterprise Tools</h3>
 						<div class="grid grid-cols-2 gap-3">
-							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between">
+							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between tool-active-glow">
 								<span class="text-[10px] font-bold text-green-500">WP_POSTS</span>
 								<span class="text-[9px] text-green-500/50">ACTIVE</span>
 							</div>
-							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between">
+							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between tool-active-glow">
 								<span class="text-[10px] font-bold text-green-500">WOOCOMMERCE</span>
 								<span class="text-[9px] text-green-500/50">ACTIVE</span>
 							</div>
-							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50">
+							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50 tool-pending-glow">
 								<span class="text-[10px] font-bold text-nexus-blue">SLACK_HOOK</span>
 								<span class="text-[9px] text-nexus-blue/50">PENDING</span>
 							</div>
-							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50">
+							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50 tool-pending-glow">
 								<span class="text-[10px] font-bold text-nexus-blue">DISCORD_HOOK</span>
 								<span class="text-[9px] text-nexus-blue/50">PENDING</span>
 							</div>
@@ -615,8 +642,8 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
-					<h1 class="text-4xl font-bold text-white">Company Brain (RAG)</h1>
-					<p class="text-gray-400 mt-2 max-w-2xl">Give your AI workforce "Company Memory." Upload your unique business data to ground agent responses.</p>
+					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Company Brain (RAG)</h1>
+					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Give your AI workforce "Company Memory." Upload your unique business data to ground agent responses.</p>
 				</div>
 				<button id="nexus-wipe-memory" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-6 py-2 rounded-xl text-xs font-bold transition-all border border-red-500/20">Wipe All Memory</button>
 			</div>
@@ -646,7 +673,7 @@ class AdminRenderer {
 							<input type="file" id="nexus-kb-file-input" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.docx,.txt,.md">
 							<div id="nexus-upload-idle">
 								<p class="text-sm text-gray-300 font-medium">Click or Drag PDF, DOCX, or TXT here</p>
-								<button class="mt-6 bg-nexus-elevated border border-nexus-border text-white px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all">Select Files</button>
+								<button class="mt-6 bg-nexus-elevated border border-nexus-border text-white px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all nexus-btn-vibrant">Select Files</button>
 							</div>
 							<div id="nexus-upload-progress" class="hidden">
 								<div class="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -671,7 +698,7 @@ class AdminRenderer {
 							<label class="block text-sm font-medium text-gray-400 mb-2">Web Scraper</label>
 							<div class="flex gap-2">
 								<input type="url" id="nexus-kb-url-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white outline-none focus:border-accent" placeholder="https://...">
-								<button id="nexus-kb-index-btn" class="bg-accent text-white px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all">Index</button>
+								<button id="nexus-kb-index-btn" class="bg-accent text-white px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all nexus-btn-vibrant">Index</button>
 							</div>
 							<span class="nexus-button-note">Expect: Recursive crawling of the provided URL.</span>
 						</div>
@@ -730,8 +757,8 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-automations">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Workflow Engineering</h2>
-				<h1 class="text-4xl font-bold text-white">Multi-Agent Automations</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Create logical chains where agents collaborate to achieve complex business objectives.</p>
+				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Multi-Agent Automations</h1>
+				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Create logical chains where agents collaborate to achieve complex business objectives.</p>
 			</div>
 
 			<div class="nexus-step-guide">
@@ -781,7 +808,7 @@ class AdminRenderer {
 				<div class="lg:col-span-2">
 					<div class="glass-panel p-8 rounded-3xl border border-nexus-border min-h-[500px] flex flex-col items-center justify-center text-center bg-accent/5">
 						<h2 class="text-3xl font-bold mb-4 text-white uppercase tracking-tighter">Workflow Canvas</h2>
-						<button id="nexus-open-visual-builder" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-12 rounded-xl transition-all shadow-lg shadow-accent/20">Open Visual Builder</button>
+						<button id="nexus-open-visual-builder" onclick="document.getElementById('nexus-visual-builder-modal').classList.remove('hidden')" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-12 rounded-xl transition-all shadow-lg shadow-accent/20">Open Visual Builder</button>
 						<span class="nexus-button-note mt-4">Expect: Fullscreen drag-and-drop orchestration environment.</span>
 					</div>
 				</div>
@@ -855,8 +882,8 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
-					<h1 class="text-4xl font-bold text-white">Collaboration Hub</h1>
-					<p class="text-gray-400 mt-2 max-w-2xl">Start virtual meetings. Gather your AI executives to brainstorm and reach a consensus.</p>
+					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Collaboration Hub</h1>
+					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Start virtual meetings. Gather your AI executives to brainstorm and reach a consensus.</p>
 				</div>
 				<div class="text-right">
 					<button id="nexus-start-meeting-btn" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">
@@ -912,7 +939,7 @@ class AdminRenderer {
 
 						<div class="p-8 bg-nexus-elevated/50 border-t border-nexus-border flex gap-4">
 							<input type="text" id="nexus-meeting-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-5 text-white outline-none focus:border-accent" placeholder="Chairman Instruction...">
-							<button id="nexus-send-meeting-msg" class="bg-accent hover:opacity-90 text-white font-bold px-10 rounded-xl transition-all shadow-lg shadow-accent/20">Send</button>
+							<button id="nexus-send-meeting-msg" class="bg-accent hover:opacity-90 text-white font-bold px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">Send</button>
 						</div>
 					</div>
 				</div>

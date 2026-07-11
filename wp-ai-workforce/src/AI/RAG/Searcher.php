@@ -62,7 +62,8 @@ class Searcher {
 			$sql .= " AND k.owner_type = 'global'";
 		}
 
-		$sql .= " LIMIT 5";
+		$sql .= " ORDER BY (CASE WHEN c.content LIKE %s THEN 1 ELSE 2 END) LIMIT 5";
+		$params[] = '%' . $wpdb->esc_like( $query ) . '%';
 
 		$results = $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A );
 
