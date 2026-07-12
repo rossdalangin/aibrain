@@ -271,6 +271,14 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/public/chat', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $chat_controller, 'send_public_message' ],
+				'permission_callback' => '__return_true',
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/employees/(?P<id>\d+)', [
 			[
 				'methods'             => WP_REST_Server::READABLE,

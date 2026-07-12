@@ -319,3 +319,30 @@ input:focus, textarea:focus, select:focus {
 
 .nexus-toast-success { border-color: var(--nexus-green); }
 .nexus-toast-error { border-color: var(--nexus-red); }
+
+/* Thinking Phase */
+.nexus-thinking-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--nexus-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.thinking-dot {
+  width: 4px; height: 4px;
+  background-color: var(--nexus-accent);
+  border-radius: 50%;
+  animation: thinking-bounce 1.4s infinite ease-in-out both;
+}
+
+.thinking-dot:nth-child(1) { animation-delay: -0.32s; }
+.thinking-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes thinking-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}

@@ -11,6 +11,8 @@ use NexusAI\Workforce\Integrations\Actions\WooCommerceAction;
 use NexusAI\Workforce\Integrations\Actions\WebhookAction;
 use NexusAI\Workforce\Integrations\Actions\SlackAction;
 use NexusAI\Workforce\Integrations\Actions\DiscordAction;
+use NexusAI\Workforce\Integrations\Actions\ImageGenerationAction;
+use NexusAI\Workforce\Integrations\Actions\CommentManagementAction;
 
 /**
  * Registry for all AI-executable actions.
@@ -31,6 +33,8 @@ class ActionRegistry {
 		$this->register( new WebhookAction() );
 		$this->register( new SlackAction() );
 		$this->register( new DiscordAction() );
+		$this->register( new ImageGenerationAction() );
+		$this->register( new CommentManagementAction() );
 	}
 
 	/**

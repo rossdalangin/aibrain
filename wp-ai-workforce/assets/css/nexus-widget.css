@@ -1,0 +1,213 @@
+/* Nexus AI Workforce - Frontend Chat Widget */
+
+:root {
+  --nexus-widget-accent: #7C3AED;
+  --nexus-widget-bg: #0A0A0B;
+  --nexus-widget-surface: #121214;
+  --nexus-widget-text: #FFFFFF;
+  --nexus-widget-border: rgba(255, 255, 255, 0.08);
+}
+
+#nexus-chat-widget-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999999;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Floating Bubble */
+#nexus-chat-trigger {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--nexus-widget-accent);
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#nexus-chat-trigger:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+#nexus-chat-trigger svg {
+  width: 28px;
+  height: 28px;
+  color: white;
+}
+
+/* Chat Window */
+#nexus-chat-window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 380px;
+  height: 600px;
+  background: rgba(18, 18, 20, 0.95);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid var(--nexus-widget-border);
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#nexus-chat-window.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Header */
+.nexus-chat-header {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--nexus-widget-accent) 0%, rgba(124, 58, 237, 0.6) 100%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nexus-chat-agent-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.nexus-chat-header-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+}
+
+.nexus-chat-header-info p {
+  margin: 0;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Message Area */
+#nexus-chat-messages {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+}
+
+.nexus-msg {
+  max-width: 85%;
+  padding: 1rem;
+  border-radius: 18px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  animation: msg-in 0.3s ease-out forwards;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nexus-msg-user {
+  align-self: flex-end;
+  background: var(--nexus-widget-accent);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.nexus-msg-ai {
+  align-self: flex-start;
+  background: var(--nexus-widget-surface);
+  color: var(--nexus-widget-text);
+  border: 1px solid var(--nexus-widget-border);
+  border-bottom-left-radius: 4px;
+}
+
+/* Footer Input */
+.nexus-chat-input-container {
+  padding: 1.25rem;
+  border-top: 1px solid var(--nexus-widget-border);
+  background: var(--nexus-widget-surface);
+  display: flex;
+  gap: 0.75rem;
+}
+
+.nexus-chat-input-container input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--nexus-widget-border);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  color: white;
+  outline: none;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+.nexus-chat-input-container input:focus {
+  border-color: var(--nexus-widget-accent);
+}
+
+.nexus-chat-send-btn {
+  background: var(--nexus-widget-accent);
+  border: none;
+  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.nexus-chat-send-btn:hover {
+  opacity: 0.9;
+}
+
+/* Thinking Dots */
+.nexus-typing {
+  display: flex;
+  gap: 4px;
+  padding: 0.5rem;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #6b7280;
+  border-radius: 50%;
+  animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}

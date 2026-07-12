@@ -26,15 +26,26 @@ class AdminRenderer {
 	 */
 	public function render_overview_page(): void {
 		echo $this->get_brand_styles();
+		$agency_mode   = (bool) $this->settings->get( 'agency_mode', false );
+		$display_title = $this->settings->get( 'platform_title', 'Nexus AI' );
 		global $wpdb;
 		$agent_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE is_active = 1" ) ?: 0;
 		$doc_count   = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_knowledge_documents" ) ?: 0;
 		$total_cost  = $wpdb->get_var( "SELECT SUM(cost) FROM {$wpdb->prefix}ai_usage_logs" ) ?: 0.00;
 		?>
 		<div class="nexus-admin-body p-10 theme-overview">
+			<div class="mb-10 flex justify-between items-center">
+				<div>
+					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Platform Command</h2>
+					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Executive Overview</h1>
+				</div>
+				<?php if ( ! empty( $this->settings->get( 'agency_logo' ) ) ) : ?>
+					<img src="<?php echo esc_url( $this->settings->get( 'agency_logo' ) ); ?>" class="h-12 object-contain" alt="Logo">
+				<?php elseif ( ! $agency_mode ) : ?>
+					<div class="text-2xl font-black tracking-tighter text-white/20">NEXUS AI</div>
+				<?php endif; ?>
+			</div>
 			<div class="mb-10">
-				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Platform Command</h2>
-				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Executive Overview</h1>
 				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Monitor your AI workforce productivity, token consumption, and strategic activity in real-time.</p>
 			</div>
 
@@ -173,7 +184,7 @@ class AdminRenderer {
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 					<h2 class="text-xl font-semibold mb-6">Workforce Activity</h2>
 					<div class="space-y-4">
@@ -203,6 +214,20 @@ class AdminRenderer {
 							<p class="font-bold text-sm text-white group-hover:text-accent">ROAS Audit</p>
 							<p class="text-[10px] text-gray-500 mt-1 uppercase">Generate instant marketing report.</p>
 						</button>
+					</div>
+				</div>
+
+				<div class="glass-panel p-8 rounded-2xl border border-nexus-border border-l-4 border-l-nexus-gold bg-nexus-gold/5 flex flex-col justify-between">
+					<div>
+						<h2 class="text-xl font-bold text-nexus-gold mb-2">Agency Client Portal</h2>
+						<p class="text-xs text-gray-400 leading-relaxed">Provide your clients with a dedicated, white-labeled interface to interact with their AI workforce.</p>
+					</div>
+					<div class="space-y-3 mt-6">
+						<div class="flex items-center justify-between p-3 rounded-xl bg-nexus-elevated border border-white/5">
+							<span class="text-[10px] font-bold text-white uppercase">Client Access</span>
+							<span class="text-[10px] font-bold text-green-500 uppercase">Enabled</span>
+						</div>
+						<button class="w-full bg-nexus-gold text-black font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all">Launch Portal Preview</button>
 					</div>
 				</div>
 			</div>
@@ -385,6 +410,15 @@ class AdminRenderer {
 					</div>
 
 					<form id="nexus-hire-agent-form" class="space-y-8">
+						<!-- Prompt Preview Toggle -->
+						<div class="flex justify-end mb-2">
+							<button type="button" id="nexus-toggle-prompt-preview" class="text-[10px] font-bold text-accent uppercase tracking-widest hover:underline">Show Master Prompt Preview</button>
+						</div>
+
+						<div id="nexus-prompt-preview-container" class="hidden p-6 rounded-2xl bg-black border border-accent/30 mb-6 font-mono text-[10px] text-gray-400 overflow-y-auto max-h-64 whitespace-pre-wrap">
+							<!-- Dynamic Preview Here -->
+						</div>
+
 						<!-- Phase 1: Identity -->
 						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
 							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 1: Professional Identity</p>
@@ -400,7 +434,7 @@ class AdminRenderer {
 							</div>
 						</div>
 						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
-							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 2: Core Reasoning</p>
+							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 2: Core Reasoning & Objectives</p>
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Identity (Persona)</label>
@@ -409,6 +443,45 @@ class AdminRenderer {
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Mission (Primary Objective)</label>
 									<textarea name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What is its main goal?"></textarea>
+								</div>
+							</div>
+							<div class="mt-6">
+								<label class="block text-sm font-medium text-gray-400 mb-2">Strategic Objectives (KPIs)</label>
+								<textarea name="kpis" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-20" placeholder="What specific metrics define success for this role?"></textarea>
+							</div>
+						</div>
+
+						<!-- Advanced Brain Builder -->
+						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+							<div class="flex justify-between items-center mb-4">
+								<p class="text-xs font-bold text-accent uppercase tracking-widest">Phase 3: Advanced Brain Configuration</p>
+								<button type="button" onclick="document.getElementById('nexus-advanced-brain-fields').classList.toggle('hidden')" class="text-[10px] text-gray-500 hover:text-white uppercase font-bold">Toggle Advanced Settings</button>
+							</div>
+
+							<div id="nexus-advanced-brain-fields" class="hidden space-y-6">
+								<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+									<div>
+										<label class="block text-sm font-medium text-gray-400 mb-2">Behavior & Rules</label>
+										<textarea name="rules" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Fixed rules the AI must always follow..."></textarea>
+									</div>
+									<div>
+										<label class="block text-sm font-medium text-gray-400 mb-2">Thinking Process</label>
+										<textarea name="thinking_process" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="How should the AI reason? (e.g. First Principles, SWOT)"></textarea>
+									</div>
+								</div>
+								<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+									<div>
+										<label class="block text-sm font-medium text-gray-400 mb-2">Output Format</label>
+										<textarea name="output_format" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Standardized output style (Markdown, JSON, Bullet points)"></textarea>
+									</div>
+									<div>
+										<label class="block text-sm font-medium text-gray-400 mb-2">Negative Prompts (Guardrails)</label>
+										<textarea name="negative_prompts" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What should the AI NEVER do or say?"></textarea>
+									</div>
+								</div>
+								<div>
+									<label class="block text-sm font-medium text-gray-400 mb-2">Few-Shot Examples</label>
+									<textarea name="examples" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-32" placeholder="Example 1: User says X, AI says Y..."></textarea>
 								</div>
 							</div>
 						</div>
@@ -483,14 +556,45 @@ class AdminRenderer {
 
 			<div id="nexus-marketplace-tab" class="nexus-tab-content hidden">
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+					<!-- Grant Writer -->
 					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-nexus-gold transition-all group glass-card-hover border-l-4 border-l-nexus-gold">
 						<div class="w-16 h-16 rounded-2xl bg-nexus-gold/10 flex items-center justify-center text-nexus-gold mb-6 group-hover:scale-110 transition-transform">
 							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 						</div>
 						<h3 class="text-xl font-bold text-white">Grant Writer Pro</h3>
 						<p class="text-sm text-gray-500 mt-2">Specialized in winning high-value federal and private grants.</p>
-						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-gold/20 hover:bg-nexus-gold text-nexus-gold hover:text-black font-bold py-3 rounded-xl transition-all nexus-btn-vibrant">Install Role</button>
+						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-gold/20 hover:bg-nexus-gold text-nexus-gold hover:text-black font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="grant_writer">Install Role</button>
 						<span class="nexus-button-note">Expect: Expert persona added to your workforce.</span>
+					</div>
+
+					<!-- Corporate Lawyer -->
+					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-blue-500 transition-all group glass-card-hover border-l-4 border-l-blue-500">
+						<div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+						</div>
+						<h3 class="text-xl font-bold text-white">Corporate Counsel</h3>
+						<p class="text-sm text-gray-500 mt-2">Legal expert for contract review, compliance, and risk mitigation.</p>
+						<button class="nexus-marketplace-install w-full mt-8 bg-blue-500/20 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="lawyer">Install Role</button>
+					</div>
+
+					<!-- Medical Consultant -->
+					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-red-500 transition-all group glass-card-hover border-l-4 border-l-red-500">
+						<div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+						</div>
+						<h3 class="text-xl font-bold text-white">Medical Advisor</h3>
+						<p class="text-sm text-gray-500 mt-2">Specialized in health research, wellness plans, and biological data.</p>
+						<button class="nexus-marketplace-install w-full mt-8 bg-red-500/20 hover:bg-red-500 text-red-500 hover:text-white font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="doctor">Install Role</button>
+					</div>
+
+					<!-- Financial Planner -->
+					<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-green-500 transition-all group glass-card-hover border-l-4 border-l-green-500">
+						<div class="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-transform">
+							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+						</div>
+						<h3 class="text-xl font-bold text-white">Wealth Strategist</h3>
+						<p class="text-sm text-gray-500 mt-2">Capital allocation, investment analysis, and tax optimization expert.</p>
+						<button class="nexus-marketplace-install w-full mt-8 bg-green-500/20 hover:bg-green-500 text-green-500 hover:text-white font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="finance">Install Role</button>
 					</div>
 				</div>
 			</div>
@@ -584,8 +688,22 @@ class AdminRenderer {
 				</div>
 
 				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<h2 class="text-xl font-semibold mb-6 text-nexus-gold">White Label & Brand</h2>
+					<h2 class="text-xl font-semibold mb-6 text-nexus-gold">Company Memory & Identity</h2>
 					<div class="space-y-6">
+						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Company Vision & Mission</label>
+							<textarea name="company_mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Describe the ultimate goal of the company..."><?php echo esc_textarea( $this->settings->get( 'company_mission', '' ) ); ?></textarea>
+						</div>
+						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Core Values</label>
+							<textarea name="company_values" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Integrity, Innovation, Customer First..."><?php echo esc_textarea( $this->settings->get( 'company_values', '' ) ); ?></textarea>
+						</div>
+						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Target Audience / Personas</label>
+							<textarea name="company_audience" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Describe your ideal customers..."><?php echo esc_textarea( $this->settings->get( 'company_audience', '' ) ); ?></textarea>
+						</div>
+
+						<h2 class="text-xl font-semibold mt-10 mb-6 text-nexus-gold">White Label & Brand</h2>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Agency Logo URL</label>
 							<input type="text" name="agency_logo" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="https://...">
@@ -601,7 +719,7 @@ class AdminRenderer {
 						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
 							<p class="text-sm font-bold text-white mb-2 uppercase">Agency Mode</p>
 							<div class="flex items-center gap-4">
-								<input type="checkbox" name="agency_mode" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-accent">
+								<input type="checkbox" name="agency_mode" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-accent" <?php checked( (bool) $this->settings->get( 'agency_mode', false ) ); ?>>
 								<p class="text-xs text-gray-500">Hide "Nexus AI" branding and use "Platform Display Title" throughout the UI.</p>
 							</div>
 						</div>
@@ -623,6 +741,29 @@ class AdminRenderer {
 							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50 tool-pending-glow">
 								<span class="text-[10px] font-bold text-nexus-blue">DISCORD_HOOK</span>
 								<span class="text-[9px] text-nexus-blue/50">PENDING</span>
+							</div>
+						</div>
+
+						<h2 class="text-xl font-semibold mt-10 mb-6 text-nexus-violet">Frontend Chat Widget</h2>
+						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
+							<div class="flex items-center justify-between mb-6">
+								<p class="text-sm font-bold text-white uppercase">Enable Public Widget</p>
+								<input type="checkbox" name="widget_enabled" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-nexus-violet" <?php checked( (bool) $this->settings->get( 'widget_enabled', false ) ); ?>>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-400 mb-2">Public Facing Agent</label>
+								<select name="public_agent_id" class="w-full bg-nexus-bg border border-nexus-border rounded-lg p-3 text-white">
+									<option value="0">-- Select Agent --</option>
+									<?php
+									global $wpdb;
+									$agents = $wpdb->get_results( "SELECT id, name, position FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A );
+									foreach ( $agents as $agent ) {
+										$selected = ( (int) $this->settings->get( 'public_agent_id', 0 ) === (int) $agent['id'] ) ? 'selected' : '';
+										echo '<option value="' . (int) $agent['id'] . '" ' . $selected . '>' . esc_html( $agent['name'] ) . ' (' . esc_html( $agent['position'] ) . ')</option>';
+									}
+									?>
+								</select>
+								<p class="text-[10px] text-gray-500 mt-2">This agent will handle all public-facing queries on your website.</p>
 							</div>
 						</div>
 					</div>
@@ -670,7 +811,7 @@ class AdminRenderer {
 					<h2 class="text-xl font-semibold mb-6">Ingest Data</h2>
 					<div class="space-y-8">
 						<div id="nexus-kb-upload-zone" class="border-2 border-dashed border-accent/20 rounded-2xl p-10 text-center hover:border-accent transition-all bg-accent/5 group cursor-pointer relative">
-							<input type="file" id="nexus-kb-file-input" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.docx,.txt,.md">
+							<input type="file" id="nexus-kb-file-input" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.docx,.txt,.md,.csv">
 							<div id="nexus-upload-idle">
 								<p class="text-sm text-gray-300 font-medium">Click or Drag PDF, DOCX, or TXT here</p>
 								<button class="mt-6 bg-nexus-elevated border border-nexus-border text-white px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all nexus-btn-vibrant">Select Files</button>
@@ -969,6 +1110,15 @@ class AdminRenderer {
 				<p class="text-gray-400 mt-2 max-w-2xl">Access all past AI meetings, workflow traces, and single-agent interactions. Filter by type to find specific strategic decisions.</p>
 			</div>
 
+			<div class="mb-8 flex gap-4">
+				<select id="nexus-archive-filter" class="bg-nexus-elevated border border-nexus-border rounded-xl px-6 py-3 text-white text-sm outline-none focus:border-accent">
+					<option value="all">All Intelligence Sessions</option>
+					<option value="meeting">AI Meetings</option>
+					<option value="workflow">Workflow Traces</option>
+					<option value="chat">Single Agent Chats</option>
+				</select>
+			</div>
+
 			<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
 				<div class="overflow-x-auto">
 					<table class="w-full text-left text-sm text-gray-400">
@@ -982,7 +1132,7 @@ class AdminRenderer {
 						</thead>
 						<tbody class="divide-y divide-nexus-border/50">
 							<?php foreach ( $convs as $conv ) : ?>
-								<tr>
+								<tr class="nexus-archive-row" data-type="<?php echo esc_attr( $conv['type'] ); ?>">
 									<td class="py-5 px-2 font-bold text-white"><?php echo esc_html( $conv['title'] ?: 'Untitled Session' ); ?></td>
 									<td class="py-5 px-2">
 										<span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase border border-accent/20">
@@ -1010,6 +1160,8 @@ class AdminRenderer {
 	public function render_billing_page(): void {
 		echo $this->get_brand_styles();
 		$active_plan = get_option( 'nexus_ai_active_plan', 'starter' );
+		$agency_mode   = (bool) $this->settings->get( 'agency_mode', false );
+		$display_title = $this->settings->get( 'platform_title', 'Nexus AI' );
 		?>
 		<div class="nexus-admin-body p-10 theme-settings">
 			<div class="mb-10">

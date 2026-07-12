@@ -50,9 +50,11 @@ class MarketplaceController {
 		// Handle key-based marketplace simulation
 		if ( isset( $params['agent_key'] ) ) {
 			$templates = [
-				'grant_writer'  => [ 'name' => 'Grant Writer Pro', 'position' => 'Grant Writer', 'role_description' => 'I am a grant writing specialist.', 'prompt_template' => 'Write federal grants.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o']) ],
-				'legal_advisor' => [ 'name' => 'Legal Advisor', 'position' => 'Legal Expert', 'role_description' => 'I am a legal expert.', 'prompt_template' => 'Draft contracts.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o']) ],
-				'wp_architect'  => [ 'name' => 'WP Architect', 'position' => 'Plugin Developer', 'role_description' => 'I am a WP developer.', 'prompt_template' => 'Write clean PHP.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o']) ],
+				'grant_writer' => [ 'name' => 'Grant Writer Pro', 'position' => 'Grant Writer', 'role_description' => 'I am a visionary grant writer specializing in high-value federal and private grant acquisition.', 'prompt_template' => 'Synthesize organization data into winning grant proposals.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o', 'temperature' => 0.7]) ],
+				'lawyer'       => [ 'name' => 'Corporate Counsel', 'position' => 'Legal Advisor', 'role_description' => 'I am a meticulous corporate lawyer specializing in contract law, compliance, and risk mitigation.', 'prompt_template' => 'Review legal documents and ensure full regulatory adherence.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o', 'temperature' => 0.1]) ],
+				'doctor'       => [ 'name' => 'Medical Advisor', 'position' => 'Health Consultant', 'role_description' => 'I am a clinical expert focused on wellness, biological data analysis, and preventative health strategy.', 'prompt_template' => 'Analyze health data and provide evidence-based wellness recommendations.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o', 'temperature' => 0.4]) ],
+				'finance'      => [ 'name' => 'Wealth Strategist', 'position' => 'Financial Planner', 'role_description' => 'I am a high-level financial strategist focused on capital allocation, tax optimization, and long-term wealth preservation.', 'prompt_template' => 'Develop comprehensive financial growth and risk management strategies.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o', 'temperature' => 0.2]) ],
+				'wp_architect' => [ 'name' => 'WP Architect', 'position' => 'Plugin Developer', 'role_description' => 'I am a senior WordPress engineer and systems architect.', 'prompt_template' => 'Build high-performance, secure, and scalable WordPress extensions.', 'model_settings' => wp_json_encode(['model' => 'gpt-4o', 'temperature' => 0.2]) ],
 			];
 
 			$data = $templates[ $params['agent_key'] ] ?? null;

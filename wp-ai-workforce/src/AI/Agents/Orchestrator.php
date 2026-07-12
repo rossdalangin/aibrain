@@ -82,15 +82,28 @@ class Orchestrator {
 	 * @return string           Final response.
 	 */
 	public function process_request( string $request, array $agent_data, string $company_context = '', string $department_context = '' ): string {
-		// 1. Perform RAG search
+		// 1. Resolve Global Company Context if not provided
+		if ( empty( $company_context ) ) {
+			$settings = new \NexusAI\Workforce\Repositories\SettingsRepository();
+			$mission  = $settings->get( 'company_mission', '' );
+			$values   = $settings->get( 'company_values', '' );
+			$audience = $settings->get( 'company_audience', '' );
+
+			$company_context = "COMPANY VISION: $mission\nCORE VALUES: $values\nTARGET AUDIENCE: $audience";
+		}
+
+		// 2. Perform RAG search
 		$kb_context = $this->searcher->search( $request, [ 'agent_id' => $agent_data['id'] ?? 0 ] );
 
-		// 2. Build system prompt with context layers
+		// 3. Build system prompt with context layers
 		$system_prompt = $this->prompt_builder->build( array_merge( $agent_data, [
 			'company_context'    => $company_context,
 			'department_context' => $department_context,
 			'kb_context'         => $kb_context
 		] ) );
+
+		// 4. Chain of Thought (CoT) injection for complex reasoning
+		$request .= "\n\nPlease think step-by-step before providing your final answer. Structure your output by first describing your reasoning process in a 'Reasoning' section, followed by your 'Final Response'.";
 
 		$messages = [
 			[ 'role' => 'system', 'content' => $system_prompt ],

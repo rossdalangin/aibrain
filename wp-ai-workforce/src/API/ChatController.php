@@ -60,6 +60,7 @@ class ChatController {
 		// Specialized Meeting Prompt
 		$prompt = "We are in a strategic meeting. ROUND: $round. AGENDA: $agenda.
 		As the {$agent['position']}, give your expert opinion or contribution to the goal.
+		If you have a clear recommendation, format it as 'DECISION: [your decision]' or 'ACTION: [specific action]'.
 		Keep it professional, concise, and focused on your specific role KPIs.";
 
 		$response = $orchestrator->process_request( $prompt, $agent );
@@ -69,6 +70,40 @@ class ChatController {
 			'position'   => $agent['position'],
 			'content'    => $response
 		], 200 );
+	}
+
+	/**
+	 * Send a message from the public frontend widget.
+	 */
+	public function send_public_message( WP_REST_Request $request ): WP_REST_Response {
+		$params = $request->get_params();
+		$message = sanitize_textarea_field( $params['message'] ?? '' );
+		$session_id = sanitize_text_field( $params['session_id'] ?? 'anonymous' );
+
+		if ( ! $this->settings->get( 'widget_enabled', false ) ) {
+			return new WP_REST_Response( [ 'error' => 'Widget disabled' ], 403 );
+		}
+
+		$agent_id = (int) $this->settings->get( 'public_agent_id', 0 );
+		$agent    = $this->employees->get_by_id( $agent_id );
+
+		if ( ! $agent ) {
+			return new WP_REST_Response( [ 'error' => 'Agent not configured' ], 500 );
+		}
+
+		$orchestrator = $this->get_orchestrator( $agent );
+		$response = $orchestrator->process_request( $message, $agent );
+
+		// Log usage for the public agent
+		$this->usage_logs->log_usage( [
+			'employee_id'       => $agent_id,
+			'model'             => $agent['model'] ?? 'gpt-4o',
+			'prompt_tokens'     => 150,
+			'completion_tokens' => 300,
+			'cost'              => 0.01,
+		] );
+
+		return new WP_REST_Response( [ 'response' => $response ], 200 );
 	}
 
 	public function send_message( WP_REST_Request $request ): WP_REST_Response {

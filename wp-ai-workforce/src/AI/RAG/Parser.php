@@ -48,6 +48,17 @@ class Parser {
 				}
 				return '';
 
+			case 'csv':
+				$handle = fopen( $filepath, 'r' );
+				$text = '';
+				if ( $handle ) {
+					while ( ( $data = fgetcsv( $handle, 1000, ',' ) ) !== false ) {
+						$text .= implode( ' | ', $data ) . "\n";
+					}
+					fclose( $handle );
+				}
+				return $text;
+
 			default:
 				return '';
 		}

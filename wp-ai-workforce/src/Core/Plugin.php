@@ -28,12 +28,25 @@ class Plugin {
 		if ( class_exists( 'NexusAI\\Workforce\\API\\RestHandler' ) ) {
 			( new \NexusAI\Workforce\API\RestHandler() )->init();
 		}
+
+		// Initialize Frontend Widget
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\ChatWidget' ) ) {
+			( new \NexusAI\Workforce\UI\ChatWidget() )->init();
+		}
 	}
 
 	public function add_admin_menu() {
+		$settings_repo = new \NexusAI\Workforce\Repositories\SettingsRepository();
+		$agency_mode   = (bool) $settings_repo->get( 'agency_mode', false );
+		$display_title = $settings_repo->get( 'platform_title', 'Nexus AI' );
+
+		if ( empty( $display_title ) ) {
+			$display_title = 'Nexus AI';
+		}
+
 		add_menu_page(
-			__( 'Nexus AI', 'nexus-ai-workforce' ),
-			__( 'Nexus AI', 'nexus-ai-workforce' ),
+			$display_title,
+			$display_title,
 			'manage_options',
 			'nexus-ai-workforce',
 			[ $this, 'render_overview_page' ],

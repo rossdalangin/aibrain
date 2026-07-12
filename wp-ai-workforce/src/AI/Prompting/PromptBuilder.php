@@ -17,6 +17,11 @@ class PromptBuilder {
 	public function build( array $params ): string {
 		$sections = [];
 
+		// 0. Global Company Context
+		if ( ! empty( $params['company_context'] ) ) {
+			$sections[] = "# COMPANY PROFILE\n" . $params['company_context'];
+		}
+
 		// 1. Identity & Mission
 		$sections[] = "# IDENTITY\n" . ( $params['name'] ?? 'AI Employee' ) . " - " . ( $params['position'] ?? 'Specialist' );
 		$sections[] = "# MISSION\n" . ( $params['role_description'] ?? 'Execute tasks efficiently.' );
