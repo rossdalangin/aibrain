@@ -472,6 +472,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 nexusFetch('status/purge', 'POST').then(() => window.location.reload());
             }
         }
+
+        const downloadTraceBtn = e.target.closest('#nexus-download-trace');
+        if (downloadTraceBtn) {
+            const logContent = document.getElementById('nexus-workflow-log').innerText;
+            const blob = new Blob([logContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'workflow_trace_' + Date.now() + '.txt';
+            a.click();
+            showToast('Workflow trace log downloaded.');
+        }
     });
 
     // --- 7. Billing ---

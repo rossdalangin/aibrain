@@ -26,7 +26,7 @@ class Searcher {
 		$sql = "SELECT c.content FROM $chunks_table c
 				JOIN $docs_table d ON c.doc_id = d.id
 				JOIN $kb_table k ON d.kb_id = k.id
-				WHERE c.content LIKE %s";
+				WHERE 1=1";
 
 		// 2. Multi-term weighting (Simulated semantic search)
 		$terms = explode(' ', $query);

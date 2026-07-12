@@ -292,8 +292,8 @@ class AdminRenderer {
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<?php foreach ( $depts as $dept ) : ?>
 							<div class="glass-panel p-6 rounded-2xl border border-nexus-border glass-card-hover">
-								<h3 class="text-xl font-bold text-white mb-2"><?php echo esc_html( $dept['name'] ); ?></h3>
-								<p class="text-sm text-gray-500 mb-4"><?php echo esc_html( $dept['description'] ); ?></p>
+								<h3 class="text-xl font-bold text-accent mb-2"><?php echo esc_html( $dept['name'] ); ?></h3>
+								<p class="text-sm text-gray-300 mb-4"><?php echo esc_html( $dept['description'] ); ?></p>
 								<div class="flex justify-between items-center mt-6 pt-4 border-t border-nexus-border/30">
 									<span class="text-[10px] text-gray-500 uppercase font-bold tracking-tighter">Active Agents: <?php
 										echo (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE department_id = %d", $dept['id'] ) );
@@ -420,7 +420,7 @@ class AdminRenderer {
 						</div>
 
 						<!-- Phase 1: Identity -->
-						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+						<div class="form-group-tint">
 							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 1: Professional Identity</p>
 							<div class="space-y-4">
 								<div>
@@ -433,7 +433,7 @@ class AdminRenderer {
 								</div>
 							</div>
 						</div>
-						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+						<div class="form-group-tint">
 							<p class="text-xs font-bold text-accent uppercase mb-4 tracking-widest">Phase 2: Core Reasoning & Objectives</p>
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div>
@@ -452,7 +452,7 @@ class AdminRenderer {
 						</div>
 
 						<!-- Advanced Brain Builder -->
-						<div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+						<div class="form-group-tint">
 							<div class="flex justify-between items-center mb-4">
 								<p class="text-xs font-bold text-accent uppercase tracking-widest">Phase 3: Advanced Brain Configuration</p>
 								<button type="button" onclick="document.getElementById('nexus-advanced-brain-fields').classList.toggle('hidden')" class="text-[10px] text-gray-500 hover:text-white uppercase font-bold">Toggle Advanced Settings</button>
@@ -540,8 +540,8 @@ class AdminRenderer {
 							foreach ( $active_agents as $a ) : ?>
 								<div class="p-4 rounded-xl bg-white/5 border border-white/5 flex justify-between items-center group">
 									<div>
-										<p class="font-bold text-white"><?php echo esc_html( $a['name'] ); ?></p>
-										<p class="text-[10px] text-gray-500 uppercase"><?php echo esc_html( $a['position'] ); ?></p>
+										<p class="font-bold text-accent"><?php echo esc_html( $a['name'] ); ?></p>
+										<p class="text-[10px] text-gray-400 uppercase"><?php echo esc_html( $a['position'] ); ?></p>
 									</div>
 									<button class="nexus-delete-agent opacity-0 group-hover:opacity-100 text-red-500 text-xs transition-all" data-id="<?php echo (int) $a['id']; ?>">Terminate</button>
 								</div>
@@ -961,10 +961,16 @@ class AdminRenderer {
 				<div class="absolute inset-x-10 top-20 bottom-20 glass-panel rounded-3xl border border-nexus-border flex flex-col overflow-hidden shadow-2xl">
 					<div class="p-8 border-b border-nexus-border flex justify-between items-center bg-nexus-elevated/50">
 						<div>
-							<h2 class="text-2xl font-bold text-white uppercase tracking-tighter">Workflow Execution Trace</h2>
+							<div class="flex items-center gap-3">
+								<span class="status-pulse-live"></span>
+								<h2 class="text-2xl font-bold text-white uppercase tracking-tighter">Workflow Execution Trace</h2>
+							</div>
 							<p class="text-xs text-gray-500 mt-1">Real-time status of multi-agent collaboration</p>
 						</div>
-						<button id="nexus-close-results" class="text-gray-400 hover:text-white bg-white/5 px-4 py-2 rounded-xl">Close Trace</button>
+						<div class="flex gap-4">
+							<button id="nexus-download-trace" class="text-[10px] font-bold text-accent border border-accent/30 px-4 py-2 rounded-xl hover:bg-accent hover:text-black transition-all">Download Log</button>
+							<button id="nexus-close-results" class="text-gray-400 hover:text-white bg-white/5 px-4 py-2 rounded-xl">Close Trace</button>
+						</div>
 					</div>
 					<div id="nexus-workflow-log" class="flex-1 p-10 overflow-y-auto space-y-6 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
 						<!-- Log entries will appear here -->
@@ -977,6 +983,10 @@ class AdminRenderer {
 				<div class="absolute inset-0 bg-black/95 backdrop-blur-xl"></div>
 				<div class="absolute inset-8 glass-panel rounded-3xl border border-nexus-border flex overflow-hidden shadow-2xl">
 					<div class="w-80 border-r border-nexus-border bg-nexus-surface flex flex-col p-8">
+						<div class="flex gap-2 mb-6 bg-black/20 p-1 rounded-lg">
+							<button class="flex-1 text-[10px] font-bold uppercase py-2 rounded bg-accent text-white">Pool</button>
+							<button class="flex-1 text-[10px] font-bold uppercase py-2 rounded text-gray-500 hover:text-white">Presets</button>
+						</div>
 						<h3 class="font-bold text-xl text-white mb-6 uppercase tracking-widest text-xs opacity-50">Agent Pool</h3>
 						<div class="flex-1 overflow-y-auto space-y-4">
 							<?php foreach ( $agents as $agent ) : ?>
@@ -1163,11 +1173,22 @@ class AdminRenderer {
 		$agency_mode   = (bool) $this->settings->get( 'agency_mode', false );
 		$display_title = $this->settings->get( 'platform_title', 'Nexus AI' );
 		?>
-		<div class="nexus-admin-body p-10 theme-learning animate-fade-in-up">
-			<div class="mb-10">
-				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Commerce</h2>
-				<h1 class="text-4xl font-bold text-white">Plans & Subscriptions</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Scale your AI workforce with premium enterprise plans. Manage your subscription, usage limits, and billing history.</p>
+		<div class="nexus-admin-body p-10 theme-overview animate-fade-in-up">
+			<div class="mb-10 flex justify-between items-end">
+				<div>
+					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Commerce</h2>
+					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Plans & Billing</h1>
+					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Scale your AI workforce with premium enterprise plans. Manage your subscription and high-impact usage limits.</p>
+				</div>
+				<div class="glass-panel p-6 rounded-2xl flex items-center gap-6">
+					<div class="text-right">
+						<p class="text-[10px] text-gray-500 uppercase font-bold">API Credits Used</p>
+						<p class="text-2xl font-black text-white">72%</p>
+					</div>
+					<div class="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
+						<div class="h-full bg-red-500 w-[72%] shadow-[0_0_10px_#ef4444]"></div>
+					</div>
+				</div>
 			</div>
 
 			<!-- Active Subscription Status -->
@@ -1224,11 +1245,11 @@ class AdminRenderer {
 				</div>
 
 				<!-- Enterprise -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full bg-nexus-violet/5">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full bg-nexus-violet/5 hover:border-nexus-violet transition-all">
 					<h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
 					<p class="text-3xl font-black text-white mb-6 italic">Custom</p>
 					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
-						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Local Ollama Hosting</li>
+						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-nexus-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Local Ollama Hosting</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Custom SLA</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> On-Premise Training</li>
 					</ul>
@@ -1272,15 +1293,27 @@ class AdminRenderer {
 		echo $this->get_brand_styles();
 		?>
 		<div class="nexus-admin-body p-10 theme-learning animate-fade-in-up">
-			<div class="mb-10">
-				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Education</h2>
-				<h1 class="text-4xl font-bold text-white">Platform Learning Center</h1>
-				<p class="text-gray-400 mt-2 max-w-2xl">Master the AI Workforce platform with specialized lessons.</p>
+			<div class="mb-10 flex justify-between items-end">
+				<div>
+					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Education</h2>
+					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Learning Center</h1>
+					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Master the AI Workforce platform with specialized modular lessons.</p>
+				</div>
+				<div class="glass-panel p-6 rounded-2xl flex items-center gap-6">
+					<div class="text-right">
+						<p class="text-[10px] text-gray-500 uppercase font-bold">Your Progress</p>
+						<p class="text-2xl font-black text-white">40%</p>
+					</div>
+					<div class="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
+						<div class="h-full bg-accent w-[40%] shadow-[0_0_10px_var(--nexus-accent)]"></div>
+					</div>
+				</div>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 				<!-- Lesson 1 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative">
+					<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">✓</div>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">The Core Blueprint</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Master AI Persona crafting.</p>
@@ -1295,7 +1328,8 @@ class AdminRenderer {
 				</div>
 
 				<!-- Lesson 2 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative">
+					<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">✓</div>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Scaling ROI</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Build AI departments.</p>
