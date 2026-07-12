@@ -33,7 +33,7 @@ class AdminRenderer {
 		$doc_count   = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_knowledge_documents" ) ?: 0;
 		$total_cost  = $wpdb->get_var( "SELECT SUM(cost) FROM {$wpdb->prefix}ai_usage_logs" ) ?: 0.00;
 		?>
-		<div class="nexus-admin-body p-10 theme-overview">
+		<div class="nexus-admin-body p-10 theme-overview animate-fade-in-up">
 			<div class="mb-10 flex justify-between items-center">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Platform Command</h2>
@@ -163,8 +163,8 @@ class AdminRenderer {
 						<canvas id="nexus-dept-chart"></canvas>
 					</div>
 				</div>
-				<div class="lg:col-span-1 glass-panel p-8 rounded-3xl border border-nexus-border">
-					<h2 class="text-xl font-bold mb-6 italic">Activity Stream</h2>
+				<div class="lg:col-span-1 glass-panel p-8 rounded-3xl border border-nexus-border theme-overview">
+					<h2 class="text-xl font-bold mb-6 italic text-accent">Activity Stream</h2>
 					<div class="space-y-6">
 						<div class="flex gap-4">
 							<div class="w-2 h-10 bg-accent rounded-full"></div>
@@ -185,8 +185,8 @@ class AdminRenderer {
 			</div>
 
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-				<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
-					<h2 class="text-xl font-semibold mb-6">Workforce Activity</h2>
+				<div class="glass-panel p-8 rounded-2xl border border-nexus-border theme-workforce">
+					<h2 class="text-xl font-semibold mb-6 text-accent">Workforce Activity</h2>
 					<div class="space-y-4">
 						<div class="flex items-center gap-4 p-3 rounded-lg bg-nexus-elevated/50">
 							<div class="w-2 h-2 rounded-full bg-accent"></div>
@@ -263,7 +263,7 @@ class AdminRenderer {
 		global $wpdb;
 		$depts = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_departments ORDER BY name ASC", ARRAY_A ) ?: [];
 		?>
-		<div class="nexus-admin-body p-10 theme-workforce">
+		<div class="nexus-admin-body p-10 theme-workforce animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Organizational Design</h2>
 				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Company Departments</h1>
@@ -318,7 +318,7 @@ class AdminRenderer {
 	public function render_workforce_page(): void {
 		echo $this->get_brand_styles();
 		?>
-		<div class="nexus-admin-body p-10 theme-workforce">
+		<div class="nexus-admin-body p-10 theme-workforce animate-fade-in-up">
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2 text-green-500">Talent Management</h2>
@@ -608,7 +608,7 @@ class AdminRenderer {
 	public function render_settings_page(): void {
 		echo $this->get_brand_styles();
 		?>
-		<div class="nexus-admin-body p-10 theme-settings">
+		<div class="nexus-admin-body p-10 theme-settings animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Infrastructure</h2>
 				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">System Configuration</h1>
@@ -779,7 +779,7 @@ class AdminRenderer {
 	public function render_kb_page(): void {
 		echo $this->get_brand_styles();
 		?>
-		<div class="nexus-admin-body p-10 theme-kb">
+		<div class="nexus-admin-body p-10 theme-kb animate-fade-in-up">
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
@@ -895,7 +895,7 @@ class AdminRenderer {
 		$agents = $wpdb->get_results( "SELECT id, name, position FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
 		$workflows = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_workflows WHERE is_active = 1", ARRAY_A ) ?: [];
 		?>
-		<div class="nexus-admin-body p-10 theme-automations">
+		<div class="nexus-admin-body p-10 theme-automations animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Workflow Engineering</h2>
 				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Multi-Agent Automations</h1>
@@ -1019,7 +1019,7 @@ class AdminRenderer {
 		global $wpdb;
 		$agents = $wpdb->get_results( "SELECT id, name, position, avatar_url FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
 		?>
-		<div class="nexus-admin-body p-10 theme-meetings">
+		<div class="nexus-admin-body p-10 theme-meetings animate-fade-in-up">
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
@@ -1103,7 +1103,7 @@ class AdminRenderer {
 		global $wpdb;
 		$convs = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_conversations ORDER BY created_at DESC", ARRAY_A ) ?: [];
 		?>
-		<div class="nexus-admin-body p-10 theme-settings">
+		<div class="nexus-admin-body p-10 theme-archive animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Institutional Knowledge</h2>
 				<h1 class="text-4xl font-bold text-white">Strategic Archive</h1>
@@ -1163,7 +1163,7 @@ class AdminRenderer {
 		$agency_mode   = (bool) $this->settings->get( 'agency_mode', false );
 		$display_title = $this->settings->get( 'platform_title', 'Nexus AI' );
 		?>
-		<div class="nexus-admin-body p-10 theme-settings">
+		<div class="nexus-admin-body p-10 theme-learning animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Commerce</h2>
 				<h1 class="text-4xl font-bold text-white">Plans & Subscriptions</h1>
@@ -1271,7 +1271,7 @@ class AdminRenderer {
 		$level = $_GET['level'] ?? 'employee';
 		echo $this->get_brand_styles();
 		?>
-		<div class="nexus-admin-body p-10 theme-learning">
+		<div class="nexus-admin-body p-10 theme-learning animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Education</h2>
 				<h1 class="text-4xl font-bold text-white">Platform Learning Center</h1>
