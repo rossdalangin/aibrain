@@ -5,7 +5,7 @@
 The purpose of this document is to define the requirements for "Nexus AI Workforce," an enterprise-grade WordPress plugin that transforms a standard WordPress installation into a comprehensive AI Workforce Platform.
 
 ### 1.2 Product Vision
-Nexus AI Workforce is not just a chatbot; it is an AI Operating System (AIOS) for businesses. It allows users to "hire" specialized AI employees who think, collaborate, and execute tasks based on specific roles, company knowledge, and defined workflows.
+Nexus AI Workforce is not just a chatbot; it is an AI Operating System (AIOS) for businesses. It allows users to "hire" specialized AI employees who think, collaborate, and execute tasks based on specific roles, company knowledge, and defined workflows. This platform bridges the gap between executive strategy and tactical execution through an ultra-polished, colorful, and immersive SaaS interface.
 
 ## 2. Overall Description
 ### 2.1 Product Perspective
@@ -43,8 +43,19 @@ The plugin will integrate deeply with WordPress, leveraging its user management,
 - AI can create posts, manage products, reply to comments, and perform admin actions via WP-CLI or REST API hooks.
 
 #### 2.2.8 Admin & User Dashboards
-- Modern, React-powered UI.
-- Detailed analytics on token usage, cost, and employee performance.
+- Modern, React-powered and PHP-shell hybrid UI.
+- Detailed analytics on token usage, cost, and employee performance via Chart.js.
+- 'Luxury Brand' aesthetic with 40px glassmorphism and animated mesh background blobs.
+
+#### 2.2.9 Frontend Chat Engagement
+- Floating glassmorphism chat widget for public interactions.
+- Session-persistent public REST API communication.
+- Customizable 'Public Agent' assignment in settings.
+
+#### 2.2.10 White-Labeling & Agency Mode
+- Dynamic rebranding of the WordPress admin menu and Dashicon.
+- Suppression of internal branding in favor of 'Platform Display Title'.
+- Dedicated Client Portal conceptual UI.
 
 ### 2.3 Non-Functional Requirements
 - **Performance:** Optimized RAG and background processing (WP-Cron/Action Scheduler).

@@ -18,7 +18,8 @@ Stop selling manual labor. Start selling AI outcomes. As an agency, you can buil
 Use the **Nexus White Label** settings to:
 - Replace Nexus branding with your agency logo.
 - Set primary UI colors to match your brand.
-- Create "Client Portals" where clients can interact with their AI team without seeing the WordPress backend.
+- Create "Client Portals" where clients can interact with their AI team via a premium, dedicated interface.
+- Deploy the **Frontend Chat Widget** so clients can provide immediate value to their site visitors using their specialized AI workforce.
 
 ## 4. Scaling Your Revenue
 Utilize the **AI Marketplace Export** feature to build "Proven AI Teams." Once you have a high-performing agent setup, export the bundle and deploy it for 50 other clients in minutes.

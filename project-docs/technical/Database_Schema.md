@@ -98,6 +98,41 @@ Tracking for ROI and billing.
 - `cost`: DECIMAL(10, 6)
 - `created_at`: DATETIME DEFAULT CURRENT_TIMESTAMP
 
+### 10. `wp_ai_audit_logs`
+Enterprise security trail.
+- `id`: BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- `event_type`: VARCHAR(100)
+- `description`: TEXT
+- `user_id`: BIGINT(20) UNSIGNED
+- `target_id`: BIGINT(20) UNSIGNED
+- `metadata`: JSON
+- `created_at`: DATETIME DEFAULT CURRENT_TIMESTAMP
+
+### 11. `wp_ai_plans`
+Monetization tiers.
+- `id`: BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- `name`: VARCHAR(255)
+- `slug`: VARCHAR(100)
+- `price`: DECIMAL(10, 2)
+- `features`: JSON
+- `is_active`: TINYINT(1) DEFAULT 1
+
+### 12. `wp_ai_subscriptions`
+Active SaaS memberships.
+- `id`: BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- `user_id`: BIGINT(20) UNSIGNED
+- `plan_id`: BIGINT(20) UNSIGNED
+- `status`: VARCHAR(50)
+- `renews_at`: DATETIME
+
+### 13. `wp_ai_coupons`
+Marketing and promotion engine.
+- `id`: BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY
+- `code`: VARCHAR(100)
+- `discount_type`: ENUM('percentage', 'fixed')
+- `amount`: DECIMAL(10, 2)
+- `expires_at`: DATETIME
+
 ## Relationships
 - `Employees` belong to `Departments`.
 - `Messages` belong to `Conversations`.
