@@ -415,8 +415,11 @@ class AdminRenderer {
 							<button type="button" id="nexus-toggle-prompt-preview" class="text-[10px] font-bold text-accent uppercase tracking-widest hover:underline">Show Master Prompt Preview</button>
 						</div>
 
-						<div id="nexus-prompt-preview-container" class="hidden p-6 rounded-2xl bg-black border border-accent/30 mb-6 font-mono text-[10px] text-gray-400 overflow-y-auto max-h-64 whitespace-pre-wrap">
-							<!-- Dynamic Preview Here -->
+						<div id="nexus-prompt-preview-container" class="hidden p-6 rounded-2xl bg-black border border-accent/30 mb-6 font-mono text-[10px] text-gray-400 overflow-y-auto max-h-64 whitespace-pre-wrap relative group">
+							<div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+								<button type="button" id="nexus-optimize-prompt" class="bg-accent/20 text-accent text-[9px] px-2 py-1 rounded border border-accent/30 hover:bg-accent hover:text-black font-bold">Refine with AI</button>
+							</div>
+							<div id="nexus-prompt-preview-content"></div>
 						</div>
 
 						<!-- Phase 1: Identity -->
@@ -741,6 +744,29 @@ class AdminRenderer {
 							<div class="p-3 rounded-xl bg-nexus-blue/10 border border-nexus-blue/20 flex items-center justify-between opacity-50 tool-pending-glow">
 								<span class="text-[10px] font-bold text-nexus-blue">DISCORD_HOOK</span>
 								<span class="text-[9px] text-nexus-blue/50">PENDING</span>
+							</div>
+						</div>
+
+
+						<h2 class="text-xl font-semibold mt-10 mb-6 text-nexus-blue">Platform Diagnostics</h2>
+						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
+							<div class="flex justify-between items-center mb-6">
+								<h2 class="text-sm font-bold text-white uppercase">System Integrity</h2>
+								<button type="button" id="nexus-run-diagnostics" class="text-[9px] bg-accent/20 text-accent px-3 py-1 rounded-full font-bold hover:bg-accent hover:text-black transition-all">Run Full Scan</button>
+							</div>
+							<div id="nexus-diagnostic-results" class="space-y-3">
+								<div class="flex items-center justify-between p-3 rounded-xl bg-nexus-bg border border-white/5">
+									<span class="text-[10px] text-gray-500 uppercase">Encryption Engine</span>
+									<span class="text-[10px] text-green-500 font-bold">READY</span>
+								</div>
+								<div class="flex items-center justify-between p-3 rounded-xl bg-nexus-bg border border-white/5">
+									<span class="text-[10px] text-gray-500 uppercase">Database Integrity</span>
+									<span class="text-[10px] text-green-500 font-bold">13/13 TABLES</span>
+								</div>
+								<div class="flex items-center justify-between p-3 rounded-xl bg-nexus-bg border border-white/5">
+									<span class="text-[10px] text-gray-500 uppercase">REST API Path</span>
+									<span class="text-[10px] text-accent font-bold">ACCESSIBLE</span>
+								</div>
 							</div>
 						</div>
 

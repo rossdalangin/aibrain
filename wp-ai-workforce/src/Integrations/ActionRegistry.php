@@ -13,6 +13,9 @@ use NexusAI\Workforce\Integrations\Actions\SlackAction;
 use NexusAI\Workforce\Integrations\Actions\DiscordAction;
 use NexusAI\Workforce\Integrations\Actions\ImageGenerationAction;
 use NexusAI\Workforce\Integrations\Actions\CommentManagementAction;
+use NexusAI\Workforce\Integrations\Actions\MetadataAction;
+use NexusAI\Workforce\Integrations\Actions\FormsAction;
+use NexusAI\Workforce\Integrations\Actions\DelegateAction;
 
 /**
  * Registry for all AI-executable actions.
@@ -35,6 +38,9 @@ class ActionRegistry {
 		$this->register( new DiscordAction() );
 		$this->register( new ImageGenerationAction() );
 		$this->register( new CommentManagementAction() );
+		$this->register( new MetadataAction() );
+		$this->register( new FormsAction() );
+		$this->register( new DelegateAction() );
 	}
 
 	/**
