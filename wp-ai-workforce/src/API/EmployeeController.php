@@ -47,7 +47,13 @@ class EmployeeController {
 			'position'         => sanitize_text_field( $params['position'] ?? '' ),
 			'department_id'    => absint( $params['department_id'] ?? 0 ),
 			'role_description' => wp_kses_post( $params['role_description'] ?? '' ),
+			'skills'           => wp_kses_post( $params['skills'] ?? '' ),
+			'kpis'             => wp_kses_post( $params['kpis'] ?? '' ),
 			'prompt_template'  => wp_kses_post( $params['prompt_template'] ?? '' ),
+			'thinking_process' => wp_kses_post( $params['thinking_process'] ?? '' ),
+			'output_format'    => wp_kses_post( $params['output_format'] ?? '' ),
+			'negative_prompts' => wp_kses_post( $params['negative_prompts'] ?? '' ),
+			'examples'         => wp_kses_post( $params['examples'] ?? '' ),
 			'model_settings'   => wp_json_encode( $params['model_settings'] ?? [] ),
 		];
 

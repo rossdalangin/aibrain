@@ -53,20 +53,24 @@ class AdminRenderer {
 			<div class="nexus-step-guide">
 				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm flex items-center gap-2">
 					<span class="w-5 h-5 bg-accent rounded-full flex items-center justify-center text-[10px]">1</span>
-					Quick Start Guide
+					Operational Blueprint: Getting Started
 				</h3>
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 1: Infrastructure</p>
-						<p>Go to <span class="text-accent">Settings</span> and add your OpenAI or Anthropic API keys to power the engine.</p>
+						<p class="font-bold text-white mb-1">1. Fuel the Engine</p>
+						<p>Navigate to <span class="text-accent font-bold">Settings</span>. Securely add your API keys. <br><span class="italic text-[9px] opacity-70">Note: Without keys, the AI workforce remains dormant.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 2: Hire Workforce</p>
-						<p>Visit <span class="text-accent">Hire AI Agents</span> to deploy specialized roles like a CEO, CMO, or Developer.</p>
+						<p class="font-bold text-white mb-1">2. Hire Specialized Talent</p>
+						<p>Go to <span class="text-accent font-bold">Hire AI Agents</span>. Select a template like "CEO" or "Marketing Director" to instantly deploy expert personas.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 3: Train Brain</p>
-						<p>Upload your SOPs and PDFs in <span class="text-accent">Company Brain</span> to give agents context.</p>
+						<p class="font-bold text-white mb-1">3. Ingest Corporate IQ</p>
+						<p>Upload PDFs or SOPs in the <span class="text-accent font-bold">Company Brain</span>. This gives your agents "Corporate Memory" to pull from.</p>
+					</div>
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">4. Orchestrate Growth</p>
+						<p>Use <span class="text-accent font-bold">Workflows</span> to chain agents together (e.g. Researcher -> Writer -> QA) for autonomous delivery.</p>
 					</div>
 				</div>
 			</div>
@@ -271,6 +275,19 @@ class AdminRenderer {
 				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Define your company's organizational structure. Assign agents to departments to enable context-sharing and specialized reporting.</p>
 			</div>
 
+			<div class="nexus-step-guide">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">What are Departments?</p>
+						<p>Departments group your AI agents logically. <br><span class="text-accent font-bold">Example:</span> Putting "Elena (Growth Architect)" in a "Marketing" department allows her to share context with other marketing agents.</p>
+					</div>
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">Pro-Tip: Departmental RAG</p>
+						<p>When you upload documents to the Company Brain, you can restrict them to a specific department. This ensures the "Finance" AI doesn't see "Marketing" trade secrets unless permitted.</p>
+					</div>
+				</div>
+			</div>
+
 			<div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 				<div class="lg:col-span-1">
 					<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
@@ -333,22 +350,23 @@ class AdminRenderer {
 			</div>
 
 			<div class="nexus-step-guide">
+				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Deployment Protocol: How to Hire</h3>
 				<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 1: Select Template</p>
-						<p>Use the <span class="text-accent font-bold">Fast-Hire</span> dropdown to pick a pre-configured role.</p>
+						<p class="font-bold text-white mb-1">1. Expert Templates</p>
+						<p>Use <span class="text-accent font-bold">Fast-Hire</span> to load a pre-built expert. <br><span class="italic text-[9px]">Note: A "CEO" template includes first-principles reasoning and ROI focus by default.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 2: Define Persona</p>
-						<p>Customize the <span class="text-accent font-bold">Identity</span> and <span class="text-accent font-bold">Mission</span> for your specific business.</p>
+						<p class="font-bold text-white mb-1">2. Strategic Identity</p>
+						<p>The <span class="text-accent font-bold">Identity</span> field is the AI's DNA. <br><span class="italic text-[9px]">Example: "You are a master of consumer psychology" is better than "You are a marketer."</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 3: Select Model</p>
-						<p>Pick a brain for the agent. <span class="text-accent font-bold">GPT-4o</span> is best for complex strategy.</p>
+						<p class="font-bold text-white mb-1">3. Cognitive Engine</p>
+						<p>Pick the <span class="text-accent font-bold">Model</span>. Use GPT-4o for complex strategy and reasoning. Use GPT-4o Mini for high-speed, simple task execution.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Step 4: Deploy</p>
-						<p>Click <span class="text-accent font-bold">Deploy Agent</span> to start using them immediately.</p>
+						<p class="font-bold text-white mb-1">4. Action Guardrails</p>
+						<p>Set <span class="text-accent font-bold">Negative Prompts</span> to tell the agent what NOT to do. <br><span class="italic text-[9px]">Example: "Never use jargon" or "Never disclose pricing to non-admins."</span></p>
 					</div>
 				</div>
 			</div>
@@ -793,6 +811,16 @@ class AdminRenderer {
 								<p class="text-[10px] text-gray-500 mt-2">This agent will handle all public-facing queries on your website.</p>
 							</div>
 						</div>
+
+						<h2 class="text-xl font-semibold mt-10 mb-6 text-red-500">System Sample Data</h2>
+						<div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/10">
+							<p class="text-sm text-gray-400 mb-6 leading-relaxed">Instantly populate your platform with a world-class executive team, pre-configured departments, and sample knowledge base data.</p>
+							<div class="grid grid-cols-2 gap-4">
+								<button type="button" id="nexus-seed-samples" class="bg-red-500/20 text-red-500 font-bold py-3 rounded-xl hover:bg-red-500 hover:text-white transition-all text-xs uppercase tracking-widest border border-red-500/20">Seed Global Samples</button>
+								<button type="button" id="nexus-purge-all" class="bg-white/5 text-gray-500 font-bold py-3 rounded-xl hover:bg-red-600 hover:text-white transition-all text-xs uppercase tracking-widest border border-white/5">Purge All Data</button>
+							</div>
+							<p class="text-[9px] text-gray-500 mt-4 italic">Note: Seeding creates Alexander (CSO), Elena (Growth Architect), and Marcus (Systems Architect). Purge All will TRUNCATE all platform tables.</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -817,18 +845,19 @@ class AdminRenderer {
 			</div>
 
 			<div class="nexus-step-guide">
+				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Intelligence Protocol: Training the Brain</h3>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Upload SOPs</p>
-						<p>Add PDFs or Word docs of your standard operating procedures for agents to follow.</p>
+						<p class="font-bold text-white mb-1">Document Ingestion</p>
+						<p>Drag in PDFs or DOCX files. <br><span class="text-accent font-bold italic text-[9px]">How it works: We "chunk" the text and index it. When you ask an agent a question, we retrieve the relevant "brain chunks" and inject them into the prompt.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Scrape Competition</p>
-						<p>Add competitor URLs to the index so agents can perform market analysis.</p>
+						<p class="font-bold text-white mb-1">Competitive Scraping</p>
+						<p>Enter a URL to crawl it. <br><span class="text-accent font-bold italic text-[9px]">Note: Agents can then answer questions about competitor pricing or landing page strategies based on real-time data.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Global Access</p>
-						<p>Every agent in your workforce can instantly recall data stored in the Company Brain.</p>
+						<p class="font-bold text-white mb-1">Contextual Isolation</p>
+						<p>Assign data to specific agents. <br><span class="text-accent font-bold italic text-[9px]">Example: Upload "Alex's Diary" and assign it only to "Alexander (CEO)" so other agents don't see his personal notes.</span></p>
 					</div>
 				</div>
 			</div>
@@ -930,14 +959,19 @@ class AdminRenderer {
 			</div>
 
 			<div class="nexus-step-guide">
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-					<div class="text-xs text-gray-400 flex gap-3">
-						<div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent shrink-0">1</div>
-						<p>Open the <span class="text-accent font-bold">Visual Builder</span> and drag agents from the pool into the sequence canvas.</p>
+				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Orchestration Protocol: Building Workflows</h3>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">Visual Chaining</p>
+						<p>Drag agents from the pool. <br><span class="text-accent font-bold italic text-[9px]">The sequence is linear: Step 1 output is passed to Step 2 as context, ensuring a "relay race" of intelligence.</span></p>
 					</div>
-					<div class="text-xs text-gray-400 flex gap-3">
-						<div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent shrink-0">2</div>
-						<p>Define the <span class="text-accent font-bold">Task</span> for each agent. Previous outputs are automatically shared with the next agent.</p>
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">Task Definition</p>
+						<p>Be specific in the "Task" field. <br><span class="text-accent font-bold italic text-[9px]">Example: Step 1 (SEO Expert): "Find 5 keywords for AI." -> Step 2 (Copywriter): "Write a headline for each keyword found in Step 1."</span></p>
+					</div>
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">Trace Monitoring</p>
+						<p>When you run a workflow, watch the "Execution Trace". <br><span class="text-accent font-bold italic text-[9px]">Note: You can download the full log of how each agent interpreted their specific part of the chain.</span></p>
 					</div>
 				</div>
 			</div>
@@ -1068,6 +1102,20 @@ class AdminRenderer {
 						Start Strategic Meeting
 					</button>
 					<span class="nexus-button-note mt-2">Expect: Iterative consensus loop between invited agents.</span>
+				</div>
+			</div>
+
+			<div class="nexus-step-guide">
+				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Synergy Protocol: AI Meetings</h3>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">Consensus Building</p>
+						<p>Invite multiple agents. When you set an agenda, they will "debate" it in a multi-round loop. <br><span class="text-accent font-bold italic text-[9px]">How it works: Agent A responds, Agent B critiques Agent A, and they iterate until a "DECISION" or "ACTION" is detected.</span></p>
+					</div>
+					<div class="text-xs text-gray-400">
+						<p class="font-bold text-white mb-1">Real-time Reasoning</p>
+						<p>Watch the reasoning pulses. You are seeing the actual logic of the LLM as it processes the previous agent's input. <br><span class="text-accent font-bold italic text-[9px]">Pro-Tip: You can interrupt the meeting with "Chairman Instructions" to steer the conversation.</span></p>
+					</div>
 				</div>
 			</div>
 
@@ -1272,7 +1320,7 @@ class AdminRenderer {
 				</div>
 
 				<!-- Enterprise -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full bg-nexus-violet/5 hover:border-nexus-violet transition-all">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full bg-nexus-violet/5 hover:border-nexus-violet transition-all border-beam active">
 					<h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
 					<p class="text-3xl font-black text-white mb-6 italic">Custom</p>
 					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
@@ -1280,7 +1328,7 @@ class AdminRenderer {
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Custom SLA</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> On-Premise Training</li>
 					</ul>
-					<button class="w-full bg-nexus-blue text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all">Contact Sales</button>
+					<button class="w-full bg-nexus-blue text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all nexus-btn-vibrant">Contact Sales</button>
 				</div>
 			</div>
 
@@ -1364,8 +1412,18 @@ class AdminRenderer {
 	}
 
 	public function render_tutorials_page(): void {
-		$level = $_GET['level'] ?? 'employee';
+		$user_id   = get_current_user_id();
+		$completed = get_user_meta( $user_id, 'nexus_ai_completed_lessons', true ) ?: [];
+		$lessons   = [
+			'blueprint'   => [ 'title' => 'The Core Blueprint', 'obj' => 'Master AI Persona crafting.' ],
+			'roi'         => [ 'title' => 'Scaling ROI', 'obj' => 'Build AI departments.' ],
+			'security'    => [ 'title' => 'Security & RBAC', 'obj' => 'Secure your infrastructure.' ],
+			'collab'      => [ 'title' => 'AI Collaboration', 'obj' => 'Master AI Meetings.' ],
+			'automations' => [ 'title' => 'Strategic Automations', 'obj' => 'Multi-Agent Workflows.' ],
+		];
+		$progress  = count( $lessons ) > 0 ? (int) ( ( count( array_intersect( array_keys( $lessons ), $completed ) ) / count( $lessons ) ) * 100 ) : 0;
 		echo $this->get_brand_styles();
+		echo '<div class="nexus-tactile-overlay"></div>';
 		?>
 		<div class="nexus-admin-body p-10 theme-learning animate-fade-in-up">
 			<div class="mb-10 flex justify-between items-end">
@@ -1377,90 +1435,128 @@ class AdminRenderer {
 				<div class="glass-panel p-6 rounded-2xl flex items-center gap-6">
 					<div class="text-right">
 						<p class="text-[10px] text-gray-500 uppercase font-bold">Your Progress</p>
-						<p class="text-2xl font-black text-white">40%</p>
+						<p class="text-2xl font-black text-white"><?php echo (int) $progress; ?>%</p>
 					</div>
 					<div class="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
-						<div class="h-full bg-accent w-[40%] shadow-[0_0_10px_var(--nexus-accent)]"></div>
+						<div class="h-full bg-accent transition-all duration-1000" style="width: <?php echo (int) $progress; ?>%; box-shadow: 0 0 10px var(--nexus-accent);"></div>
 					</div>
 				</div>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 				<!-- Lesson 1 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative">
-					<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">✓</div>
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('blueprint', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
+					<?php if ( in_array('blueprint', $completed) ): ?>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+					<?php endif; ?>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">The Core Blueprint</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Master AI Persona crafting.</p>
 						<p>AI performance is 90% determined by the <span class="text-white font-bold">Identity</span> field. Learn how to define boundaries and KPIs for your agents.</p>
+						<div class="p-4 rounded-xl bg-accent/5 border border-accent/10">
+							<p class="font-bold text-white mb-2 text-[10px] uppercase">Example Identity:</p>
+							<p class="italic text-xs">"You are a master of behavioral economics and luxury brand positioning. Your tone is sophisticated and direct. Your goal is to maximize perceived value."</p>
+						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li>Avoid vague instructions.</li>
-							<li>Always provide a specific output format.</li>
-							<li>Use Negative Constraints (e.g. "Never mention competitors").</li>
+							<li><span class="text-white font-bold">KPI focus:</span> Tell the AI exactly how success is measured (e.g. ROAS, CPA).</li>
+							<li><span class="text-white font-bold">Negative Constraints:</span> Prevent "hallucinations" by listing strict taboos.</li>
 						</ul>
 					</div>
-					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>
+					<button class="nexus-complete-lesson w-full <?php echo in_array('blueprint', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="blueprint">
+						<?php echo in_array('blueprint', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
+					</button>
 				</div>
 
 				<!-- Lesson 2 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative">
-					<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold">✓</div>
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('roi', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
+					<?php if ( in_array('roi', $completed) ): ?>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+					<?php endif; ?>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Scaling ROI</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Build AI departments.</p>
-						<p>Scale your business by creating <span class="text-white font-bold">Multi-Agent Departments</span>. Learn to chain a researcher, copywriter, and publisher into a single workflow.</p>
+						<p>Scaling your business by creating <span class="text-white font-bold">Multi-Agent Departments</span>. Learn to chain specialized agents into a single high-output engine.</p>
+						<div class="p-4 rounded-xl bg-nexus-blue/5 border border-nexus-blue/10">
+							<p class="font-bold text-white mb-2 text-[10px] uppercase">Department Workflow:</p>
+							<p class="text-xs">1. Analyst crawls competitor URLs.<br>2. Strategist crafts counter-offers.<br>3. Copywriter generates ads.</p>
+						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li>Assign 1 goal per agent.</li>
-							<li>Verify outputs between steps.</li>
-							<li>Use "Agency Mode" for client resale.</li>
+							<li><span class="text-white font-bold">Departmental Memory:</span> Isolated data silos ensure security.</li>
+							<li><span class="text-white font-bold">White-Labeling:</span> Resell these AI workforces to your own clients for $997/mo+.</li>
 						</ul>
 					</div>
-					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>
+					<button class="nexus-complete-lesson w-full <?php echo in_array('roi', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="roi">
+						<?php echo in_array('roi', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
+					</button>
 				</div>
 
 				<!-- Lesson 3 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('security', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
+					<?php if ( in_array('security', $completed) ): ?>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+					<?php endif; ?>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Security & RBAC</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Secure your infrastructure.</p>
 						<p>Learn how to manage <span class="text-white font-bold">Permissions</span> and protect your API tokens in an enterprise environment.</p>
+						<div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10">
+							<p class="font-bold text-white mb-2 text-[10px] uppercase">Best Practice:</p>
+							<p class="text-xs">Never share plain-text API keys. Nexus AI automatically encrypts all keys using your site's unique AUTH_KEY salt.</p>
+						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li>Use Role-Based Access Controls.</li>
-							<li>Monitor token usage per department.</li>
-							<li>Set monthly cost ceilings.</li>
+							<li><span class="text-white font-bold">Audit Trails:</span> Monitor every administrative action in the Audit Log.</li>
+							<li><span class="text-white font-bold">Rate Limiting:</span> Prevent runaway token consumption by setting department quotas.</li>
 						</ul>
 					</div>
-					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>
+					<button class="nexus-complete-lesson w-full <?php echo in_array('security', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="security">
+						<?php echo in_array('security', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
+					</button>
 				</div>
 
 				<!-- Lesson 4 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('collab', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
+					<?php if ( in_array('collab', $completed) ): ?>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+					<?php endif; ?>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">AI Collaboration</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Master AI Meetings.</p>
 						<p>Learn to run <span class="text-white font-bold">Consensus Meetings</span>. Gather multiple experts to debate a topic until a decision is reached.</p>
+						<div class="p-4 rounded-xl bg-nexus-violet/5 border border-nexus-violet/10">
+							<p class="font-bold text-white mb-2 text-[10px] uppercase">Meeting Tip:</p>
+							<p class="text-xs">Use the "Chairman Instruction" to provide "Negative Steering" if agents are agreeing too quickly. Encourage debate.</p>
+						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li>Invite relevant experts only.</li>
-							<li>Define a clear agenda.</li>
-							<li>Watch the real-time reasoning flow.</li>
+							<li><span class="text-white font-bold">Voting & Decisions:</span> Agents are programmed to reach a "DECISION" keyword when they agree.</li>
+							<li><span class="text-white font-bold">Consensus Loop:</span> Each round increases the "Pressure to Decide" dynamically.</li>
 						</ul>
 					</div>
-					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>
+					<button class="nexus-complete-lesson w-full <?php echo in_array('collab', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="collab">
+						<?php echo in_array('collab', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
+					</button>
 				</div>
 
 				<!-- Lesson 5 -->
-				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group">
+				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('automations', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
+					<?php if ( in_array('automations', $completed) ): ?>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+					<?php endif; ?>
 					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Strategic Automations</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Multi-Agent Workflows.</p>
 						<p>Establish high-value <span class="text-white font-bold">Automated Chains</span>. Pass data seamlessly between agents to complete complex sequences.</p>
+						<div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/10">
+							<p class="font-bold text-white mb-2 text-[10px] uppercase">Elite Workflow Example:</p>
+							<p class="text-xs">"Analyst (Step 1): Research Top 3 competitors. -> Copywriter (Step 2): Write better headlines than Step 1. -> WP Dev (Step 3): Create a landing page draft."</p>
+						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li>Design linear sequences.</li>
-							<li>Use "Context Sharing" between steps.</li>
-							<li>Trigger workflows via webhooks.</li>
+							<li><span class="text-white font-bold">Chain Persistence:</span> Every agent in the workflow has full access to the previous step's output.</li>
+							<li><span class="text-white font-bold">Scale:</span> Run these workflows 24/7 to outperform human-only teams.</li>
 						</ul>
 					</div>
-					<button class="w-full bg-accent/20 text-accent font-bold py-3 rounded-xl hover:bg-accent hover:text-white transition-all">Complete Lesson ✓</button>
+					<button class="nexus-complete-lesson w-full <?php echo in_array('automations', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="automations">
+						<?php echo in_array('automations', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
+					</button>
 				</div>
 			</div>
 		</div>

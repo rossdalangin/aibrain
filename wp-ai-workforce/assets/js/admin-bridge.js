@@ -492,6 +492,28 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1200);
         }
 
+        const seedSamplesBtn = e.target.closest('#nexus-seed-samples');
+        if (seedSamplesBtn) {
+            seedSamplesBtn.innerText = 'Populating...';
+            nexusFetch('system/seed', 'POST').then(res => {
+                if (res.success) {
+                    showToast(`Successfully seeded ${res.agents} executive agents.`);
+                    setTimeout(() => window.location.reload(), 1000);
+                }
+            });
+        }
+
+        const purgeAllBtn = e.target.closest('#nexus-purge-all');
+        if (purgeAllBtn) {
+            if (confirm('CRITICAL: This will delete ALL AI agents, departments, and memory chunks. Proceed?')) {
+                purgeAllBtn.innerText = 'Purging...';
+                nexusFetch('system/purge-all', 'POST').then(() => {
+                    showToast('System environment completely reset.');
+                    setTimeout(() => window.location.reload(), 1000);
+                });
+            }
+        }
+
         const portalBtn = e.target.closest('button:contains("Launch Portal Preview")');
         if (portalBtn || (e.target.innerText && e.target.innerText.includes("Launch Portal Preview"))) {
             showToast('Initializing secure client portal environment...');
@@ -507,6 +529,43 @@ document.addEventListener('DOMContentLoaded', function() {
             a.download = 'workflow_trace_' + Date.now() + '.txt';
             a.click();
             showToast('Workflow trace log downloaded.');
+        }
+
+        // --- Tutorials & Learning ---
+        const completeLessonBtn = e.target.closest('.nexus-complete-lesson');
+        if (completeLessonBtn) {
+            const lessonId = completeLessonBtn.dataset.id;
+            completeLessonBtn.innerText = 'Syncing...';
+            completeLessonBtn.classList.add('opacity-50', 'pointer-events-none');
+
+            nexusFetch('tutorials/complete', 'POST', { lesson_id: lessonId }).then(res => {
+                if (res.success) {
+                    showToast('Lesson objective achieved.');
+                    // Local UI update
+                    completeLessonBtn.innerText = 'Completed ✓';
+                    completeLessonBtn.classList.remove('bg-accent/20', 'text-accent', 'opacity-50', 'pointer-events-none');
+                    completeLessonBtn.classList.add('bg-green-500', 'text-white');
+
+                    const card = completeLessonBtn.closest('.glass-panel');
+                    card.classList.add('border-green-500/30');
+                    if (!card.querySelector('.absolute.top-4.right-4')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]';
+                        badge.innerText = '✓';
+                        card.appendChild(badge);
+                    }
+
+                    // Update global progress bar if visible
+                    const progressText = document.querySelector('.theme-learning .text-2xl.font-black');
+                    const progressBar = document.querySelector('.theme-learning .w-32 .h-full');
+                    if (progressText && progressBar) {
+                        const totalLessons = 5;
+                        const newPercent = Math.min(100, Math.round((res.completed.length / totalLessons) * 100));
+                        progressText.innerText = newPercent + '%';
+                        progressBar.style.width = newPercent + '%';
+                    }
+                }
+            });
         }
     });
 

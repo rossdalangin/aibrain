@@ -48,6 +48,29 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/system/seed', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function() {
+					$engine = new \NexusAI\Workforce\Utils\SampleDataEngine();
+					return new \WP_REST_Response( $engine->seed(), 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/system/purge-all', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function() {
+					$engine = new \NexusAI\Workforce\Utils\SampleDataEngine();
+					$engine->clear();
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/departments/(?P<id>\d+)', [
 			[
 				'methods'             => WP_REST_Server::DELETABLE,
