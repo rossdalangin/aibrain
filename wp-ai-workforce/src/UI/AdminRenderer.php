@@ -32,6 +32,7 @@ class AdminRenderer {
 		$agent_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_employees WHERE is_active = 1" ) ?: 0;
 		$doc_count   = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}ai_knowledge_documents" ) ?: 0;
 		$total_cost  = $wpdb->get_var( "SELECT SUM(cost) FROM {$wpdb->prefix}ai_usage_logs" ) ?: 0.00;
+		$user_role   = get_user_meta( get_current_user_id(), 'nexus_ai_role', true ) ?: 'Administrator';
 		?>
 		<div class="nexus-admin-body p-10 theme-overview animate-fade-in-up">
 			<div class="mb-10 flex justify-between items-center">
@@ -125,8 +126,8 @@ class AdminRenderer {
 						<p class="text-sm font-bold text-nexus-violet uppercase">AES-256-CTR</p>
 					</div>
 					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
-						<p class="text-[10px] text-gray-500 uppercase mb-1">Memory</p>
-						<p class="text-sm font-bold text-white">PERSISTENT</p>
+						<p class="text-[10px] text-gray-500 uppercase mb-1">Active Role</p>
+						<p class="text-sm font-bold text-platinum uppercase"><?php echo esc_html($user_role); ?></p>
 					</div>
 					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
 						<p class="text-[10px] text-gray-500 uppercase mb-1">Adapters</p>
@@ -1306,6 +1307,54 @@ class AdminRenderer {
 								?></td>
 								<td class="py-4 px-2 text-green-500 font-bold uppercase text-[10px]">Paid</td>
 							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	public function render_audit_page(): void {
+		echo $this->get_brand_styles();
+		echo '<div class="nexus-tactile-overlay"></div>';
+		global $wpdb;
+		$logs = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_audit_logs ORDER BY created_at DESC LIMIT 100", ARRAY_A ) ?: [];
+		?>
+		<div class="nexus-admin-body p-10 theme-settings animate-fade-in-up">
+			<div class="mb-10">
+				<h2 class="text-sm font-bold text-accent uppercase tracking-widest mb-2">Security & Compliance</h2>
+				<h1 class="text-6xl font-black text-platinum text-gradient-vibrant leading-tight">System Audit Trail</h1>
+				<p class="text-silver mt-3 max-w-2xl text-lg leading-relaxed">Review all administrative and high-impact AI actions within the platform.</p>
+			</div>
+
+			<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
+				<div class="overflow-x-auto">
+					<table class="w-full text-left text-sm text-gray-400">
+						<thead class="text-xs uppercase text-gray-500 border-b border-nexus-border">
+							<tr>
+								<th class="pb-4 px-2">Event Type</th>
+								<th class="pb-4 px-2">Description</th>
+								<th class="pb-4 px-2">User</th>
+								<th class="pb-4 px-2">Timestamp</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-nexus-border/50">
+							<?php foreach ( $logs as $log ) : ?>
+								<tr>
+									<td class="py-5 px-2">
+										<span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase border border-accent/20">
+											<?php echo esc_html( $log['event_type'] ); ?>
+										</span>
+									</td>
+									<td class="py-5 px-2 font-medium text-white"><?php echo esc_html( $log['description'] ); ?></td>
+									<td class="py-5 px-2 text-xs">User #<?php echo (int) $log['user_id']; ?></td>
+									<td class="py-5 px-2 text-xs opacity-50"><?php echo esc_html( $log['created_at'] ); ?></td>
+								</tr>
+							<?php endforeach; ?>
+							<?php if ( empty( $logs ) ) : ?>
+								<tr><td colspan="4" class="py-12 text-center italic opacity-30">No audit logs recorded yet.</td></tr>
+							<?php endif; ?>
 						</tbody>
 					</table>
 				</div>

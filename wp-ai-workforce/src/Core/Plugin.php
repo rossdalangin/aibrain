@@ -119,6 +119,15 @@ class Plugin {
 
 		add_submenu_page(
 			'nexus-ai-workforce',
+			__( 'Audit', 'nexus-ai-workforce' ),
+			'Audit Trail',
+			'manage_options',
+			'nexus-ai-workforce-audit',
+			[ $this, 'render_audit_page' ]
+		);
+
+		add_submenu_page(
+			'nexus-ai-workforce',
 			__( 'Billing', 'nexus-ai-workforce' ),
 			'Plans & Billing',
 			'manage_options',
@@ -191,6 +200,12 @@ class Plugin {
 	public function render_admin_tutorials_page() {
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
 			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_tutorials_page();
+		}
+	}
+
+	public function render_audit_page() {
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_audit_page();
 		}
 	}
 

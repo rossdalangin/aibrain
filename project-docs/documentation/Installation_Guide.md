@@ -14,9 +14,10 @@
 4. Run `npm install && npm run build` for the premium UI.
 
 ## 3. API Configuration
-1. Go to **Nexus AI > Settings**.
+1. Go to **Nexus AI > System Config**.
 2. Enter your **OpenAI API Key** (or preferred provider).
-3. Click **Encrypt & Save**. Your keys are now securely stored using AES-256-CTR.
+3. Click **Save Infrastructure**. Your keys are now securely stored using AES-256-CTR.
+4. Run **Platform Diagnostics** to verify encryption and database integrity.
 
 ## 4. Troubleshooting
 - **Memory Issues:** Increase your PHP memory limit to 512MB for document indexing.

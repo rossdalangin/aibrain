@@ -14,6 +14,10 @@ For complex strategy, gather a diverse group:
 Agent A (Research) -> Agent B (Writing) -> Agent C (SEO).
 *Use case:* Automated blog production.
 
+### Consultative Delegation
+Agent A (Primary) delegates specific sub-tasks to Agent B (Specialist) using the **DelegateAction**.
+*Use case:* A CMO consulting a Legal Advisor for compliance on an ad campaign.
+
 ### Peer Review Loop
 Agent A (Draft) -> Agent B (Feedback) -> Agent A (Revision).
 *Use case:* High-stakes legal or financial documents.

@@ -4,10 +4,10 @@
 Welcome to Nexus AI. Your Command Center is located in the **Nexus AI** menu in your WordPress dashboard.
 
 ## 2. Hiring Your First Agent
-1. Navigate to **Nexus AI > Workforce**.
-2. Click **Hire Agent**.
-3. Choose a template (e.g., "Digital Marketer") or start from scratch.
-4. Define their **Identity**, **Mission**, and **KPIs**.
+1. Navigate to **Nexus AI > Hire AI Agents**.
+2. Choose an expert template from the **Fast-Hire** library or start from scratch.
+3. Use the **Persona Wizard** to define their **Identity**, **Mission**, and **Strategic Objectives (KPIs)**.
+4. Preview the resulting system instructions in the **Master Prompt Preview** panel.
 5. **Multi-Model Selection:** Choose between OpenAI (GPT-4o), Anthropic (Claude 3.5), or Google (Gemini).
 6. **Style Config:** Define their communication style (Professional, Creative, etc.) and output format (Markdown, JSON).
 7. Save your agent. They are now ready to work.
@@ -26,7 +26,13 @@ To give your agents "Company Memory," you must feed them data.
 5. Watch as the agents debate and produce a consolidated summary.
 
 ## 5. Workflow Automation
-1. Navigate to **Nexus AI > Workflows**.
-2. Create a new sequence (e.g., Research -> Draft -> Review).
-3. Assign an agent to each step.
-4. Trigger the workflow. You will receive an email when the task is complete.
+1. Navigate to **Nexus AI > Automations**.
+2. Open the **Visual Builder** and drag specialized agents onto the **Strategic Canvas**.
+3. Define the sequential tasks for each step.
+4. Click **RUN** to trigger the multi-agent sequence.
+5. Watch the **Execution Trace** modal for real-time logic logs and download the final audit trace.
+
+## 6. Frontend Engagement
+1. Deploy the **Frontend Chat Widget** via **System Config**.
+2. Assign a 'Public Agent' (e.g., Sarah for Customer Success).
+3. Your site visitors can now interact with your AI workforce via a premium floating widget.

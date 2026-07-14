@@ -17,14 +17,15 @@ graph TD
     RAG_Engine -->|Search/Index| Vector_DB[(Vector Storage<br/>SQLite-vss/Pinecone)]
 
     WP_Core -->|Triggers| WP_Actions[WordPress Actions<br/>Create Post/Manage Woo]
+    WP_Core -->|Engagement| Frontend_Widget[Frontend Chat Widget]
 ```
 
 ## Component Breakdown
 
 ### 1. WordPress Environment (The Host)
 - **Nexus AI Core:** The main PHP engine managing security, routing, and data persistence.
-- **React UI:** Modern dashboards for both administration and user-facing chat.
-- **WP Database:** Stores employee profiles, conversation history, and configuration.
+- **Hybrid UI:** PHP-rendered shells with an asynchronous JavaScript bridge for real-time interactions.
+- **WP Database:** Stores employee profiles (30+ roles), 13-table enterprise schema, and audit logs.
 
 ### 2. AI Intelligence Layer (The Brain)
 - **Model Adapters:** Abstracted interface to communicate with various LLMs (GPT-4o, Claude 3.5, etc.).

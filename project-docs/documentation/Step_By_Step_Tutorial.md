@@ -9,9 +9,10 @@ This tutorial will guide you from a fresh installation to a fully operational AI
 ### Step 1: Secure Your Engine
 **Action:** Navigate to **Nexus AI > System Config**.
 1. Enter your **OpenAI**, **Claude**, or **Gemini** API keys.
-2. Click **Encrypt & Save**.
+2. Click **Save Infrastructure**.
+3. Run the **Platform Diagnostics** (Run Full Scan) to verify.
 **What to expect:**
-- The "Health Diagnostics" panel should show a green "System Secure" badge.
+- The "System Integrity" monitor will show 13/13 tables and a "READY" Encryption Engine.
 - Your keys are now encrypted with AES-256-CTR, protected even if your database is compromised.
 
 ### Step 2: Brand Your Command Center
@@ -52,7 +53,16 @@ This tutorial will guide you from a fresh installation to a fully operational AI
 
 ## Phase 4: Collaboration & Execution (The Output)
 
-### Step 5: Start a Strategy Meeting
+### Step 5: Deploy the Public Widget
+**Action:** Go to **Nexus AI > System Config > Frontend Chat Widget**.
+1. Toggle **Enable Public Widget**.
+2. Select your "Support Lead" or "Lead Closer" agent.
+3. Save changes.
+**What to expect:**
+- A floating glassmorphism chat bubble will appear on your public website.
+- Visitors can now interact with your internal intelligence in real-time.
+
+### Step 6: Start a Strategy Meeting
 **Action:** Open the **Nexus Chat** (Overview or Sidebar).
 1. Click **Start Meeting**.
 2. Invite your CEO, CMO, and CFO agents.
@@ -61,14 +71,16 @@ This tutorial will guide you from a fresh installation to a fully operational AI
 - Real-time interaction as agents debate. The CMO suggests ads, the CFO warns about budget, and the CEO synthesizes the final plan.
 - At the end, you receive "Meeting Minutes" in Markdown format.
 
-### Step 6: Launch an Automation
+### Step 7: Launch an Automation
 **Action:** Go to **Nexus AI > Automations**.
-1. Select the **Content Machine** blueprint.
-2. Assign your "Research Agent" and "Copywriter Agent."
-3. Click **Run Workflow**.
+1. Open the **Visual Builder**.
+2. Drag your specialized agents onto the **Strategic Canvas**.
+3. Define the tasks and click **Save Workflow**.
+4. Click **RUN** on the saved automation.
 **What to expect:**
-- The system will automatically execute the sequence.
-- **Final Result:** A high-quality, SEO-optimized draft post will appear in your WordPress **Posts > Drafts** folder.
+- A **Workflow Execution Trace** modal will open.
+- You can watch the real-time "Reasoning" and "Output" of each agent as they pass the state forward.
+- **Final Result:** A high-quality, SEO-optimized draft post will appear in your WordPress **Posts > Drafts** folder, or other actions as defined.
 
 ---
 

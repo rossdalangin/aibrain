@@ -279,6 +279,24 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/tutorials/complete', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$params = $request->get_params();
+					$lesson_id = sanitize_text_field( $params['lesson_id'] );
+					$user_id = get_current_user_id();
+					$completed = get_user_meta( $user_id, 'nexus_ai_completed_lessons', true ) ?: [];
+					if ( ! in_array( $lesson_id, $completed ) ) {
+						$completed[] = $lesson_id;
+						update_user_meta( $user_id, 'nexus_ai_completed_lessons', $completed );
+					}
+					return new \WP_REST_Response( [ 'success' => true, 'completed' => $completed ], 200 );
+				},
+				'permission_callback' => function() { return is_user_logged_in(); },
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/employees/(?P<id>\d+)', [
 			[
 				'methods'             => WP_REST_Server::READABLE,
