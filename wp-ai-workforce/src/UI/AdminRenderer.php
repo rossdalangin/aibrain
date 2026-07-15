@@ -17,9 +17,9 @@ class AdminRenderer {
 	}
 
 	private function get_brand_styles(): string {
-		$color = $this->settings->get( 'ui_color', '#7C3AED' );
+		$color = $this->settings->get( 'ui_color', '#4f46e5' );
 		$font  = $this->settings->get( 'ui_font', 'Inter' );
-		return "<style>:root { --nexus-violet: $color !important; } .nexus-admin-body { font-family: '$font', sans-serif !important; } .text-nexus-violet { color: $color !important; } .bg-nexus-violet { background-color: $color !important; }</style>";
+		return "<style>:root { --nexus-violet: $color !important; } .nexus-admin-body { font-family: '$font', sans-serif !important; } .text-nexus-violet { color: $color !important; } .bg-nexus-violet { background-color: $color !important; } .nexus-btn-vibrant { background: $color !important; }</style>";
 	}
 
 	/**
@@ -703,6 +703,7 @@ class AdminRenderer {
 								<optgroup label="High Volume / Fast">
 									<option value="gpt-4o-mini">OpenAI GPT-4o Mini</option>
 									<option value="gemini-1.5-flash">Google Gemini 1.5 Flash</option>
+									<option value="gemini-3-flash">Google Gemini 3 Flash (BETA)</option>
 								</optgroup>
 								<optgroup label="OpenRouter / Open Source">
 									<option value="meta-llama/llama-3.1-405b-instruct">Llama 3.1 405B (via OpenRouter)</option>

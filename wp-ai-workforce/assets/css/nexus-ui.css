@@ -1,333 +1,104 @@
-/* Nexus AI Workforce - Premium Luxury UI Styles */
+/* Nexus AI Workforce - Professional Flat UI Styles */
 
 :root {
-  --nexus-violet: #7C3AED;
-  --nexus-blue: #0ea5e9;
-  --nexus-gold: #f59e0b;
-  --nexus-green: #10b981;
-  --nexus-red: #ef4444;
-  --nexus-orange: #f97316;
-  --nexus-slate: #94a3b8;
+  --nexus-violet: #4f46e5; /* Standard Indigo */
+  --nexus-blue: #0284c7;   /* Standard Sky Blue */
+  --nexus-gold: #d97706;   /* Standard Amber */
+  --nexus-green: #059669;  /* Standard Emerald */
+  --nexus-red: #dc2626;    /* Standard Red */
+  --nexus-orange: #ea580c; /* Standard Orange */
+  --nexus-slate: #475569;
 
-  --nexus-bg: #0A0A0B;
-  --nexus-surface: #121214;
-  --nexus-elevated: #1a1a1e;
-  --nexus-border: rgba(255, 255, 255, 0.08);
+  --nexus-bg: #f8fafc;     /* Light Gray BG */
+  --nexus-surface: #ffffff; /* White Surface */
+  --nexus-elevated: #f1f5f9;
+  --nexus-border: #e2e8f0;
+  --nexus-text-main: #1e293b;
+  --nexus-text-muted: #64748b;
 }
 
 .nexus-admin-body {
   background-color: var(--nexus-bg);
-  color: #cbd5e1; /* Sophisticated Slate Gray for body */
+  color: var(--nexus-text-main);
   font-family: 'Inter', 'Segoe UI', sans-serif;
   line-height: 1.6;
   position: relative;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
-/* Premium Mesh Background Blobs */
-.nexus-admin-body::before, .nexus-admin-body::after {
-  content: '';
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: 0;
-  opacity: 0.15;
-  pointer-events: none;
-  animation: mesh-float 20s infinite alternate ease-in-out;
+/* Removal of Mesh Blobs & Overlays for Flat Style */
+.nexus-admin-body::before, .nexus-admin-body::after, .nexus-tactile-overlay {
+  display: none !important;
 }
 
-.nexus-admin-body::before {
-  top: -200px;
-  right: -100px;
-  background: var(--nexus-accent);
-}
-
-.nexus-admin-body::after {
-  bottom: -200px;
-  left: -100px;
-  background: var(--nexus-accent-secondary, var(--nexus-violet));
-  animation-delay: -10s;
-}
-
-@keyframes mesh-float {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(100px, 100px) scale(1.2); }
-}
-
-/* High-End Tactile Overlays */
-.nexus-tactile-overlay {
-  position: fixed;
-  inset: 0;
-  background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-  opacity: 0.03;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.nexus-admin-body > * {
-  position: relative;
-  z-index: 10;
-}
-
-/* Luxury Glassmorphism 2.0 - Ultra-Depth */
+/* Flat Professional Panels */
 .glass-panel {
-  background: rgba(18, 18, 20, 0.65);
-  backdrop-filter: blur(50px) saturate(220%) contrast(110%);
-  -webkit-backdrop-filter: blur(50px) saturate(220%) contrast(110%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 40px 100px -20px rgba(0, 0, 0, 0.9),
-    inset 0 0 20px rgba(255, 255, 255, 0.03);
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--nexus-surface);
+  border: 1px solid var(--nexus-border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
 }
 
-.glass-panel-deep {
-  backdrop-filter: blur(80px) saturate(250%);
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(12, 12, 14, 0.8);
-}
-
-.glass-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  z-index: 5;
-}
-
-.glass-panel::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 40%);
-  pointer-events: none;
-}
-
 .glass-panel:hover {
-  background: rgba(22, 22, 24, 0.85);
+  background: var(--nexus-surface);
   border-color: var(--nexus-accent);
-  box-shadow: 0 0 30px -10px var(--nexus-accent);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .glass-card-hover:hover {
-  transform: translateY(-8px);
-  border-color: var(--nexus-accent, var(--nexus-violet));
-  background: rgba(22, 22, 26, 0.95);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 40px -20px var(--nexus-accent);
+  transform: translateY(-2px);
+  border-color: var(--nexus-accent);
 }
 
-/* Page Themes */
-.theme-overview { --nexus-accent: #A855F7; --nexus-accent-secondary: #7C3AED; --nexus-accent-rgb: 168, 85, 247; }
-.theme-workforce { --nexus-accent: #10B981; --nexus-accent-secondary: #059669; --nexus-accent-rgb: 16, 185, 129; }
-.theme-kb { --nexus-accent: #0EA5E9; --nexus-accent-secondary: #0284C7; --nexus-accent-rgb: 14, 165, 233; }
-.theme-automations { --nexus-accent: #F97316; --nexus-accent-secondary: #EA580C; --nexus-accent-rgb: 249, 115, 22; }
-.theme-settings { --nexus-accent: #64748B; --nexus-accent-secondary: #475569; --nexus-accent-rgb: 100, 116, 139; }
-.theme-meetings { --nexus-accent: #8B5CF6; --nexus-accent-secondary: #7C3AED; --nexus-accent-rgb: 139, 92, 246; }
-.theme-learning { --nexus-accent: #F59E0B; --nexus-accent-secondary: #D97706; --nexus-accent-rgb: 245, 158, 11; }
-.theme-archive { --nexus-accent: #EC4899; --nexus-accent-secondary: #DB2777; --nexus-accent-rgb: 236, 72, 153; }
+/* Typography Overrides for Light Theme */
+.text-platinum { color: var(--nexus-text-main) !important; }
+.text-silver { color: var(--nexus-text-muted) !important; }
+.text-slate { color: var(--nexus-slate) !important; }
+.text-white { color: var(--nexus-text-main) !important; }
+.text-gray-400 { color: var(--nexus-text-muted) !important; }
+.text-gray-500 { color: var(--nexus-text-muted) !important; }
 
-/* Enhanced Gradients */
-.bg-vibrant-gradient {
-  background: linear-gradient(135deg, var(--nexus-accent) 0%, var(--nexus-accent-secondary) 100%);
-}
-
-.text-vibrant-gradient {
-  background: linear-gradient(135deg, #f8fafc 0%, var(--nexus-accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Department Branding */
-.dept-exec { border-left: 5px solid var(--nexus-violet); background: linear-gradient(90deg, rgba(124, 58, 237, 0.05) 0%, transparent 100%); }
-.dept-marketing { border-left: 5px solid var(--nexus-blue); background: linear-gradient(90deg, rgba(14, 165, 233, 0.05) 0%, transparent 100%); }
-.dept-tech { border-left: 5px solid var(--nexus-green); background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%); }
-.dept-legal { border-left: 5px solid var(--nexus-gold); background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%); }
-
-/* Instructions & Pro-Tips */
-.nexus-step-guide {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-  border: 1px dashed var(--nexus-border);
-}
-
-.nexus-pro-tip {
-  border-left: 4px solid var(--nexus-gold);
-  background: rgba(245, 158, 11, 0.05);
-  padding: 1.25rem;
-  border-radius: 0 1rem 1rem 0;
-  font-size: 0.9rem;
-}
-
-.nexus-button-note {
-  font-size: 0.75rem;
-  color: #6b7280;
-  margin-top: 0.5rem;
-  display: block;
-}
-
-/* Animations */
-.collab-wave {
-  background: linear-gradient(-45deg, #A855F7, #10B981, #0EA5E9, #F59E0B);
-  background-size: 400% 400%;
-  animation: gradient-wave 15s ease infinite;
-  box-shadow: 0 0 40px -10px var(--nexus-accent);
-}
-
-@keyframes gradient-wave {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.nexus-shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* Staggered entry for panels */
-.nexus-admin-body > div {
-  opacity: 0;
-  animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.nexus-admin-body > div:nth-child(1) { animation-delay: 0.1s; }
-.nexus-admin-body > div:nth-child(2) { animation-delay: 0.2s; }
-.nexus-admin-body > div:nth-child(3) { animation-delay: 0.3s; }
-.nexus-admin-body > div:nth-child(4) { animation-delay: 0.4s; }
-
-.nexus-exit-animation {
-  animation: fade-out-down 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@keyframes fade-out-down {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(20px); }
-}
-
-/* Sidebar Navigation Overrides */
-#adminmenu {
-  background-color: var(--nexus-bg) !important;
-}
-
-#adminmenu .wp-has-current-submenu .wp-submenu {
-  background-color: var(--nexus-surface) !important;
-}
-
-/* Modal Transitions */
-#nexus-visual-builder-modal, #nexus-workflow-results-modal, #nexus-archive-modal {
-  transition: opacity 0.4s ease-out;
-  z-index: 99999 !important; /* Ensure it is on top of everything */
-}
-
-.modal-content-zoom {
-  animation: modal-zoom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes modal-zoom {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* Typography */
-.text-platinum { color: #f8fafc !important; }
-.text-silver { color: #94a3b8 !important; }
-.text-slate { color: #475569 !important; }
-
-.text-accent { color: var(--nexus-accent) !important; text-shadow: 0 0 15px rgba(var(--nexus-accent-rgb), 0.3); }
-.bg-accent { background-color: var(--nexus-accent); }
-.border-accent { border-color: var(--nexus-accent); }
-
-/* Title Gradients */
+/* Dashboard Titles */
 .text-gradient-vibrant {
-  background: linear-gradient(135deg, #FFF 0%, var(--nexus-accent) 50%, var(--nexus-accent-secondary) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-  animation: title-glow 3s infinite alternate ease-in-out;
+  background: none !important;
+  -webkit-text-fill-color: var(--nexus-text-main) !important;
+  color: var(--nexus-text-main) !important;
+  filter: none !important;
+  animation: none !important;
+  font-weight: 800;
 }
 
-@keyframes title-glow {
-  from { filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); }
-  to { filter: drop-shadow(0 0 15px var(--nexus-accent)); }
-}
-
-/* Sidebar Branding */
-.active-nav-highlight {
-  position: relative;
-}
-
-.active-nav-highlight::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0; width: 3px;
-  background: var(--nexus-accent);
-  box-shadow: 0 0 10px var(--nexus-accent);
-}
-
-/* Interactive Status Pulse */
-.status-pulse-live {
-  width: 10px; height: 10px;
-  background-color: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 15px #10b981;
-  animation: live-pulse 2s infinite;
-  position: relative;
-}
-
-.status-pulse-live::after {
-  content: '';
-  position: absolute;
-  top: -5px; left: -5px; right: -5px; bottom: -5px;
-  border: 1px solid #10b981;
-  border-radius: 50%;
-  animation: ripple 2s infinite;
-}
-
-@keyframes ripple {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
-}
-
-@keyframes live-pulse {
-  0% { transform: scale(1); box-shadow: 0 0 15px #10b981; }
-  50% { transform: scale(1.1); box-shadow: 0 0 25px #10b981; }
-  100% { transform: scale(1); box-shadow: 0 0 15px #10b981; }
-}
-
-/* Form Enhancements */
-label {
+/* Standard Buttons - Flat Style */
+.nexus-btn-vibrant {
+  background: var(--nexus-accent) !important;
   color: #ffffff !important;
-  font-weight: 800 !important;
-  font-size: 0.85rem !important;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.75rem;
-  display: block;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 10px 20px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
 }
 
+.nexus-btn-vibrant:hover {
+  filter: brightness(1.1);
+  transform: none !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* Page Themes - Professional Palette */
+.theme-overview { --nexus-accent: #6366f1; --nexus-accent-secondary: #4f46e5; }
+.theme-workforce { --nexus-accent: #10b981; --nexus-accent-secondary: #059669; }
+.theme-kb { --nexus-accent: #0ea5e9; --nexus-accent-secondary: #0284c7; }
+.theme-automations { --nexus-accent: #f97316; --nexus-accent-secondary: #ea580c; }
+.theme-settings { --nexus-accent: #64748b; --nexus-accent-secondary: #475569; }
+.theme-meetings { --nexus-accent: #8b5cf6; --nexus-accent-secondary: #7c3aed; }
+.theme-learning { --nexus-accent: #f59e0b; --nexus-accent-secondary: #d97706; }
+
+/* Flat Form Controls */
 input[type="text"],
 input[type="password"],
 input[type="url"],
@@ -335,170 +106,51 @@ input[type="email"],
 input[type="number"],
 textarea,
 select {
-  background-color: rgba(255, 255, 255, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  color: #FFFFFF !important;
-  border-radius: 12px !important;
-  padding: 1rem !important;
-  font-size: 0.95rem !important;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3) !important;
+  background-color: #ffffff !important;
+  border: 1px solid var(--nexus-border) !important;
+  color: var(--nexus-text-main) !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
 }
 
 input:focus, textarea:focus, select:focus {
-  background-color: rgba(255, 255, 255, 0.07) !important;
   border-color: var(--nexus-accent) !important;
-  box-shadow: 0 0 20px -5px var(--nexus-accent), inset 0 2px 4px rgba(0,0,0,0.2) !important;
-  transform: translateY(-1px);
-  outline: none !important;
+  outline: 2px solid var(--nexus-accent) !important;
+  outline-offset: -1px !important;
+  background-color: #ffffff !important;
+  transform: none !important;
 }
 
 .form-group-tint {
-  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-  border: 1px solid rgba(255,255,255,0.05);
-  padding: 2rem;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-}
-
-.form-group-tint:focus-within {
-  border-color: var(--nexus-accent);
-  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-}
-
-/* Colorful Buttons - Solid High Contrast with Neon Focus */
-.nexus-btn-vibrant {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  background: transparent !important;
-  border-radius: 14px !important;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 800 !important;
-}
-
-.nexus-btn-vibrant::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, var(--nexus-accent) 0%, var(--nexus-accent-secondary) 100%);
-  z-index: -1;
-  transition: transform 0.4s ease;
-}
-
-.nexus-btn-vibrant:hover::before {
-  transform: scale(1.05);
-}
-
-.nexus-btn-vibrant:hover::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-  transform: skewX(-25deg);
-  animation: shine 1.5s infinite;
-}
-
-@keyframes shine {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-.nexus-btn-vibrant:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px var(--nexus-accent);
-  border-color: rgba(255,255,255,0.3) !important;
-}
-
-.nexus-btn-vibrant:active {
-  transform: scale(0.98);
-}
-
-.nexus-card-scale-hover:hover {
-  transform: scale(1.01) translateY(-5px);
-}
-
-/* Vibrant Text Highlights */
-.text-glow {
-  text-shadow: 0 0 15px var(--nexus-accent);
-}
-
-.tool-active-glow {
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-  border-color: rgba(16, 185, 129, 0.5) !important;
-}
-
-.tool-pending-glow {
-  box-shadow: 0 0 15px rgba(14, 165, 233, 0.1);
-  border-color: rgba(14, 165, 233, 0.3) !important;
-}
-
-.highlight-box {
-  background: rgba(255, 255, 255, 0.03);
+  background: #f8fafc;
   border: 1px solid var(--nexus-border);
-  border-radius: 12px;
   padding: 1.5rem;
+  border-radius: 8px;
 }
 
-/* Toast Notifications */
-#nexus-toast-container {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 100000;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Step Guides & Tips */
+.nexus-step-guide {
+  background: #f1f5f9;
+  border: 1px solid var(--nexus-border);
+  border-radius: 8px;
 }
 
-.nexus-toast {
-  background: #1a1a1e;
-  border: 1px solid var(--nexus-accent);
-  padding: 1rem 2rem;
-  border-radius: 1rem;
-  color: #f8fafc;
-  font-weight: 600;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  animation: toast-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.nexus-pro-tip {
+  border-left: 4px solid var(--nexus-gold);
+  background: #fffbeb;
+  color: #92400e;
 }
 
-@keyframes toast-in {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+/* Remove Border Beam & Neural Pulse animations for Flat Style */
+.nexus-border-beam, .nexus-neural-pulse {
+  display: none !important;
 }
 
-.nexus-toast-success { border-color: var(--nexus-green); }
-.nexus-toast-error { border-color: var(--nexus-red); }
-
-/* Thinking Phase */
-.nexus-thinking-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--nexus-accent);
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+/* Strategic Archive & Tables */
+tr:hover td {
+  background: #f8fafc;
 }
 
-.thinking-dot {
-  width: 4px; height: 4px;
-  background-color: var(--nexus-accent);
-  border-radius: 50%;
-  animation: thinking-bounce 1.4s infinite ease-in-out both;
-}
-
-.thinking-dot:nth-child(1) { animation-delay: -0.32s; }
-.thinking-dot:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes thinking-bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1.0); }
-}
+.bg-nexus-elevated { background-color: #f1f5f9 !important; }
+.bg-nexus-bg { background-color: #f8fafc !important; }
+.border-nexus-border { border-color: #e2e8f0 !important; }
