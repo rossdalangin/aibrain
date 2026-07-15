@@ -106,7 +106,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 mkt_dir: { position: 'Marketing Director', identity: 'I am a high-level marketing strategist focused on brand positioning and market share.', mission: 'Drive global brand awareness and strategic marketing initiatives.', temp: 0.7 },
                 biz_analyst: { position: 'Business Analyst', identity: 'I am a strategic thinker focused on identifying business needs and determining solutions.', mission: 'Bridge the gap between business challenges and technology solutions.', temp: 0.3 },
                 affiliate: { position: 'Affiliate Manager', identity: 'I am a partnership expert focused on recruiting and optimizing affiliate networks.', mission: 'Maximize revenue through high-performance partnership channels.', temp: 0.8 },
-                ops_mgr: { position: 'Operations Manager', identity: 'I am an expert in streamlining internal workflows and resource management.', mission: 'Ensure operational excellence across all departments.', temp: 0.3 }
+                ops_mgr: { position: 'Operations Manager', identity: 'I am an expert in streamlining internal workflows and resource management.', mission: 'Ensure operational excellence across all departments.', temp: 0.3 },
+                aso: { position: 'App Store Optimizer', identity: 'I am a mobile growth expert specializing in keyword ranking and conversion for iOS and Android stores.', mission: 'Dominate app store rankings and increase organic installs.', temp: 0.6 },
+                crisis_pr: { position: 'Crisis PR Manager', identity: 'I am a high-stakes reputation specialist trained to manage brand damage and craft strategic messaging under pressure.', mission: 'Neutralize brand threats and maintain public trust during crises.', temp: 0.4 },
+                grant_premium: { position: 'Senior Grant Strategist', identity: 'I am a high-value funding expert with a 95% success rate in multi-million dollar federal grants.', mission: 'Secure transformational funding through superior proposal architecture.', temp: 0.3 },
+                funnel_hacker: { position: 'Funnel Optimization Expert', identity: 'I am a behavioral conversion specialist focused on high-ticket sales funnel architecture.', mission: 'Maximize EPC (Earnings Per Click) through rigorous funnel testing.', temp: 0.8 },
+                vulnerability_expert: { position: 'Security Researcher', identity: 'I am a white-hat security auditor focused on identifying system vulnerabilities and zero-day threats.', mission: 'Ensure 100% system hardening and data integrity.', temp: 0.1 }
             };
 
             const data = templates[role];
@@ -218,6 +223,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(() => window.location.reload(), 1000);
                 });
             }
+        });
+    }
+
+    const directKbBtn = document.getElementById('nexus-kb-direct-btn');
+    if (directKbBtn) {
+        directKbBtn.addEventListener('click', function() {
+            const text = document.getElementById('nexus-kb-direct-text').value;
+            const name = document.getElementById('nexus-kb-direct-name').value;
+            if (!text) return;
+
+            directKbBtn.innerText = 'Ingesting...';
+            nexusFetch('kb/direct', 'POST', { text: text, name: name }).then(res => {
+                showToast(`Intelligence ingested: ${res.chunks} memory chunks created.`);
+                setTimeout(() => window.location.reload(), 1000);
+            });
         });
     }
 
@@ -448,16 +468,17 @@ document.addEventListener('DOMContentLoaded', function() {
             nexusFetch(`workflows/run/${id}`, 'POST', { input: input }).then(res => {
                 log.innerHTML = '';
                 res.results.forEach((step, idx) => {
-                    const fullText = `[${step.step} - ${step.agent}]\n${step.output}\n\n`;
+                    const outputContent = typeof step.output === 'object' ? step.output.content : step.output;
+                    const fullText = `[${step.step} - ${step.agent}]\n${outputContent}\n\n`;
                     log.innerHTML += `
                         <div class="flex gap-6 items-start animate-fade-in-up">
                             <div class="w-12 h-12 rounded-full bg-nexus-elevated border border-accent flex items-center justify-center font-bold text-accent shrink-0">${idx + 1}</div>
                             <div class="flex-1">
                                 <div class="flex justify-between items-center mb-2">
                                     <p class="font-bold text-white uppercase tracking-widest text-[10px] opacity-50">${escapeHTML(step.step)} • ${escapeHTML(step.agent)}</p>
-                                    <button class="text-[10px] text-accent hover:text-white" onclick="navigator.clipboard.writeText(\`${step.output.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); showToast('Output copied to clipboard.')">Copy</button>
+                                    <button class="text-[10px] text-accent hover:text-white" onclick="navigator.clipboard.writeText(\`${outputContent.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); showToast('Output copied to clipboard.')">Copy</button>
                                 </div>
-                                <div class="p-6 rounded-3xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed shadow-xl whitespace-pre-wrap">${escapeHTML(step.output)}</div>
+                                <div class="p-6 rounded-3xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed shadow-xl whitespace-pre-wrap">${escapeHTML(outputContent)}</div>
                             </div>
                         </div>`;
                 });

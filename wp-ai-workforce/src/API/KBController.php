@@ -123,4 +123,47 @@ class KBController {
 
 		return new WP_REST_Response( [ 'success' => true, 'doc_id' => $doc_id, 'chunks' => count( $chunks ) ], 200 );
 	}
+
+	/**
+	 * Handle direct text intelligence input.
+	 */
+	public function ingest_direct_text( WP_REST_Request $request ): WP_REST_Response {
+		$params = $request->get_params();
+		$text   = sanitize_textarea_field( $params['text'] ?? '' );
+		$name   = sanitize_text_field( $params['name'] ?? 'Direct Input' );
+
+		if ( empty( $text ) ) {
+			return new WP_REST_Response( [ 'message' => 'Text content is empty' ], 400 );
+		}
+
+		$chunks = $this->chunker->chunk( $text );
+		$doc_id = $this->repository->create( [
+			'kb_id'       => 1,
+			'type'        => 'text',
+			'source_path' => $name,
+			'status'      => 'indexed',
+		] );
+
+		global $wpdb;
+		foreach ( $chunks as $chunk ) {
+			$wpdb->insert( $wpdb->prefix . 'ai_knowledge_chunks', [
+				'doc_id'  => $doc_id,
+				'content' => $chunk,
+			] );
+		}
+
+		( new AuditLogger() )->log( 'kb_ingest', "Direct intelligence input indexed: $name", 0, [ 'doc_id' => $doc_id ] );
+
+		return new WP_REST_Response( [ 'success' => true, 'doc_id' => $doc_id, 'chunks' => count( $chunks ) ], 200 );
+	}
+
+	/**
+	 * Wipe all knowledge memory.
+	 */
+	public function wipe_memory(): WP_REST_Response {
+		global $wpdb;
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}ai_knowledge_chunks" );
+		$wpdb->query( "DELETE FROM {$wpdb->prefix}ai_knowledge_documents" );
+		return new WP_REST_Response( [ 'success' => true ], 200 );
+	}
 }

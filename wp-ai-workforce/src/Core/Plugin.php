@@ -22,6 +22,21 @@ class Plugin {
 		add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
 		add_action( 'admin_head', [ $this, 'inject_custom_agency_css' ] );
+		add_shortcode( 'nexus_ai_portal', [ $this, 'render_client_portal_shortcode' ] );
+	}
+
+	public function render_client_portal_shortcode(): string {
+		if ( ! is_user_logged_in() ) {
+			return '<p class="nexus-error">Authentication Required to Access AI Workforce.</p>';
+		}
+
+		$this->enqueue_admin_assets( 'nexus-ai-workforce-portal' );
+
+		ob_start();
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\AdminRenderer' ) ) {
+			( new \NexusAI\Workforce\UI\AdminRenderer() )->render_overview_page();
+		}
+		return ob_get_clean();
 	}
 
 	public function inject_custom_agency_css(): void {
@@ -41,6 +56,11 @@ class Plugin {
 		// Initialize Frontend Widget
 		if ( class_exists( 'NexusAI\\Workforce\\UI\\ChatWidget' ) ) {
 			( new \NexusAI\Workforce\UI\ChatWidget() )->init();
+		}
+
+		// Initialize Dashboard Widget
+		if ( class_exists( 'NexusAI\\Workforce\\UI\\DashboardWidget' ) ) {
+			( new \NexusAI\Workforce\UI\DashboardWidget() )->init();
 		}
 	}
 
@@ -225,7 +245,7 @@ class Plugin {
 	}
 
 	public function enqueue_admin_assets( $hook ) {
-		if ( strpos( $hook, 'nexus-ai-workforce' ) === false ) {
+		if ( strpos( $hook, 'nexus-ai-workforce' ) === false && $hook !== 'nexus-ai-workforce-portal' ) {
 			return;
 		}
 
@@ -233,14 +253,14 @@ class Plugin {
 		wp_enqueue_script( 'nexus-ai-tailwind', 'https://cdn.tailwindcss.com', [], '3.3.0' );
 		wp_enqueue_script( 'nexus-ai-chartjs', 'https://cdn.jsdelivr.net/npm/chart.js', [], '4.4.0' );
 
-		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 3 ) ), [], '1.0.0' );
+		wp_enqueue_style( 'nexus-ai-premium', plugins_url( 'assets/css/nexus-ui.css', dirname( __FILE__, 3 ) ), [], '1.1.0' );
 
 		// Enqueue React build (assuming webpack output)
 		if ( file_exists( dirname( __FILE__, 3 ) . '/assets/js/admin.js' ) ) {
-			wp_enqueue_script( 'nexus-ai-admin', plugins_url( 'assets/js/admin.js', dirname( __FILE__, 3 ) ), [ 'wp-element', 'wp-api-fetch' ], '1.0.0', true );
+			wp_enqueue_script( 'nexus-ai-admin', plugins_url( 'assets/js/admin.js', dirname( __FILE__, 3 ) ), [ 'wp-element', 'wp-api-fetch' ], '1.1.0', true );
 		}
 
-		wp_enqueue_script( 'nexus-ai-bridge', plugins_url( 'assets/js/admin-bridge.js', dirname( __FILE__, 3 ) ), [], '1.0.0', true );
+		wp_enqueue_script( 'nexus-ai-bridge', plugins_url( 'assets/js/admin-bridge.js', dirname( __FILE__, 3 ) ), [], '1.1.0', true );
 		wp_localize_script( 'nexus-ai-bridge', 'nexus_ai_data', [
 			'rest_url' => esc_url_raw( rest_url() ),
 			'nonce'    => wp_create_nonce( 'wp_rest' ),

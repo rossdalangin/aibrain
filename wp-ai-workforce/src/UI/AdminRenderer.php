@@ -18,7 +18,8 @@ class AdminRenderer {
 
 	private function get_brand_styles(): string {
 		$color = $this->settings->get( 'ui_color', '#7C3AED' );
-		return "<style>:root { --nexus-violet: $color !important; } .text-nexus-violet { color: $color !important; } .bg-nexus-violet { background-color: $color !important; }</style>";
+		$font  = $this->settings->get( 'ui_font', 'Inter' );
+		return "<style>:root { --nexus-violet: $color !important; } .nexus-admin-body { font-family: '$font', sans-serif !important; } .text-nexus-violet { color: $color !important; } .bg-nexus-violet { background-color: $color !important; }</style>";
 	}
 
 	/**
@@ -424,6 +425,13 @@ class AdminRenderer {
 								<option value="video">Video Editor - Engagement Lead</option>
 								<option value="email">Email Marketer - Retention Expert</option>
 							</optgroup>
+							<optgroup label="Elite Specialty Roles">
+								<option value="aso">App Store Optimizer - Mobile Growth</option>
+								<option value="crisis_pr">Crisis PR - Reputation Defense</option>
+								<option value="grant_premium">Senior Grant Strategist - Funding</option>
+								<option value="funnel_hacker">Funnel Optimization - conversion Expert</option>
+								<option value="vulnerability_expert">Security Researcher - System Hardening</option>
+							</optgroup>
 						</select>
 						<p class="text-[10px] text-gray-500 mt-3">Expect: Instant population of professional identity and mission constraints.</p>
 					</div>
@@ -735,6 +743,15 @@ class AdminRenderer {
 							<input type="color" name="ui_color" class="w-20 h-12 bg-nexus-elevated border border-nexus-border rounded-lg p-1 text-white cursor-pointer" value="#7C3AED">
 						</div>
 						<div>
+							<label class="block text-sm font-medium text-gray-400 mb-2">Global UI Font</label>
+							<select name="ui_font" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+								<option value="Inter">Inter (Modern SaaS)</option>
+								<option value="Segoe UI">Segoe UI (Enterprise)</option>
+								<option value="JetBrains Mono">JetBrains Mono (Technical)</option>
+								<option value="Playfair Display">Playfair Display (Luxury)</option>
+							</select>
+						</div>
+						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Platform Display Title</label>
 							<input type="text" name="platform_title" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="Nexus AI Workforce">
 						</div>
@@ -743,6 +760,13 @@ class AdminRenderer {
 							<div class="flex items-center gap-4">
 								<input type="checkbox" name="agency_mode" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-accent" <?php checked( (bool) $this->settings->get( 'agency_mode', false ) ); ?>>
 								<p class="text-xs text-gray-500">Hide "Nexus AI" branding and use "Platform Display Title" throughout the UI.</p>
+							</div>
+						</div>
+						<div class="p-6 rounded-2xl bg-red-900/10 border border-red-900/20">
+							<p class="text-sm font-bold text-red-500 mb-2 uppercase">Platform Maintenance Mode</p>
+							<div class="flex items-center gap-4">
+								<input type="checkbox" name="maintenance_mode" class="w-5 h-5 rounded border-red-900/50 bg-gray-700 text-red-600" <?php checked( (bool) $this->settings->get( 'maintenance_mode', false ) ); ?>>
+								<p class="text-xs text-gray-400">Lock the AI workforce environment. Only Administrators can access dashboards.</p>
 							</div>
 						</div>
 
@@ -898,6 +922,12 @@ class AdminRenderer {
 								<button id="nexus-kb-index-btn" class="bg-accent text-white px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all nexus-btn-vibrant">Index</button>
 							</div>
 							<span class="nexus-button-note">Expect: Recursive crawling of the provided URL.</span>
+						</div>
+						<div class="pt-6 border-t border-nexus-border/30">
+							<label class="block text-sm font-medium text-gray-400 mb-2">Direct Intelligence Input</label>
+							<input type="text" id="nexus-kb-direct-name" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-white mb-2" placeholder="Document Name (e.g. Q4 SOPs)">
+							<textarea id="nexus-kb-direct-text" class="w-full h-40 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white text-sm outline-none focus:border-accent" placeholder="Paste raw company data or strategic notes here..."></textarea>
+							<button id="nexus-kb-direct-btn" class="w-full mt-2 bg-nexus-blue text-white py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant theme-kb">Ingest Strategic Text</button>
 						</div>
 					</div>
 				</div>

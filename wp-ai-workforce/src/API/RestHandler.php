@@ -48,6 +48,14 @@ class RestHandler {
 			],
 		] );
 
+		register_rest_route( $this->namespace, '/kb/direct', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $kb_controller, 'ingest_direct_text' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
 		register_rest_route( $this->namespace, '/system/seed', [
 			[
 				'methods'             => WP_REST_Server::CREATABLE,
