@@ -92,10 +92,27 @@ class SampleDataEngine {
 		// 3. Create Sample Knowledge
 		$wpdb->insert( $wpdb->prefix . 'ai_knowledge_documents', [
 			'type'        => 'pdf',
-			'source_path' => 'Sample_Market_Analysis.pdf',
+			'source_path' => 'Corporate_SOP_V1.pdf',
 			'status'      => 'indexed',
 			'created_at'  => current_time( 'mysql' )
 		]);
+		$doc_id = $wpdb->insert_id;
+
+		// Seed some high-quality chunks for RAG demonstration
+		$chunks = [
+			"Our corporate mission is to become the leading AI-first workforce platform for agencies by 2026.",
+			"Customer Support SLA: All high-priority tickets must be resolved within 4 hours.",
+			"Brand Guidelines: Use Platinum (#f8fafc) for all primary headings and Silver (#94a3b8) for body text.",
+			"Security Protocol: All API keys must be encrypted using AES-256-CTR before being committed to the database."
+		];
+
+		foreach ($chunks as $chunk) {
+			$wpdb->insert( $wpdb->prefix . 'ai_knowledge_chunks', [
+				'doc_id'  => $doc_id,
+				'content' => $chunk,
+				'metadata' => wp_json_encode(['source' => 'Corporate SOP'])
+			]);
+		}
 
 		return [ 'success' => true, 'agents' => count($agents), 'depts' => count($depts) ];
 	}

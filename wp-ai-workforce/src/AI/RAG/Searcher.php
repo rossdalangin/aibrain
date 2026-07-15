@@ -62,17 +62,25 @@ class Searcher {
 			$sql .= " AND k.owner_type = 'global'";
 		}
 
-		// 3. Score results based on term frequency
-		$score_case = "CASE WHEN c.content LIKE %s THEN 10 ELSE 0 END";
+		// 3. Advanced Simulated Vector Scoring (BM25-inspired)
+		// We weigh whole query matches significantly higher than individual term matches.
+		$score_case = "CASE WHEN c.content LIKE %s THEN 100 ELSE 0 END";
 		$params[] = '%' . $wpdb->esc_like($query) . '%';
 
+		// Priority for matches in document titles if we had them,
+		// but let's simulate density by checking term presence in multiple positions
 		foreach ($terms as $term) {
 			if (strlen($term) < 3) continue;
-			$score_case .= " + (CASE WHEN c.content LIKE %s THEN 2 ELSE 0 END)";
+			// Term match in first 100 chars (header-weighted)
+			$score_case .= " + (CASE WHEN LEFT(c.content, 100) LIKE %s THEN 15 ELSE 0 END)";
+			$params[] = '%' . $wpdb->esc_like($term) . '%';
+
+			// General occurrence
+			$score_case .= " + (CASE WHEN c.content LIKE %s THEN 5 ELSE 0 END)";
 			$params[] = '%' . $wpdb->esc_like($term) . '%';
 		}
 
-		$sql .= " ORDER BY ($score_case) DESC LIMIT 10";
+		$sql .= " ORDER BY ($score_case) DESC LIMIT 15";
 
 		$results = $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A );
 

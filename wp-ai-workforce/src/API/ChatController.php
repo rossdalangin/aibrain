@@ -63,12 +63,12 @@ class ChatController {
 		If you have a clear recommendation, format it as 'DECISION: [your decision]' or 'ACTION: [specific action]'.
 		Keep it professional, concise, and focused on your specific role KPIs.";
 
-		$response = $orchestrator->process_request( $prompt, $agent );
+		$result = $orchestrator->process_request( $prompt, $agent );
 
 		return new WP_REST_Response( [
 			'agent_name' => $agent['name'],
 			'position'   => $agent['position'],
-			'content'    => $response
+			'content'    => $result['content']
 		], 200 );
 	}
 
@@ -92,18 +92,18 @@ class ChatController {
 		}
 
 		$orchestrator = $this->get_orchestrator( $agent );
-		$response = $orchestrator->process_request( $message, $agent );
+		$result = $orchestrator->process_request( $message, $agent );
 
 		// Log usage for the public agent
 		$this->usage_logs->log_usage( [
 			'employee_id'       => $agent_id,
 			'model'             => $agent['model'] ?? 'gpt-4o',
-			'prompt_tokens'     => 150,
-			'completion_tokens' => 300,
-			'cost'              => 0.01,
+			'prompt_tokens'     => $result['usage']['prompt_tokens'],
+			'completion_tokens' => $result['usage']['completion_tokens'],
+			'cost'              => ( new CostCalculator() )->calculate( $agent['model'] ?? 'gpt-4o', $result['usage']['prompt_tokens'], $result['usage']['completion_tokens'] ),
 		] );
 
-		return new WP_REST_Response( [ 'response' => $response ], 200 );
+		return new WP_REST_Response( [ 'response' => $result['content'] ], 200 );
 	}
 
 	public function send_message( WP_REST_Request $request ): WP_REST_Response {
@@ -134,19 +134,19 @@ class ChatController {
 		$employee = $this->employees->get_by_id( $employee_id ) ?: [];
 		$orchestrator = $this->get_orchestrator( $employee );
 
-		$response = $orchestrator->process_request( $content, $employee );
+		$result = $orchestrator->process_request( $content, $employee );
 
 		// Store AI Message
 		$this->messages->create( [
 			'conversation_id' => $conversation_id,
 			'sender_type'     => 'ai',
 			'sender_id'       => $employee_id,
-			'content'         => $response,
+			'content'         => $result['content'],
 		] );
 
 		// Log Usage with real Cost Calculation
-		$prompt_tokens = 100; // Conceptual for now as most models don't return usage in standard response
-		$comp_tokens   = 200;
+		$prompt_tokens = $result['usage']['prompt_tokens'];
+		$comp_tokens   = $result['usage']['completion_tokens'];
 		$model         = $employee['model'] ?? 'gpt-4o';
 		$cost          = ( new CostCalculator() )->calculate( $model, $prompt_tokens, $comp_tokens );
 
@@ -162,7 +162,7 @@ class ChatController {
 
 		( new AuditLogger() )->log( 'ai_chat', "Agent interaction complete.", $employee_id, [ 'conversation_id' => $conversation_id ] );
 
-		return new WP_REST_Response( [ 'response' => $response, 'conversation_id' => $conversation_id ], 200 );
+		return new WP_REST_Response( [ 'response' => $result['content'], 'conversation_id' => $conversation_id ], 200 );
 	}
 
 	private function get_orchestrator( array $agent_data ): Orchestrator {

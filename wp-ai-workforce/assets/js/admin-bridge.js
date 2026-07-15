@@ -514,8 +514,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        const portalBtn = e.target.closest('button:contains("Launch Portal Preview")');
-        if (portalBtn || (e.target.innerText && e.target.innerText.includes("Launch Portal Preview"))) {
+        const portalBtn = e.target.closest('.nexus-launch-portal');
+        if (portalBtn) {
             showToast('Initializing secure client portal environment...');
         }
 
@@ -624,9 +624,13 @@ document.addEventListener('DOMContentLoaded', function() {
         nexusFetch('chat/meeting', 'POST', { agent_id: nextId, agenda: agenda, round: round }).then(res => {
             document.getElementById(thinkingId)?.remove();
 
-            // Detect consensus/action in response
-            if (res.content.toLowerCase().includes('decision:') || res.content.toLowerCase().includes('action:')) {
-                 showToast('Agent has proposed a strategic decision.', 'success');
+            // Detect consensus/action/voting in response
+            const lowerContent = res.content.toLowerCase();
+            if (lowerContent.includes('decision:') || lowerContent.includes('action:')) {
+                 showToast('Strategic milestone detected: Decision proposed.', 'success');
+            }
+            if (lowerContent.includes('i agree') || lowerContent.includes('i disagree')) {
+                 showToast('Agent vote recorded in strategic transcript.', 'success');
             }
 
             const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444', '#f97316'];

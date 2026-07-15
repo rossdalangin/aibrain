@@ -232,7 +232,7 @@ class AdminRenderer {
 							<span class="text-[10px] font-bold text-white uppercase">Client Access</span>
 							<span class="text-[10px] font-bold text-green-500 uppercase">Enabled</span>
 						</div>
-						<button class="w-full bg-nexus-gold text-black font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all">Launch Portal Preview</button>
+						<button class="nexus-launch-portal w-full bg-nexus-gold text-black font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all">Launch Portal Preview</button>
 					</div>
 				</div>
 			</div>

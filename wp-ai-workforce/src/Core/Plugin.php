@@ -21,6 +21,15 @@ class Plugin {
 	private function register_hooks() {
 		add_action( 'admin_menu', [ $this, 'add_admin_menu' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+		add_action( 'admin_head', [ $this, 'inject_custom_agency_css' ] );
+	}
+
+	public function inject_custom_agency_css(): void {
+		$settings = new \NexusAI\Workforce\Repositories\SettingsRepository();
+		$custom_css = $settings->get( 'custom_agency_css', '' );
+		if ( ! empty( $custom_css ) ) {
+			echo '<style id="nexus-agency-overrides">' . wp_strip_all_tags( $custom_css ) . '</style>';
+		}
 	}
 
 	private function init_components() {

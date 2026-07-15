@@ -63,10 +63,10 @@ class Orchestrator {
 			}
 			$prompt .= "\n" . $agent['name'] . ", based on the goals and KPIs of your position, what is your opinion on this? If a decision is already clear, explicitly state 'I AGREE' or 'I DISAGREE' and explain why.";
 
-			$response = $this->process_request( $prompt, $agent );
+			$result = $this->process_request( $prompt, $agent );
 			$transcript[] = [
 				'agent'   => $agent['name'],
-				'content' => $response,
+				'content' => $result['content'],
 			];
 		}
 
@@ -81,7 +81,7 @@ class Orchestrator {
 	 * @param string $company_context General company context.
 	 * @return string           Final response.
 	 */
-	public function process_request( string $request, array $agent_data, string $company_context = '', string $department_context = '' ): string {
+	public function process_request( string $request, array $agent_data, string $company_context = '', string $department_context = '' ): array {
 		// 1. Resolve Global Company Context if not provided
 		if ( empty( $company_context ) ) {
 			$settings = new \NexusAI\Workforce\Repositories\SettingsRepository();
@@ -110,15 +110,30 @@ class Orchestrator {
 			[ 'role' => 'user', 'content' => $request ],
 		];
 
+		// Hallucination Guard: Ground response in KB if request seems factual
+		if ( strlen($kb_context) > 100 ) {
+			$messages[0]['content'] .= "\n\nHALLUCINATION GUARD: Your response must be strictly grounded in the 'Relevant information from Knowledge Base' provided. If the information is not present, explicitly state that you do not know.";
+		}
+
 		$settings = $this->parse_settings( $agent_data['model_settings'] ?? '{}' );
 		$settings['tools'] = $this->action_registry->get_tools_definition();
 
+		$usage = [ 'prompt_tokens' => 0, 'completion_tokens' => 0 ];
+
 		try {
 			$result = $this->model->generate_completion( $messages, $settings );
+			$usage['prompt_tokens']     += $result['usage']['prompt_tokens'] ?? 0;
+			$usage['completion_tokens'] += $result['usage']['completion_tokens'] ?? 0;
 		} catch ( \Exception $e ) {
 			// Failover to secondary provider if primary fails
-			$fallback_model = \NexusAI\Workforce\AI\Factories\ModelFactory::create('claude');
+			$settings_repo = new \NexusAI\Workforce\Repositories\SettingsRepository();
+			$fallback_provider = $settings_repo->get( 'fallback_provider', 'claude' );
+
+			$fallback_model = \NexusAI\Workforce\AI\Factories\ModelFactory::create($fallback_provider);
 			$result = $fallback_model->generate_completion( $messages, $settings );
+
+			$usage['prompt_tokens']     += $result['usage']['prompt_tokens'] ?? 0;
+			$usage['completion_tokens'] += $result['usage']['completion_tokens'] ?? 0;
 		}
 
 		// 4. Handle tool calls (Recursive loop for multi-turn multi-tool execution)
@@ -156,9 +171,14 @@ class Orchestrator {
 			}
 
 			$result = $this->model->generate_completion( $messages, $settings );
+			$usage['prompt_tokens']     += $result['usage']['prompt_tokens'] ?? 0;
+			$usage['completion_tokens'] += $result['usage']['completion_tokens'] ?? 0;
 		}
 
-		return $result['content'] ?? 'Action completed.';
+		return [
+			'content' => $result['content'] ?? 'Action completed.',
+			'usage'   => $usage,
+		];
 	}
 
 	/**
