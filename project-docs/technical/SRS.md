@@ -31,9 +31,9 @@ The plugin will integrate deeply with WordPress, leveraging its user management,
 - Vector database integration (local SQLite-vss or cloud-based like Pinecone/Weaviate).
 
 #### 2.2.5 AI Team Collaboration & Meetings
-- Multi-agent orchestration.
+- Multi-agent orchestration with recursive multi-turn tool execution (capped at 5 iterations).
 - Real-time visualization of AI-to-AI communication.
-- Virtual meeting rooms for AI consensus building.
+- Virtual meeting rooms for AI consensus building with explicit voting detection (I AGREE/I DISAGREE).
 
 #### 2.2.6 Multi-Agent Workflows
 - Define sequential or parallel tasks involving multiple AI agents.
@@ -46,6 +46,7 @@ The plugin will integrate deeply with WordPress, leveraging its user management,
 - Modern, React-powered and PHP-shell hybrid UI.
 - Detailed analytics on token usage, cost, and employee performance via Chart.js.
 - 'Luxury Brand' aesthetic with 40px glassmorphism and animated mesh background blobs.
+- Elite visual effects: 'Border Beam' light-trailing animations and 'Neural Pulse' thinking indicators.
 
 #### 2.2.9 Frontend Chat Engagement
 - Floating glassmorphism chat widget for public interactions.

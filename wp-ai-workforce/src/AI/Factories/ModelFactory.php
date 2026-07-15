@@ -17,7 +17,7 @@ use NexusAI\Workforce\Repositories\SettingsRepository;
  */
 class ModelFactory {
 
-	public static function create( string $provider ): AIModelInterface {
+	public static function create( string $provider, bool $with_fallback = true ): AIModelInterface {
 		$settings = new SettingsRepository();
 		$encryption = new Encryption();
 

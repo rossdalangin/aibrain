@@ -360,7 +360,7 @@ input:focus, textarea:focus, select:focus {
   background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
 }
 
-/* Colorful Buttons */
+/* Colorful Buttons - Solid High Contrast with Neon Focus */
 .nexus-btn-vibrant {
   position: relative;
   overflow: hidden;

@@ -55,13 +55,13 @@ class Orchestrator {
 			$context .= "- " . $agent['name'] . " (" . $agent['position'] . ")\n";
 		}
 
-		// Simplified Round-robin debate for MVP
+		// Round-robin debate with explicit Consensus detection
 		foreach ( $agents as $agent ) {
 			$prompt = $context . "\nTranscript so far:\n";
 			foreach ( $transcript as $entry ) {
 				$prompt .= $entry['agent'] . ": " . $entry['content'] . "\n";
 			}
-			$prompt .= "\n" . $agent['name'] . ", what is your opinion on this?";
+			$prompt .= "\n" . $agent['name'] . ", based on the goals and KPIs of your position, what is your opinion on this? If a decision is already clear, explicitly state 'I AGREE' or 'I DISAGREE' and explain why.";
 
 			$response = $this->process_request( $prompt, $agent );
 			$transcript[] = [
@@ -113,7 +113,13 @@ class Orchestrator {
 		$settings = $this->parse_settings( $agent_data['model_settings'] ?? '{}' );
 		$settings['tools'] = $this->action_registry->get_tools_definition();
 
-		$result = $this->model->generate_completion( $messages, $settings );
+		try {
+			$result = $this->model->generate_completion( $messages, $settings );
+		} catch ( \Exception $e ) {
+			// Failover to secondary provider if primary fails
+			$fallback_model = \NexusAI\Workforce\AI\Factories\ModelFactory::create('claude');
+			$result = $fallback_model->generate_completion( $messages, $settings );
+		}
 
 		// 4. Handle tool calls (Recursive loop for multi-turn multi-tool execution)
 		$max_iterations = 5;

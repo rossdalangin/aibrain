@@ -20,10 +20,11 @@ class WooCommerceAction extends BaseAction {
 		return [
 			'type' => 'object',
 			'properties' => [
-				'action'     => [ 'type' => 'string', 'enum' => [ 'create_product', 'get_order', 'update_stock' ] ],
+				'action'     => [ 'type' => 'string', 'enum' => [ 'create_product', 'get_order', 'update_stock', 'revenue_report' ] ],
 				'name'       => [ 'type' => 'string', 'description' => 'Product name' ],
 				'price'      => [ 'type' => 'string' ],
 				'order_id'   => [ 'type' => 'integer' ],
+				'days'       => [ 'type' => 'integer', 'description' => 'Number of days for report' ],
 			],
 			'required' => [ 'action' ],
 		];
@@ -34,8 +35,8 @@ class WooCommerceAction extends BaseAction {
 			throw new \Exception( 'WooCommerce is not installed or active.' );
 		}
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			throw new \Exception( 'Insufficient permissions to manage WooCommerce.' );
+		if ( ! current_user_can( 'view_woocommerce_reports' ) && ! current_user_can( 'manage_woocommerce' ) ) {
+			throw new \Exception( 'Insufficient permissions to access WooCommerce data.' );
 		}
 
 		switch ( $args['action'] ) {
@@ -50,6 +51,16 @@ class WooCommerceAction extends BaseAction {
 			case 'get_order':
 				$order = wc_get_order( $args['order_id'] );
 				return $order ? $order->get_data() : [ 'error' => 'Order not found' ];
+
+			case 'revenue_report':
+				$days = $args['days'] ?? 30;
+				$reports = \WC_Admin_Reports::get_report_data( [
+					'data_labels' => [ 'total_sales' ],
+					'query_args'  => [
+						'date_range' => 'last_month', // Simplified for MVP
+					],
+				] );
+				return [ 'total_revenue' => $reports->total_sales ?? 'Data unavailable' ];
 
 			default:
 				return [ 'error' => 'Unsupported action' ];

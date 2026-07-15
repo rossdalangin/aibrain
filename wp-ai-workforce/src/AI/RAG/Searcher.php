@@ -62,8 +62,17 @@ class Searcher {
 			$sql .= " AND k.owner_type = 'global'";
 		}
 
-		$sql .= " ORDER BY (CASE WHEN c.content LIKE %s THEN 1 ELSE 2 END) LIMIT 5";
-		$params[] = '%' . $wpdb->esc_like( $query ) . '%';
+		// 3. Score results based on term frequency
+		$score_case = "CASE WHEN c.content LIKE %s THEN 10 ELSE 0 END";
+		$params[] = '%' . $wpdb->esc_like($query) . '%';
+
+		foreach ($terms as $term) {
+			if (strlen($term) < 3) continue;
+			$score_case .= " + (CASE WHEN c.content LIKE %s THEN 2 ELSE 0 END)";
+			$params[] = '%' . $wpdb->esc_like($term) . '%';
+		}
+
+		$sql .= " ORDER BY ($score_case) DESC LIMIT 10";
 
 		$results = $wpdb->get_results( $wpdb->prepare( $sql, $params ), ARRAY_A );
 
