@@ -26,6 +26,16 @@ class RestHandler {
 	 * Register all routes.
 	 */
 	public function register_routes(): void {
+		// Simple Rate Limiting for Enterprise Stability
+		if ( ! is_user_logged_in() || ! current_user_can('manage_options') ) {
+			$transient_key = 'nexus_ai_rate_limit_' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+			$calls = (int) get_transient( $transient_key );
+			if ( $calls > 50 ) {
+				wp_die( 'Rate limit exceeded. Please wait 1 hour.', '', [ 'response' => 429 ] );
+			}
+			set_transient( $transient_key, $calls + 1, HOUR_IN_SECONDS );
+		}
+
 		$employee_controller = new EmployeeController();
 		$chat_controller = new ChatController();
 		$settings_controller = new SettingsController();
@@ -99,6 +109,17 @@ class RestHandler {
 					$id = (int) $request['id'];
 					$repo = new \NexusAI\Workforce\Repositories\MessageRepository();
 					return new \WP_REST_Response( $repo->get_conversation_messages( $id ), 200 );
+				},
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+			[
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => function( \WP_REST_Request $request ) {
+					$id = (int) $request['id'];
+					$title = sanitize_text_field( $request['title'] );
+					global $wpdb;
+					$wpdb->update( $wpdb->prefix . 'ai_conversations', [ 'title' => $title ], [ 'id' => $id ] );
+					return new \WP_REST_Response( [ 'success' => true ], 200 );
 				},
 				'permission_callback' => [ $this, 'check_permission' ],
 			],

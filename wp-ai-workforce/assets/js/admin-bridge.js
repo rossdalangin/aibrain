@@ -378,6 +378,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('nexus-archive-modal')?.classList.add('hidden');
         }
 
+        const renameBtn = e.target.closest('.nexus-rename-conv');
+        if (renameBtn) {
+            const id = renameBtn.dataset.id;
+            const newTitle = prompt('Enter new session title:', renameBtn.dataset.title);
+            if (newTitle) {
+                nexusFetch(`conversations/${id}`, 'POST', { title: newTitle, _method: 'EDITABLE' }).then(() => {
+                    showToast('Session record updated.');
+                    setTimeout(() => window.location.reload(), 1000);
+                });
+            }
+        }
+
         const exportMDBtn = e.target.closest('.nexus-export-md');
         if (exportMDBtn) {
             const id = exportMDBtn.dataset.id;
@@ -610,6 +622,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- 8. Meetings ---
+    let meetingPaused = false;
+    let chairmanMessage = '';
+
     const startMeetingBtn = document.getElementById('nexus-start-meeting-btn');
     if (startMeetingBtn) {
         startMeetingBtn.addEventListener('click', function() {
@@ -618,7 +633,26 @@ document.addEventListener('DOMContentLoaded', function() {
             if (invitees.length === 0 || !agenda) return;
             document.getElementById('nexus-meeting-transcript').innerHTML = '<p class="text-accent italic">Strategic Session Initialized...</p>';
             document.getElementById('nexus-meeting-summarize')?.classList.add('hidden');
+            meetingPaused = false;
             runMeetingRound(invitees, agenda);
+        });
+    }
+
+    const sendMeetingMsgBtn = document.getElementById('nexus-send-meeting-msg');
+    if (sendMeetingMsgBtn) {
+        sendMeetingMsgBtn.addEventListener('click', function() {
+            const input = document.getElementById('nexus-meeting-input');
+            if (!input.value) return;
+            chairmanMessage = input.value;
+            const bubble = `<div class="flex gap-4 items-start justify-end animate-fade-in-up">
+                <div class="max-w-[80%] p-6 rounded-3xl bg-accent text-white shadow-xl">
+                    <p class="text-[10px] font-bold uppercase mb-2">Chairman Instruction</p>
+                    <p class="text-sm leading-relaxed">${escapeHTML(input.value)}</p>
+                </div>
+            </div>`;
+            document.getElementById('nexus-meeting-transcript').innerHTML += bubble;
+            input.value = '';
+            showToast('Intervention recorded. AI agents will adjust in the next round.');
         });
     }
 
@@ -642,7 +676,14 @@ document.addEventListener('DOMContentLoaded', function() {
         transcript.innerHTML += thinkingHtml;
         transcript.scrollTop = transcript.scrollHeight;
 
-        nexusFetch('chat/meeting', 'POST', { agent_id: nextId, agenda: agenda, round: round }).then(res => {
+        const meetingPayload = {
+            agent_id: nextId,
+            agenda: agenda + (chairmanMessage ? "\n\nCHAIRMAN INTERVENTION: " + chairmanMessage : ""),
+            round: round
+        };
+        chairmanMessage = ''; // Reset after injection
+
+        nexusFetch('chat/meeting', 'POST', meetingPayload).then(res => {
             document.getElementById(thinkingId)?.remove();
 
             // Detect consensus/action/voting in response

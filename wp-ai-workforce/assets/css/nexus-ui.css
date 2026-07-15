@@ -414,7 +414,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 .nexus-btn-vibrant:active {
-  transform: translateY(0);
+  transform: scale(0.98);
+}
+
+.nexus-card-scale-hover:hover {
+  transform: scale(1.01) translateY(-5px);
 }
 
 /* Vibrant Text Highlights */

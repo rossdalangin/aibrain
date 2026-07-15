@@ -1256,7 +1256,8 @@ class AdminRenderer {
 									</td>
 									<td class="py-5 px-2 text-xs opacity-50"><?php echo esc_html( $conv['created_at'] ); ?></td>
 									<td class="py-5 px-2 text-right">
-										<button class="nexus-view-transcript bg-white/5 hover:bg-white/10 text-white px-4 py-1 rounded-lg text-[10px] font-bold transition-all" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">View Transcript</button>
+										<button class="nexus-rename-conv bg-white/5 hover:text-accent text-gray-500 px-2 py-1 rounded text-[9px] font-bold transition-all" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">Rename</button>
+										<button class="nexus-view-transcript bg-white/5 hover:bg-white/10 text-white px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">View Transcript</button>
 										<button class="nexus-export-md bg-accent/20 hover:bg-accent text-accent hover:text-black px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">Export MD</button>
 									</td>
 								</tr>
@@ -1425,7 +1426,14 @@ class AdminRenderer {
 											<?php echo esc_html( $log['event_type'] ); ?>
 										</span>
 									</td>
-									<td class="py-5 px-2 font-medium text-white"><?php echo esc_html( $log['description'] ); ?></td>
+									<td class="py-5 px-2 font-medium text-white">
+										<?php echo esc_html( $log['description'] ); ?>
+										<?php if ( ! empty( $log['metadata'] ) ) : ?>
+											<div class="mt-2 p-3 bg-black/40 rounded-lg font-mono text-[10px] text-gray-500 overflow-x-auto max-w-md">
+												<?php echo esc_html( wp_json_encode( json_decode($log['metadata']), JSON_PRETTY_PRINT ) ); ?>
+											</div>
+										<?php endif; ?>
+									</td>
 									<td class="py-5 px-2 text-xs">User #<?php echo (int) $log['user_id']; ?></td>
 									<td class="py-5 px-2 text-xs opacity-50"><?php echo esc_html( $log['created_at'] ); ?></td>
 								</tr>
