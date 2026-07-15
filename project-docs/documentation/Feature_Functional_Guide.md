@@ -6,6 +6,11 @@ This guide provides detailed instructions for every form, field, and section wit
 
 ## 1. Executive Command Center (Overview)
 
+### 1.0 The "AI Staff Room" (HQ)
+- **High-Fidelity Interaction:** A dedicated full-screen chat interface designed for deep focus consultations with your AI workforce.
+- **Agent Directory:** Quick-access sidebar to switch between specialists across all departments.
+- **Real-time Status:** Live indicators showing which agents are currently "thinking" or "processing" delegated tasks.
+
 ### 1.1 The "System Integrity" Monitor
 - **Real-time Diagnostics:** Instantly verify Encryption Engine, Database Table integrity (13/13 tables), and REST API connectivity.
 - **Vibrant Analytics:** Interactive Chart.js visualizations for Token Consumption Trends and Workforce Efficiency.
@@ -74,4 +79,4 @@ This guide provides detailed instructions for every form, field, and section wit
 - **Global Brand Management:** Dynamically rebrand the WP Admin Menu title, Dashicon, and Platform Title.
 - **Agency Logo:** Replace Nexus AI branding with a custom agency asset.
 - **Premium Widget:** Enable/Disable the frontend chat widget and select the 'Public Agent' for customer-facing support.
-- **Client Portal:** A conceptual, white-labeled interface for high-margin client delivery.
+- **Secure Client Portal:** Use the `[nexus_ai_portal]` shortcode on any WordPress page to provide a gated, high-end AI experience to your clients.

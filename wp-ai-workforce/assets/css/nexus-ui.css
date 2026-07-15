@@ -131,7 +131,7 @@
 }
 
 .text-vibrant-gradient {
-  background: linear-gradient(135deg, #FFF 0%, var(--nexus-accent) 100%);
+  background: linear-gradient(135deg, #f8fafc 0%, var(--nexus-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -445,12 +445,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 .nexus-toast {
-  background: rgba(18, 18, 20, 0.95);
-  backdrop-filter: blur(16px);
+  background: #1a1a1e;
   border: 1px solid var(--nexus-accent);
   padding: 1rem 2rem;
   border-radius: 1rem;
-  color: white;
+  color: #f8fafc;
   font-weight: 600;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   display: flex;

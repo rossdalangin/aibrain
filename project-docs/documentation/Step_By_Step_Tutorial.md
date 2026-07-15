@@ -53,14 +53,14 @@ This tutorial will guide you from a fresh installation to a fully operational AI
 
 ## Phase 4: Collaboration & Execution (The Output)
 
-### Step 5: Deploy the Public Widget
-**Action:** Go to **Nexus AI > System Config > Frontend Chat Widget**.
-1. Toggle **Enable Public Widget**.
-2. Select your "Support Lead" or "Lead Closer" agent.
-3. Save changes.
+### Step 5: Deploy the Public Widget & Client Portal
+**Action:**
+1. **Floating Widget:** Go to **Nexus AI > System Config > Frontend Chat Widget**. Toggle **Enable Public Widget**.
+2. **Secure Portal:** Create a new WordPress Page (e.g., "Client HQ"). Paste the shortcode `[nexus_ai_portal]`.
+3. Save and view the page.
 **What to expect:**
 - A floating glassmorphism chat bubble will appear on your public website.
-- Visitors can now interact with your internal intelligence in real-time.
+- The "Client HQ" page will transform into a luxury, full-screen AI Command Center for your logged-in clients.
 
 ### Step 6: Start a Strategy Meeting
 **Action:** Open the **Nexus Chat** (Overview or Sidebar).

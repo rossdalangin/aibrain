@@ -115,25 +115,41 @@ class Orchestrator {
 
 		$result = $this->model->generate_completion( $messages, $settings );
 
-		// 4. Handle tool calls (Recursive loop for tool execution)
-		if ( ! empty( $result['tool_calls'] ) ) {
+		// 4. Handle tool calls (Recursive loop for multi-turn multi-tool execution)
+		$max_iterations = 5;
+		$iteration = 0;
+
+		while ( ! empty( $result['tool_calls'] ) && $iteration < $max_iterations ) {
+			$iteration++;
+			$messages[] = [
+				'role'       => 'assistant',
+				'content'    => $result['content'] ?? '',
+				'tool_calls' => $result['tool_calls']
+			];
+
 			foreach ( $result['tool_calls'] as $tool_call ) {
 				$name = $tool_call['function']['name'];
 				$args = json_decode( $tool_call['function']['arguments'], true ) ?: [];
 
 				try {
 					$tool_result = $this->action_registry->execute( $name, $args );
-
-					// Inject tool result and ask AI for final response
-					$messages[] = [ 'role' => 'assistant', 'content' => $result['content'] ?? '', 'tool_calls' => $result['tool_calls'] ];
-					$messages[] = [ 'role' => 'tool', 'tool_call_id' => $tool_call['id'] ?? 'call_1', 'name' => $name, 'content' => wp_json_encode($tool_result) ];
-
-					$final_result = $this->model->generate_completion( $messages, $settings );
-					return $final_result['content'] ?? 'Task finalized.';
+					$messages[] = [
+						'role'         => 'tool',
+						'tool_call_id' => $tool_call['id'] ?? 'call_' . uniqid(),
+						'name'         => $name,
+						'content'      => wp_json_encode( $tool_result )
+					];
 				} catch ( \Exception $e ) {
-					return "Tool execution failed: " . $e->getMessage();
+					$messages[] = [
+						'role'         => 'tool',
+						'tool_call_id' => $tool_call['id'] ?? 'call_' . uniqid(),
+						'name'         => $name,
+						'content'      => "Error: " . $e->getMessage()
+					];
 				}
 			}
+
+			$result = $this->model->generate_completion( $messages, $settings );
 		}
 
 		return $result['content'] ?? 'Action completed.';
