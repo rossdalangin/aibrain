@@ -39,12 +39,12 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-center">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Platform Command</h2>
-					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Executive Overview</h1>
+					<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Executive Overview</h1>
 				</div>
 				<?php if ( ! empty( $this->settings->get( 'agency_logo' ) ) ) : ?>
 					<img src="<?php echo esc_url( $this->settings->get( 'agency_logo' ) ); ?>" class="h-12 object-contain" alt="Logo">
 				<?php elseif ( ! $agency_mode ) : ?>
-					<div class="text-2xl font-black tracking-tighter text-white/20">NEXUS AI</div>
+					<div class="text-2xl font-black tracking-tighter text-[#1e293b]/20">NEXUS AI</div>
 				<?php endif; ?>
 			</div>
 			<div class="mb-10">
@@ -52,25 +52,25 @@ class AdminRenderer {
 			</div>
 
 			<div class="nexus-step-guide">
-				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm flex items-center gap-2">
+				<h3 class="text-[#1e293b] font-bold mb-3 uppercase tracking-tighter text-sm flex items-center gap-2">
 					<span class="w-5 h-5 bg-accent rounded-full flex items-center justify-center text-[10px]">1</span>
 					Operational Blueprint: Getting Started
 				</h3>
 				<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">1. Fuel the Engine</p>
+						<p class="font-bold text-[#1e293b] mb-1">1. Fuel the Engine</p>
 						<p>Navigate to <span class="text-accent font-bold">Settings</span>. Securely add your API keys. <br><span class="italic text-[9px] opacity-70">Note: Without keys, the AI workforce remains dormant.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">2. Hire Specialized Talent</p>
+						<p class="font-bold text-[#1e293b] mb-1">2. Hire Specialized Talent</p>
 						<p>Go to <span class="text-accent font-bold">Hire AI Agents</span>. Select a template like "CEO" or "Marketing Director" to instantly deploy expert personas.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">3. Ingest Corporate IQ</p>
+						<p class="font-bold text-[#1e293b] mb-1">3. Ingest Corporate IQ</p>
 						<p>Upload PDFs or SOPs in the <span class="text-accent font-bold">Company Brain</span>. This gives your agents "Corporate Memory" to pull from.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">4. Orchestrate Growth</p>
+						<p class="font-bold text-[#1e293b] mb-1">4. Orchestrate Growth</p>
 						<p>Use <span class="text-accent font-bold">Workflows</span> to chain agents together (e.g. Researcher -> Writer -> QA) for autonomous delivery.</p>
 					</div>
 				</div>
@@ -79,10 +79,10 @@ class AdminRenderer {
 			<!-- Key Stats: Bento Grid Layout -->
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
 				<div class="glass-panel p-8 rounded-3xl collab-wave bg-opacity-20 flex flex-col justify-between min-h-[220px] transform hover:scale-[1.02] transition-transform">
-					<p class="text-xs text-white uppercase tracking-widest font-bold">Efficiency Score</p>
+					<p class="text-xs text-[#1e293b] uppercase tracking-widest font-bold">Efficiency Score</p>
 					<div>
 						<p class="text-6xl font-black mt-2">94.2%</p>
-						<p class="text-xs text-white/70 mt-3 font-medium">Automatic Prompt Optimization Active</p>
+						<p class="text-xs text-[#1e293b]/70 mt-3 font-medium">Automatic Prompt Optimization Active</p>
 					</div>
 				</div>
 				<div class="glass-panel p-8 rounded-3xl bg-nexus-blue bg-opacity-5 flex flex-col justify-between min-h-[220px] transform hover:scale-[1.02] transition-transform text-nexus-blue border-l-4 border-l-nexus-blue">
@@ -109,7 +109,7 @@ class AdminRenderer {
 			</div>
 
 			<!-- System Health Monitor -->
-			<div class="glass-panel p-8 rounded-2xl border border-nexus-border mb-12 bg-white/5">
+			<div class="glass-panel p-8 rounded-2xl border border-nexus-border mb-12 bg-[#f8fafc]/5">
 				<div class="flex justify-between items-center mb-6">
 					<h2 class="text-xl font-bold flex items-center gap-3">
 						<span class="status-pulse-live"></span>
@@ -132,7 +132,7 @@ class AdminRenderer {
 					</div>
 					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
 						<p class="text-[10px] text-gray-500 uppercase mb-1">Active Role</p>
-						<p class="text-sm font-bold text-platinum uppercase"><?php echo esc_html($user_role); ?></p>
+						<p class="text-sm font-bold text-[#1e293b] uppercase"><?php echo esc_html($user_role); ?></p>
 					</div>
 					<div class="p-4 rounded-xl bg-nexus-elevated border border-white/5">
 						<p class="text-[10px] text-gray-500 uppercase mb-1">Adapters</p>
@@ -175,14 +175,14 @@ class AdminRenderer {
 						<div class="flex gap-4">
 							<div class="w-2 h-10 bg-accent rounded-full"></div>
 							<div>
-								<p class="text-xs font-bold text-white uppercase">Knowledge Base Update</p>
+								<p class="text-xs font-bold text-[#1e293b] uppercase">Knowledge Base Update</p>
 								<p class="text-[11px] text-gray-500">Market_Analysis_2025.pdf indexed.</p>
 							</div>
 						</div>
 						<div class="flex gap-4 opacity-70">
 							<div class="w-2 h-10 bg-nexus-blue rounded-full"></div>
 							<div>
-								<p class="text-xs font-bold text-white uppercase">Meeting Concluded</p>
+								<p class="text-xs font-bold text-[#1e293b] uppercase">Meeting Concluded</p>
 								<p class="text-[11px] text-gray-500">Q4 Strategy finalized by CEO & CMO.</p>
 							</div>
 						</div>
@@ -205,19 +205,19 @@ class AdminRenderer {
 					<h2 class="text-xl font-semibold mb-6">Enterprise Quick-Tools</h2>
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<button class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-nexus-violet text-left transition-all group nexus-btn-vibrant theme-overview">
-							<p class="font-bold text-sm text-white group-hover:text-accent">Prompt Rewriter</p>
+							<p class="font-bold text-sm text-[#1e293b] group-hover:text-accent">Prompt Rewriter</p>
 							<p class="text-[10px] text-gray-500 mt-1 uppercase">Refine agent instructions for GPT-4o.</p>
 						</button>
 						<button class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-nexus-blue text-left transition-all group nexus-btn-vibrant theme-kb">
-							<p class="font-bold text-sm text-white group-hover:text-accent">Context Optimizer</p>
+							<p class="font-bold text-sm text-[#1e293b] group-hover:text-accent">Context Optimizer</p>
 							<p class="text-[10px] text-gray-500 mt-1 uppercase">Prune redundant Company Brain chunks.</p>
 						</button>
 						<button id="nexus-purge-logs" class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-red-500 text-left transition-all group">
-							<p class="font-bold text-sm text-white group-hover:text-red-500">System Purge</p>
+							<p class="font-bold text-sm text-[#1e293b] group-hover:text-red-500">System Purge</p>
 							<p class="text-[10px] text-gray-500 mt-1 uppercase">Clear all usage logs and transcripts.</p>
 						</button>
 						<button class="p-5 rounded-2xl bg-nexus-elevated border border-nexus-border hover:border-accent text-left transition-all group nexus-btn-vibrant theme-learning">
-							<p class="font-bold text-sm text-white group-hover:text-accent">ROAS Audit</p>
+							<p class="font-bold text-sm text-[#1e293b] group-hover:text-accent">ROAS Audit</p>
 							<p class="text-[10px] text-gray-500 mt-1 uppercase">Generate instant marketing report.</p>
 						</button>
 					</div>
@@ -230,7 +230,7 @@ class AdminRenderer {
 					</div>
 					<div class="space-y-3 mt-6">
 						<div class="flex items-center justify-between p-3 rounded-xl bg-nexus-elevated border border-white/5">
-							<span class="text-[10px] font-bold text-white uppercase">Client Access</span>
+							<span class="text-[10px] font-bold text-[#1e293b] uppercase">Client Access</span>
 							<span class="text-[10px] font-bold text-green-500 uppercase">Enabled</span>
 						</div>
 						<button class="nexus-launch-portal w-full bg-nexus-gold text-black font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:opacity-90 transition-all">Launch Portal Preview</button>
@@ -244,10 +244,10 @@ class AdminRenderer {
 				<div class="absolute inset-x-20 top-20 bottom-20 glass-panel rounded-3xl border border-nexus-border flex flex-col overflow-hidden shadow-2xl">
 					<div class="p-8 border-b border-nexus-border flex justify-between items-center bg-nexus-elevated/50">
 						<div>
-							<h2 id="nexus-archive-title" class="text-2xl font-bold text-white uppercase tracking-tighter">Session Transcript</h2>
+							<h2 id="nexus-archive-title" class="text-2xl font-bold text-[#1e293b] uppercase tracking-tighter">Session Transcript</h2>
 							<p id="nexus-archive-meta" class="text-xs text-gray-500 mt-1">Archived intelligence record</p>
 						</div>
-						<button id="nexus-close-archive" class="text-gray-400 hover:text-white bg-white/5 px-4 py-2 rounded-xl">Close Archive</button>
+						<button id="nexus-close-archive" class="text-gray-400 hover:text-[#1e293b] bg-[#f8fafc]/5 px-4 py-2 rounded-xl">Close Archive</button>
 					</div>
 					<div id="nexus-archive-content" class="flex-1 p-10 overflow-y-auto space-y-6 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
 						<!-- Messages will appear here -->
@@ -272,18 +272,18 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-workforce animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Organizational Design</h2>
-				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Company Departments</h1>
+				<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Company Departments</h1>
 				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Define your company's organizational structure. Assign agents to departments to enable context-sharing and specialized reporting.</p>
 			</div>
 
 			<div class="nexus-step-guide">
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">What are Departments?</p>
+						<p class="font-bold text-[#1e293b] mb-1">What are Departments?</p>
 						<p>Departments group your AI agents logically. <br><span class="text-accent font-bold">Example:</span> Putting "Elena (Growth Architect)" in a "Marketing" department allows her to share context with other marketing agents.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Pro-Tip: Departmental RAG</p>
+						<p class="font-bold text-[#1e293b] mb-1">Pro-Tip: Departmental RAG</p>
 						<p>When you upload documents to the Company Brain, you can restrict them to a specific department. This ensures the "Finance" AI doesn't see "Marketing" trade secrets unless permitted.</p>
 					</div>
 				</div>
@@ -296,13 +296,13 @@ class AdminRenderer {
 						<form id="nexus-create-dept-form" class="space-y-6">
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Department Name</label>
-								<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. Marketing, IT, Finance">
+								<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]" placeholder="e.g. Marketing, IT, Finance">
 							</div>
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Description</label>
-								<textarea name="description" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What does this department handle?"></textarea>
+								<textarea name="description" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="What does this department handle?"></textarea>
 							</div>
-							<button type="submit" class="w-full bg-accent text-white font-bold py-3 rounded-xl nexus-btn-vibrant">Initialize Department</button>
+							<button type="submit" class="w-full bg-accent text-[#1e293b] font-bold py-3 rounded-xl nexus-btn-vibrant">Initialize Department</button>
 						</form>
 					</div>
 				</div>
@@ -341,32 +341,32 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2 text-green-500">Talent Management</h2>
-					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Hire & Manage AI Agents</h1>
+					<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Hire & Manage AI Agents</h1>
 					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Build your virtual executive team. Each agent you hire has a unique personality and specific professional goals.</p>
 				</div>
 				<div class="flex gap-2 bg-nexus-elevated p-1 rounded-xl border border-nexus-border">
-					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold bg-accent text-white" data-tab="hiring">In-House</button>
-					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold text-gray-400 hover:text-white transition-all" data-tab="marketplace">Global Marketplace</button>
+					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold bg-accent text-[#1e293b]" data-tab="hiring">In-House</button>
+					<button class="nexus-tab-btn px-6 py-2 rounded-lg text-sm font-bold text-gray-400 hover:text-[#1e293b] transition-all" data-tab="marketplace">Global Marketplace</button>
 				</div>
 			</div>
 
 			<div class="nexus-step-guide">
-				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Deployment Protocol: How to Hire</h3>
+				<h3 class="text-[#1e293b] font-bold mb-3 uppercase tracking-tighter text-sm">Deployment Protocol: How to Hire</h3>
 				<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">1. Expert Templates</p>
+						<p class="font-bold text-[#1e293b] mb-1">1. Expert Templates</p>
 						<p>Use <span class="text-accent font-bold">Fast-Hire</span> to load a pre-built expert. <br><span class="italic text-[9px]">Note: A "CEO" template includes first-principles reasoning and ROI focus by default.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">2. Strategic Identity</p>
+						<p class="font-bold text-[#1e293b] mb-1">2. Strategic Identity</p>
 						<p>The <span class="text-accent font-bold">Identity</span> field is the AI's DNA. <br><span class="italic text-[9px]">Example: "You are a master of consumer psychology" is better than "You are a marketer."</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">3. Cognitive Engine</p>
+						<p class="font-bold text-[#1e293b] mb-1">3. Cognitive Engine</p>
 						<p>Pick the <span class="text-accent font-bold">Model</span>. Use GPT-4o for complex strategy and reasoning. Use GPT-4o Mini for high-speed, simple task execution.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">4. Action Guardrails</p>
+						<p class="font-bold text-[#1e293b] mb-1">4. Action Guardrails</p>
 						<p>Set <span class="text-accent font-bold">Negative Prompts</span> to tell the agent what NOT to do. <br><span class="italic text-[9px]">Example: "Never use jargon" or "Never disclose pricing to non-admins."</span></p>
 					</div>
 				</div>
@@ -381,7 +381,7 @@ class AdminRenderer {
 					<!-- Pre-configured Agents Dropdown -->
 					<div class="mb-8 p-6 bg-accent/5 rounded-2xl border border-accent/20">
 						<label class="block text-sm font-bold text-accent mb-3 uppercase tracking-tighter">Fast-Hire: Select Expert Template</label>
-						<select id="nexus-agent-template-selector" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white font-medium focus:ring-2 focus:ring-accent transition-all">
+						<select id="nexus-agent-template-selector" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-[#1e293b] font-medium focus:ring-2 focus:ring-accent transition-all">
 							<option value="">-- Choose an Expert --</option>
 							<optgroup label="Executive Suite">
 								<option value="ceo">CEO - Strategic Visionary</option>
@@ -455,11 +455,11 @@ class AdminRenderer {
 							<div class="space-y-4">
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Agent Name</label>
-									<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. Sarah">
+									<input type="text" name="name" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]" placeholder="e.g. Sarah">
 								</div>
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Professional Position</label>
-									<input type="text" name="position" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="e.g. CMO, Full Stack Developer">
+									<input type="text" name="position" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]" placeholder="e.g. CMO, Full Stack Developer">
 								</div>
 							</div>
 						</div>
@@ -468,16 +468,16 @@ class AdminRenderer {
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Identity (Persona)</label>
-									<textarea name="identity" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Who is this AI?"></textarea>
+									<textarea name="identity" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="Who is this AI?"></textarea>
 								</div>
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Mission (Primary Objective)</label>
-									<textarea name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What is its main goal?"></textarea>
+									<textarea name="mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="What is its main goal?"></textarea>
 								</div>
 							</div>
 							<div class="mt-6">
 								<label class="block text-sm font-medium text-gray-400 mb-2">Strategic Objectives (KPIs)</label>
-								<textarea name="kpis" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-20" placeholder="What specific metrics define success for this role?"></textarea>
+								<textarea name="kpis" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-20" placeholder="What specific metrics define success for this role?"></textarea>
 							</div>
 						</div>
 
@@ -485,40 +485,40 @@ class AdminRenderer {
 						<div class="form-group-tint">
 							<div class="flex justify-between items-center mb-4">
 								<p class="text-xs font-bold text-accent uppercase tracking-widest">Phase 3: Advanced Brain Configuration</p>
-								<button type="button" onclick="document.getElementById('nexus-advanced-brain-fields').classList.toggle('hidden')" class="text-[10px] text-gray-500 hover:text-white uppercase font-bold">Toggle Advanced Settings</button>
+								<button type="button" onclick="document.getElementById('nexus-advanced-brain-fields').classList.toggle('hidden')" class="text-[10px] text-gray-500 hover:text-[#1e293b] uppercase font-bold">Toggle Advanced Settings</button>
 							</div>
 
 							<div id="nexus-advanced-brain-fields" class="hidden space-y-6">
 								<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 									<div>
 										<label class="block text-sm font-medium text-gray-400 mb-2">Behavior & Rules</label>
-										<textarea name="rules" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Fixed rules the AI must always follow..."></textarea>
+										<textarea name="rules" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="Fixed rules the AI must always follow..."></textarea>
 									</div>
 									<div>
 										<label class="block text-sm font-medium text-gray-400 mb-2">Thinking Process</label>
-										<textarea name="thinking_process" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="How should the AI reason? (e.g. First Principles, SWOT)"></textarea>
+										<textarea name="thinking_process" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="How should the AI reason? (e.g. First Principles, SWOT)"></textarea>
 									</div>
 								</div>
 								<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 									<div>
 										<label class="block text-sm font-medium text-gray-400 mb-2">Output Format</label>
-										<textarea name="output_format" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Standardized output style (Markdown, JSON, Bullet points)"></textarea>
+										<textarea name="output_format" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="Standardized output style (Markdown, JSON, Bullet points)"></textarea>
 									</div>
 									<div>
 										<label class="block text-sm font-medium text-gray-400 mb-2">Negative Prompts (Guardrails)</label>
-										<textarea name="negative_prompts" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="What should the AI NEVER do or say?"></textarea>
+										<textarea name="negative_prompts" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="What should the AI NEVER do or say?"></textarea>
 									</div>
 								</div>
 								<div>
 									<label class="block text-sm font-medium text-gray-400 mb-2">Few-Shot Examples</label>
-									<textarea name="examples" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-32" placeholder="Example 1: User says X, AI says Y..."></textarea>
+									<textarea name="examples" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-32" placeholder="Example 1: User says X, AI says Y..."></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="grid grid-cols-2 gap-6">
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Communication Tone</label>
-								<select name="personality" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+								<select name="personality" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]">
 									<option value="professional">Professional & Direct</option>
 									<option value="creative">Creative & Enthusiastic</option>
 									<option value="analytical">Analytical & Fact-based</option>
@@ -528,7 +528,7 @@ class AdminRenderer {
 							</div>
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Voice Identity</label>
-								<select name="voice" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+								<select name="voice" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]">
 									<option value="onyx">OpenAI - Onyx (Deep)</option>
 									<option value="nova">OpenAI - Nova (Energetic)</option>
 									<option value="shimmer">OpenAI - Shimmer (Soft)</option>
@@ -539,7 +539,7 @@ class AdminRenderer {
 						<div class="grid grid-cols-2 gap-4">
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">AI Model</label>
-								<select name="model" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+								<select name="model" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]">
 									<option value="gpt-4o">GPT-4o (Recommended)</option>
 									<option value="claude-3-5-sonnet-20240620">Claude 3.5 Sonnet</option>
 									<option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
@@ -551,7 +551,7 @@ class AdminRenderer {
 								<input type="range" name="temperature" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 bg-nexus-border rounded-lg appearance-none cursor-pointer accent-accent">
 							</div>
 						</div>
-						<button type="submit" class="w-full bg-accent hover:bg-green-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-500/10 nexus-btn-vibrant">Deploy Agent</button>
+						<button type="submit" class="w-full bg-accent hover:bg-green-600 text-[#1e293b] font-bold py-4 rounded-xl transition-all shadow-lg shadow-green-500/10 nexus-btn-vibrant">Deploy Agent</button>
 						<span class="nexus-button-note text-center">Expect: Permanent agent profile creation and workforce integration.</span>
 					</form>
 				</div>
@@ -559,7 +559,7 @@ class AdminRenderer {
 				<div class="space-y-8">
 					<div class="glass-panel p-8 rounded-3xl border border-nexus-border bg-accent/5 flex flex-col justify-center min-h-[150px]">
 						<p class="text-sm text-gray-400 uppercase tracking-widest font-bold">Workforce Capability</p>
-						<p class="text-6xl font-black mt-2 text-white">ACTIVE</p>
+						<p class="text-6xl font-black mt-2 text-[#1e293b]">ACTIVE</p>
 					</div>
 					<div class="glass-panel p-8 rounded-2xl border border-nexus-border">
 						<h3 class="text-lg font-bold mb-6">Current Workforce</h3>
@@ -568,7 +568,7 @@ class AdminRenderer {
 							global $wpdb;
 							$active_agents = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}ai_employees WHERE is_active = 1", ARRAY_A ) ?: [];
 							foreach ( $active_agents as $a ) : ?>
-								<div class="p-4 rounded-xl bg-white/5 border border-white/5 flex justify-between items-center group">
+								<div class="p-4 rounded-xl bg-[#f8fafc]/5 border border-white/5 flex justify-between items-center group">
 									<div>
 										<p class="font-bold text-accent"><?php echo esc_html( $a['name'] ); ?></p>
 										<p class="text-[10px] text-gray-400 uppercase"><?php echo esc_html( $a['position'] ); ?></p>
@@ -591,7 +591,7 @@ class AdminRenderer {
 						<div class="w-16 h-16 rounded-2xl bg-nexus-gold/10 flex items-center justify-center text-nexus-gold mb-6 group-hover:scale-110 transition-transform">
 							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
 						</div>
-						<h3 class="text-xl font-bold text-white">Grant Writer Pro</h3>
+						<h3 class="text-xl font-bold text-[#1e293b]">Grant Writer Pro</h3>
 						<p class="text-sm text-gray-500 mt-2">Specialized in winning high-value federal and private grants.</p>
 						<button class="nexus-marketplace-install w-full mt-8 bg-nexus-gold/20 hover:bg-nexus-gold text-nexus-gold hover:text-black font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="grant_writer">Install Role</button>
 						<span class="nexus-button-note">Expect: Expert persona added to your workforce.</span>
@@ -602,9 +602,9 @@ class AdminRenderer {
 						<div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 transition-transform">
 							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
 						</div>
-						<h3 class="text-xl font-bold text-white">Corporate Counsel</h3>
+						<h3 class="text-xl font-bold text-[#1e293b]">Corporate Counsel</h3>
 						<p class="text-sm text-gray-500 mt-2">Legal expert for contract review, compliance, and risk mitigation.</p>
-						<button class="nexus-marketplace-install w-full mt-8 bg-blue-500/20 hover:bg-blue-500 text-blue-500 hover:text-white font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="lawyer">Install Role</button>
+						<button class="nexus-marketplace-install w-full mt-8 bg-blue-500/20 hover:bg-blue-500 text-blue-500 hover:text-[#1e293b] font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="lawyer">Install Role</button>
 					</div>
 
 					<!-- Medical Consultant -->
@@ -612,9 +612,9 @@ class AdminRenderer {
 						<div class="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
 							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
 						</div>
-						<h3 class="text-xl font-bold text-white">Medical Advisor</h3>
+						<h3 class="text-xl font-bold text-[#1e293b]">Medical Advisor</h3>
 						<p class="text-sm text-gray-500 mt-2">Specialized in health research, wellness plans, and biological data.</p>
-						<button class="nexus-marketplace-install w-full mt-8 bg-red-500/20 hover:bg-red-500 text-red-500 hover:text-white font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="doctor">Install Role</button>
+						<button class="nexus-marketplace-install w-full mt-8 bg-red-500/20 hover:bg-red-500 text-red-500 hover:text-[#1e293b] font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="doctor">Install Role</button>
 					</div>
 
 					<!-- Financial Planner -->
@@ -622,9 +622,9 @@ class AdminRenderer {
 						<div class="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 mb-6 group-hover:scale-110 transition-transform">
 							<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
 						</div>
-						<h3 class="text-xl font-bold text-white">Wealth Strategist</h3>
+						<h3 class="text-xl font-bold text-[#1e293b]">Wealth Strategist</h3>
 						<p class="text-sm text-gray-500 mt-2">Capital allocation, investment analysis, and tax optimization expert.</p>
-						<button class="nexus-marketplace-install w-full mt-8 bg-green-500/20 hover:bg-green-500 text-green-500 hover:text-white font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="finance">Install Role</button>
+						<button class="nexus-marketplace-install w-full mt-8 bg-green-500/20 hover:bg-green-500 text-green-500 hover:text-[#1e293b] font-bold py-3 rounded-xl transition-all nexus-btn-vibrant" data-agent="finance">Install Role</button>
 					</div>
 				</div>
 			</div>
@@ -641,18 +641,18 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-settings animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Infrastructure</h2>
-				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">System Configuration</h1>
+				<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">System Configuration</h1>
 				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Manage the core engines and branding of your AI platform.</p>
 			</div>
 
 			<div class="nexus-step-guide">
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Configuration Note:</p>
+						<p class="font-bold text-[#1e293b] mb-1">Configuration Note:</p>
 						<p>API keys are <span class="text-accent font-bold">AES-256 Encrypted</span> and stored securely. We never store keys in plain text.</p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">White Labeling:</p>
+						<p class="font-bold text-[#1e293b] mb-1">White Labeling:</p>
 						<p>Changing the color and logo will update the entire platform UI for all users.</p>
 					</div>
 				</div>
@@ -664,37 +664,37 @@ class AdminRenderer {
 					<form id="nexus-settings-form" class="space-y-6">
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">OpenAI API Key</label>
-							<input type="password" name="openai_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-...">
+							<input type="password" name="openai_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] focus:border-accent outline-none" placeholder="sk-...">
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Anthropic API Key</label>
-							<input type="password" name="claude_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-ant-...">
+							<input type="password" name="claude_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] focus:border-accent outline-none" placeholder="sk-ant-...">
 						</div>
 						<div class="dept-marketing p-4 rounded-xl border border-nexus-blue/10">
-							<label class="block text-sm font-bold text-white mb-2 flex items-center gap-2">
+							<label class="block text-sm font-bold text-[#1e293b] mb-2 flex items-center gap-2">
 								<svg class="w-4 h-4 text-nexus-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z"/></svg>
 								Google Gemini Key
 							</label>
-							<input type="password" name="gemini_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-nexus-blue outline-none" placeholder="AIza...">
+							<input type="password" name="gemini_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] focus:border-nexus-blue outline-none" placeholder="AIza...">
 							<p class="text-[9px] text-gray-500 mt-2">Required for Gemini 1.5 Pro/Flash integration.</p>
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">OpenRouter API Key</label>
-							<input type="password" name="openrouter_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-or-...">
+							<input type="password" name="openrouter_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] focus:border-accent outline-none" placeholder="sk-or-...">
 						</div>
 						<div class="grid grid-cols-2 gap-4">
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">DeepSeek Key</label>
-								<input type="password" name="deepseek_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-...">
+								<input type="password" name="deepseek_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] focus:border-accent outline-none" placeholder="sk-...">
 							</div>
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Mistral Key</label>
-								<input type="password" name="mistral_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white focus:border-accent outline-none" placeholder="sk-...">
+								<input type="password" name="mistral_api_key" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] focus:border-accent outline-none" placeholder="sk-...">
 							</div>
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Global Default Model</label>
-							<select name="default_model" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white outline-none focus:border-accent">
+							<select name="default_model" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] outline-none focus:border-accent">
 								<optgroup label="High Reasoning">
 									<option value="gpt-4o">OpenAI GPT-4o (Standard)</option>
 									<option value="claude-3-5-sonnet-20240620">Anthropic Claude 3.5 Sonnet</option>
@@ -712,8 +712,8 @@ class AdminRenderer {
 								</optgroup>
 							</select>
 						</div>
-						<button type="submit" class="w-full bg-accent text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-accent/10 nexus-btn-vibrant">Save Infrastructure</button>
-						<button type="button" id="nexus-test-connectivity" class="w-full mt-2 bg-white/5 border border-white/10 text-white py-2 rounded-lg text-xs hover:bg-white/10 transition-all nexus-btn-vibrant">Run Global Connectivity Test</button>
+						<button type="submit" class="w-full bg-accent text-[#1e293b] font-bold py-4 rounded-xl transition-all shadow-lg shadow-accent/10 nexus-btn-vibrant">Save Infrastructure</button>
+						<button type="button" id="nexus-test-connectivity" class="w-full mt-2 bg-[#f8fafc]/5 border border-white/10 text-[#1e293b] py-2 rounded-lg text-xs hover:bg-[#f8fafc]/10 transition-all nexus-btn-vibrant">Run Global Connectivity Test</button>
 						<span class="nexus-button-note text-center">Expect: Secure AES-256 encryption of all keys before storage.</span>
 					</form>
 				</div>
@@ -723,29 +723,29 @@ class AdminRenderer {
 					<div class="space-y-6">
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Company Vision & Mission</label>
-							<textarea name="company_mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Describe the ultimate goal of the company..."><?php echo esc_textarea( $this->settings->get( 'company_mission', '' ) ); ?></textarea>
+							<textarea name="company_mission" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="Describe the ultimate goal of the company..."><?php echo esc_textarea( $this->settings->get( 'company_mission', '' ) ); ?></textarea>
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Core Values</label>
-							<textarea name="company_values" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Integrity, Innovation, Customer First..."><?php echo esc_textarea( $this->settings->get( 'company_values', '' ) ); ?></textarea>
+							<textarea name="company_values" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="Integrity, Innovation, Customer First..."><?php echo esc_textarea( $this->settings->get( 'company_values', '' ) ); ?></textarea>
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Target Audience / Personas</label>
-							<textarea name="company_audience" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white h-24" placeholder="Describe your ideal customers..."><?php echo esc_textarea( $this->settings->get( 'company_audience', '' ) ); ?></textarea>
+							<textarea name="company_audience" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b] h-24" placeholder="Describe your ideal customers..."><?php echo esc_textarea( $this->settings->get( 'company_audience', '' ) ); ?></textarea>
 						</div>
 
 						<h2 class="text-xl font-semibold mt-10 mb-6 text-nexus-gold">White Label & Brand</h2>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Agency Logo URL</label>
-							<input type="text" name="agency_logo" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="https://...">
+							<input type="text" name="agency_logo" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]" placeholder="https://...">
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Primary Accent Color</label>
-							<input type="color" name="ui_color" class="w-20 h-12 bg-nexus-elevated border border-nexus-border rounded-lg p-1 text-white cursor-pointer" value="#7C3AED">
+							<input type="color" name="ui_color" class="w-20 h-12 bg-nexus-elevated border border-nexus-border rounded-lg p-1 text-[#1e293b] cursor-pointer" value="#7C3AED">
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Global UI Font</label>
-							<select name="ui_font" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white">
+							<select name="ui_font" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]">
 								<option value="Inter">Inter (Modern SaaS)</option>
 								<option value="Segoe UI">Segoe UI (Enterprise)</option>
 								<option value="JetBrains Mono">JetBrains Mono (Technical)</option>
@@ -754,10 +754,10 @@ class AdminRenderer {
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Platform Display Title</label>
-							<input type="text" name="platform_title" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-white" placeholder="Nexus AI Workforce">
+							<input type="text" name="platform_title" class="w-full bg-nexus-elevated border border-nexus-border rounded-lg p-3 text-[#1e293b]" placeholder="Nexus AI Workforce">
 						</div>
 						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
-							<p class="text-sm font-bold text-white mb-2 uppercase">Agency Mode</p>
+							<p class="text-sm font-bold text-[#1e293b] mb-2 uppercase">Agency Mode</p>
 							<div class="flex items-center gap-4">
 								<input type="checkbox" name="agency_mode" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-accent" <?php checked( (bool) $this->settings->get( 'agency_mode', false ) ); ?>>
 								<p class="text-xs text-gray-500">Hide "Nexus AI" branding and use "Platform Display Title" throughout the UI.</p>
@@ -771,7 +771,7 @@ class AdminRenderer {
 							</div>
 						</div>
 
-						<h3 class="text-sm font-bold text-white mt-10 mb-4 uppercase tracking-widest text-[10px]">Active Enterprise Tools</h3>
+						<h3 class="text-sm font-bold text-[#1e293b] mt-10 mb-4 uppercase tracking-widest text-[10px]">Active Enterprise Tools</h3>
 						<div class="grid grid-cols-2 gap-3">
 							<div class="p-3 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-between tool-active-glow">
 								<span class="text-[10px] font-bold text-green-500">WP_POSTS</span>
@@ -795,7 +795,7 @@ class AdminRenderer {
 						<h2 class="text-xl font-semibold mt-10 mb-6 text-nexus-blue">Platform Diagnostics</h2>
 						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
 							<div class="flex justify-between items-center mb-6">
-								<h2 class="text-sm font-bold text-white uppercase">System Integrity</h2>
+								<h2 class="text-sm font-bold text-[#1e293b] uppercase">System Integrity</h2>
 								<button type="button" id="nexus-run-diagnostics" class="text-[9px] bg-accent/20 text-accent px-3 py-1 rounded-full font-bold hover:bg-accent hover:text-black transition-all">Run Full Scan</button>
 							</div>
 							<div id="nexus-diagnostic-results" class="space-y-3">
@@ -817,12 +817,12 @@ class AdminRenderer {
 						<h2 class="text-xl font-semibold mt-10 mb-6 text-nexus-violet">Frontend Chat Widget</h2>
 						<div class="p-6 rounded-2xl bg-nexus-elevated border border-nexus-border">
 							<div class="flex items-center justify-between mb-6">
-								<p class="text-sm font-bold text-white uppercase">Enable Public Widget</p>
+								<p class="text-sm font-bold text-[#1e293b] uppercase">Enable Public Widget</p>
 								<input type="checkbox" name="widget_enabled" class="w-5 h-5 rounded border-gray-600 bg-gray-700 text-nexus-violet" <?php checked( (bool) $this->settings->get( 'widget_enabled', false ) ); ?>>
 							</div>
 							<div>
 								<label class="block text-sm font-medium text-gray-400 mb-2">Public Facing Agent</label>
-								<select name="public_agent_id" class="w-full bg-nexus-bg border border-nexus-border rounded-lg p-3 text-white">
+								<select name="public_agent_id" class="w-full bg-nexus-bg border border-nexus-border rounded-lg p-3 text-[#1e293b]">
 									<option value="0">-- Select Agent --</option>
 									<?php
 									global $wpdb;
@@ -841,8 +841,8 @@ class AdminRenderer {
 						<div class="p-6 rounded-2xl bg-red-500/5 border border-red-500/10">
 							<p class="text-sm text-gray-400 mb-6 leading-relaxed">Instantly populate your platform with a world-class executive team, pre-configured departments, and sample knowledge base data.</p>
 							<div class="grid grid-cols-2 gap-4">
-								<button type="button" id="nexus-seed-samples" class="bg-red-500/20 text-red-500 font-bold py-3 rounded-xl hover:bg-red-500 hover:text-white transition-all text-xs uppercase tracking-widest border border-red-500/20">Seed Global Samples</button>
-								<button type="button" id="nexus-purge-all" class="bg-white/5 text-gray-500 font-bold py-3 rounded-xl hover:bg-red-600 hover:text-white transition-all text-xs uppercase tracking-widest border border-white/5">Purge All Data</button>
+								<button type="button" id="nexus-seed-samples" class="bg-red-500/20 text-red-500 font-bold py-3 rounded-xl hover:bg-red-500 hover:text-[#1e293b] transition-all text-xs uppercase tracking-widest border border-red-500/20">Seed Global Samples</button>
+								<button type="button" id="nexus-purge-all" class="bg-[#f8fafc]/5 text-gray-500 font-bold py-3 rounded-xl hover:bg-red-600 hover:text-[#1e293b] transition-all text-xs uppercase tracking-widest border border-white/5">Purge All Data</button>
 							</div>
 							<p class="text-[9px] text-gray-500 mt-4 italic">Note: Seeding creates Alexander (CSO), Elena (Growth Architect), and Marcus (Systems Architect). Purge All will TRUNCATE all platform tables.</p>
 						</div>
@@ -863,25 +863,25 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
-					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Company Brain (RAG)</h1>
+					<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Company Brain (RAG)</h1>
 					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Give your AI workforce "Company Memory." Upload your unique business data to ground agent responses.</p>
 				</div>
-				<button id="nexus-wipe-memory" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white px-6 py-2 rounded-xl text-xs font-bold transition-all border border-red-500/20">Wipe All Memory</button>
+				<button id="nexus-wipe-memory" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-[#1e293b] px-6 py-2 rounded-xl text-xs font-bold transition-all border border-red-500/20">Wipe All Memory</button>
 			</div>
 
 			<div class="nexus-step-guide">
-				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Intelligence Protocol: Training the Brain</h3>
+				<h3 class="text-[#1e293b] font-bold mb-3 uppercase tracking-tighter text-sm">Intelligence Protocol: Training the Brain</h3>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Document Ingestion</p>
+						<p class="font-bold text-[#1e293b] mb-1">Document Ingestion</p>
 						<p>Drag in PDFs or DOCX files. <br><span class="text-accent font-bold italic text-[9px]">How it works: We "chunk" the text and index it. When you ask an agent a question, we retrieve the relevant "brain chunks" and inject them into the prompt.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Competitive Scraping</p>
+						<p class="font-bold text-[#1e293b] mb-1">Competitive Scraping</p>
 						<p>Enter a URL to crawl it. <br><span class="text-accent font-bold italic text-[9px]">Note: Agents can then answer questions about competitor pricing or landing page strategies based on real-time data.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Contextual Isolation</p>
+						<p class="font-bold text-[#1e293b] mb-1">Contextual Isolation</p>
 						<p>Assign data to specific agents. <br><span class="text-accent font-bold italic text-[9px]">Example: Upload "Alex's Diary" and assign it only to "Alexander (CEO)" so other agents don't see his personal notes.</span></p>
 					</div>
 				</div>
@@ -895,7 +895,7 @@ class AdminRenderer {
 							<input type="file" id="nexus-kb-file-input" class="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.docx,.txt,.md,.csv">
 							<div id="nexus-upload-idle">
 								<p class="text-sm text-gray-300 font-medium">Click or Drag PDF, DOCX, or TXT here</p>
-								<button class="mt-6 bg-nexus-elevated border border-nexus-border text-white px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all nexus-btn-vibrant">Select Files</button>
+								<button class="mt-6 bg-nexus-elevated border border-nexus-border text-[#1e293b] px-8 py-3 rounded-xl text-sm font-bold hover:border-accent transition-all nexus-btn-vibrant">Select Files</button>
 							</div>
 							<div id="nexus-upload-progress" class="hidden">
 								<div class="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -905,7 +905,7 @@ class AdminRenderer {
 						</div>
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Assign Knowledge To</label>
-							<select id="nexus-kb-target" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-white mb-6">
+							<select id="nexus-kb-target" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-[#1e293b] mb-6">
 								<option value="global">Global Company Brain</option>
 								<?php
 								global $wpdb;
@@ -919,16 +919,16 @@ class AdminRenderer {
 						<div>
 							<label class="block text-sm font-medium text-gray-400 mb-2">Web Scraper</label>
 							<div class="flex gap-2">
-								<input type="url" id="nexus-kb-url-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white outline-none focus:border-accent" placeholder="https://...">
-								<button id="nexus-kb-index-btn" class="bg-accent text-white px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all nexus-btn-vibrant">Index</button>
+								<input type="url" id="nexus-kb-url-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-[#1e293b] outline-none focus:border-accent" placeholder="https://...">
+								<button id="nexus-kb-index-btn" class="bg-accent text-[#1e293b] px-8 py-2 rounded-xl font-bold hover:bg-blue-600 transition-all nexus-btn-vibrant">Index</button>
 							</div>
 							<span class="nexus-button-note">Expect: Recursive crawling of the provided URL.</span>
 						</div>
 						<div class="pt-6 border-t border-nexus-border/30">
 							<label class="block text-sm font-medium text-gray-400 mb-2">Direct Intelligence Input</label>
-							<input type="text" id="nexus-kb-direct-name" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-white mb-2" placeholder="Document Name (e.g. Q4 SOPs)">
-							<textarea id="nexus-kb-direct-text" class="w-full h-40 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white text-sm outline-none focus:border-accent" placeholder="Paste raw company data or strategic notes here..."></textarea>
-							<button id="nexus-kb-direct-btn" class="w-full mt-2 bg-nexus-blue text-white py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant theme-kb">Ingest Strategic Text</button>
+							<input type="text" id="nexus-kb-direct-name" class="w-full bg-nexus-elevated border border-nexus-border rounded-xl p-3 text-[#1e293b] mb-2" placeholder="Document Name (e.g. Q4 SOPs)">
+							<textarea id="nexus-kb-direct-text" class="w-full h-40 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-[#1e293b] text-sm outline-none focus:border-accent" placeholder="Paste raw company data or strategic notes here..."></textarea>
+							<button id="nexus-kb-direct-btn" class="w-full mt-2 bg-nexus-blue text-[#1e293b] py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant theme-kb">Ingest Strategic Text</button>
 						</div>
 					</div>
 				</div>
@@ -985,23 +985,23 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-automations animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Workflow Engineering</h2>
-				<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Multi-Agent Automations</h1>
+				<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Multi-Agent Automations</h1>
 				<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Create logical chains where agents collaborate to achieve complex business objectives.</p>
 			</div>
 
 			<div class="nexus-step-guide">
-				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Orchestration Protocol: Building Workflows</h3>
+				<h3 class="text-[#1e293b] font-bold mb-3 uppercase tracking-tighter text-sm">Orchestration Protocol: Building Workflows</h3>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Visual Chaining</p>
+						<p class="font-bold text-[#1e293b] mb-1">Visual Chaining</p>
 						<p>Drag agents from the pool. <br><span class="text-accent font-bold italic text-[9px]">The sequence is linear: Step 1 output is passed to Step 2 as context, ensuring a "relay race" of intelligence.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Task Definition</p>
+						<p class="font-bold text-[#1e293b] mb-1">Task Definition</p>
 						<p>Be specific in the "Task" field. <br><span class="text-accent font-bold italic text-[9px]">Example: Step 1 (SEO Expert): "Find 5 keywords for AI." -> Step 2 (Copywriter): "Write a headline for each keyword found in Step 1."</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Trace Monitoring</p>
+						<p class="font-bold text-[#1e293b] mb-1">Trace Monitoring</p>
 						<p>When you run a workflow, watch the "Execution Trace". <br><span class="text-accent font-bold italic text-[9px]">Note: You can download the full log of how each agent interpreted their specific part of the chain.</span></p>
 					</div>
 				</div>
@@ -1014,10 +1014,10 @@ class AdminRenderer {
 						<?php foreach ( $workflows as $wf ) : ?>
 							<div class="glass-panel p-6 rounded-2xl border border-nexus-border transition-all glass-card-hover border-l-4 border-l-accent group relative">
 								<div class="flex justify-between items-start">
-									<h3 class="font-bold text-white group-hover:text-accent"><?php echo esc_html( $wf['name'] ); ?></h3>
+									<h3 class="font-bold text-[#1e293b] group-hover:text-accent"><?php echo esc_html( $wf['name'] ); ?></h3>
 									<div class="flex gap-2">
 										<button class="bg-accent/20 text-accent text-[10px] font-bold px-2 py-1 rounded nexus-run-workflow" data-id="<?php echo (int) $wf['id']; ?>">RUN</button>
-										<button class="bg-red-500/10 text-red-500 text-[10px] font-bold px-2 py-1 rounded hover:bg-red-500 hover:text-white transition-all nexus-delete-workflow" data-id="<?php echo (int) $wf['id']; ?>">✕</button>
+										<button class="bg-red-500/10 text-red-500 text-[10px] font-bold px-2 py-1 rounded hover:bg-red-500 hover:text-[#1e293b] transition-all nexus-delete-workflow" data-id="<?php echo (int) $wf['id']; ?>">✕</button>
 									</div>
 								</div>
 								<p class="text-xs text-gray-500 mt-2 uppercase tracking-tighter">Chain: <?php
@@ -1033,15 +1033,15 @@ class AdminRenderer {
 
 					<h2 class="text-xl font-semibold mb-6 mt-12">Workflow Templates</h2>
 					<div class="glass-panel p-6 rounded-2xl border border-nexus-border hover:border-accent cursor-pointer transition-all glass-card-hover border-l-4 border-l-accent group">
-						<h3 class="font-bold text-white group-hover:text-accent">Content Machine</h3>
+						<h3 class="font-bold text-[#1e293b] group-hover:text-accent">Content Machine</h3>
 						<p class="text-xs text-gray-500 mt-1">SEO Research -> Copy -> Publish</p>
 					</div>
 				</div>
 
 				<div class="lg:col-span-2">
 					<div class="glass-panel p-8 rounded-3xl border border-nexus-border min-h-[500px] flex flex-col items-center justify-center text-center bg-accent/5">
-						<h2 class="text-3xl font-bold mb-4 text-white uppercase tracking-tighter">Workflow Canvas</h2>
-						<button id="nexus-open-visual-builder" onclick="document.getElementById('nexus-visual-builder-modal').classList.remove('hidden')" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-12 rounded-xl transition-all shadow-lg shadow-accent/20">Open Visual Builder</button>
+						<h2 class="text-3xl font-bold mb-4 text-[#1e293b] uppercase tracking-tighter">Workflow Canvas</h2>
+						<button id="nexus-open-visual-builder" onclick="document.getElementById('nexus-visual-builder-modal').classList.remove('hidden')" class="bg-accent hover:opacity-90 text-[#1e293b] font-bold py-4 px-12 rounded-xl transition-all shadow-lg shadow-accent/20">Open Visual Builder</button>
 						<span class="nexus-button-note mt-4">Expect: Fullscreen drag-and-drop orchestration environment.</span>
 					</div>
 				</div>
@@ -1055,13 +1055,13 @@ class AdminRenderer {
 						<div>
 							<div class="flex items-center gap-3">
 								<span class="status-pulse-live"></span>
-								<h2 class="text-2xl font-bold text-white uppercase tracking-tighter">Workflow Execution Trace</h2>
+								<h2 class="text-2xl font-bold text-[#1e293b] uppercase tracking-tighter">Workflow Execution Trace</h2>
 							</div>
 							<p class="text-xs text-gray-500 mt-1">Real-time status of multi-agent collaboration</p>
 						</div>
 						<div class="flex gap-4">
 							<button id="nexus-download-trace" class="text-[10px] font-bold text-accent border border-accent/30 px-4 py-2 rounded-xl hover:bg-accent hover:text-black transition-all">Download Log</button>
-							<button id="nexus-close-results" class="text-gray-400 hover:text-white bg-white/5 px-4 py-2 rounded-xl">Close Trace</button>
+							<button id="nexus-close-results" class="text-gray-400 hover:text-[#1e293b] bg-[#f8fafc]/5 px-4 py-2 rounded-xl">Close Trace</button>
 						</div>
 					</div>
 					<div id="nexus-workflow-log" class="flex-1 p-10 overflow-y-auto space-y-6 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
@@ -1074,16 +1074,16 @@ class AdminRenderer {
 			<div id="nexus-visual-builder-modal" class="fixed inset-0 z-[9999] hidden">
 				<div class="absolute inset-0 bg-black/95 backdrop-blur-xl"></div>
 				<div class="absolute inset-8 glass-panel rounded-3xl border border-nexus-border flex overflow-hidden shadow-2xl">
-					<div class="w-80 border-r border-nexus-border bg-nexus-surface flex flex-col p-8">
+					<div class="w-80 border-r border-nexus-border bg-[#f8fafc] flex flex-col p-8">
 						<div class="flex gap-2 mb-6 bg-black/20 p-1 rounded-lg">
-							<button class="flex-1 text-[10px] font-bold uppercase py-2 rounded bg-accent text-white">Pool</button>
-							<button class="flex-1 text-[10px] font-bold uppercase py-2 rounded text-gray-500 hover:text-white">Presets</button>
+							<button class="flex-1 text-[10px] font-bold uppercase py-2 rounded bg-accent text-[#1e293b]">Pool</button>
+							<button class="flex-1 text-[10px] font-bold uppercase py-2 rounded text-gray-500 hover:text-[#1e293b]">Presets</button>
 						</div>
-						<h3 class="font-bold text-xl text-white mb-6 uppercase tracking-widest text-xs opacity-50">Agent Pool</h3>
+						<h3 class="font-bold text-xl text-[#1e293b] mb-6 uppercase tracking-widest text-xs opacity-50">Agent Pool</h3>
 						<div class="flex-1 overflow-y-auto space-y-4">
 							<?php foreach ( $agents as $agent ) : ?>
 								<div class="nexus-draggable-agent p-4 rounded-xl bg-nexus-elevated border border-nexus-border cursor-grab active:cursor-grabbing hover:border-accent transition-all group" draggable="true" data-id="<?php echo (int) $agent['id']; ?>">
-									<p class="font-bold text-sm text-white group-hover:text-accent"><?php echo esc_html( $agent['name'] ); ?></p>
+									<p class="font-bold text-sm text-[#1e293b] group-hover:text-accent"><?php echo esc_html( $agent['name'] ); ?></p>
 									<p class="text-[10px] text-gray-500 uppercase mt-1"><?php echo esc_html( $agent['position'] ); ?></p>
 								</div>
 							<?php endforeach; ?>
@@ -1092,13 +1092,13 @@ class AdminRenderer {
 					<div class="flex-1 bg-nexus-bg p-12 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]">
 						<div class="flex justify-between items-center mb-12">
 							<div>
-								<h2 class="text-3xl font-bold text-white uppercase tracking-tighter">Strategic Canvas</h2>
+								<h2 class="text-3xl font-bold text-[#1e293b] uppercase tracking-tighter">Strategic Canvas</h2>
 								<p class="text-xs text-gray-500 mt-1">Establish the execution sequence for your AI workforce.</p>
 							</div>
 							<div class="flex gap-4">
-								<button id="nexus-clear-canvas" class="text-gray-400 hover:text-red-500 bg-white/5 px-6 py-2 rounded-xl text-xs font-bold transition-all">Clear Canvas</button>
-								<button id="nexus-save-workflow-btn" class="bg-accent text-white px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant">Save Workflow</button>
-								<button id="nexus-close-builder" class="text-gray-400 hover:text-white bg-nexus-elevated px-4 rounded-xl">✕</button>
+								<button id="nexus-clear-canvas" class="text-gray-400 hover:text-red-500 bg-[#f8fafc]/5 px-6 py-2 rounded-xl text-xs font-bold transition-all">Clear Canvas</button>
+								<button id="nexus-save-workflow-btn" class="bg-accent text-[#1e293b] px-8 py-3 rounded-xl font-bold hover:opacity-90 transition-all nexus-btn-vibrant">Save Workflow</button>
+								<button id="nexus-close-builder" class="text-gray-400 hover:text-[#1e293b] bg-nexus-elevated px-4 rounded-xl">✕</button>
 							</div>
 						</div>
 						<div id="nexus-workflow-canvas" class="flex-1 border-4 border-dashed border-nexus-border rounded-3xl flex items-center justify-center relative bg-black/20">
@@ -1125,11 +1125,11 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Intelligence</h2>
-					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Collaboration Hub</h1>
+					<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Collaboration Hub</h1>
 					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Start virtual meetings. Gather your AI executives to brainstorm and reach a consensus.</p>
 				</div>
 				<div class="text-right">
-					<button id="nexus-start-meeting-btn" class="bg-accent hover:opacity-90 text-white font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">
+					<button id="nexus-start-meeting-btn" class="bg-accent hover:opacity-90 text-[#1e293b] font-bold py-4 px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">
 						Start Strategic Meeting
 					</button>
 					<span class="nexus-button-note mt-2">Expect: Iterative consensus loop between invited agents.</span>
@@ -1137,14 +1137,14 @@ class AdminRenderer {
 			</div>
 
 			<div class="nexus-step-guide">
-				<h3 class="text-white font-bold mb-3 uppercase tracking-tighter text-sm">Synergy Protocol: AI Meetings</h3>
+				<h3 class="text-[#1e293b] font-bold mb-3 uppercase tracking-tighter text-sm">Synergy Protocol: AI Meetings</h3>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Consensus Building</p>
+						<p class="font-bold text-[#1e293b] mb-1">Consensus Building</p>
 						<p>Invite multiple agents. When you set an agenda, they will "debate" it in a multi-round loop. <br><span class="text-accent font-bold italic text-[9px]">How it works: Agent A responds, Agent B critiques Agent A, and they iterate until a "DECISION" or "ACTION" is detected.</span></p>
 					</div>
 					<div class="text-xs text-gray-400">
-						<p class="font-bold text-white mb-1">Real-time Reasoning</p>
+						<p class="font-bold text-[#1e293b] mb-1">Real-time Reasoning</p>
 						<p>Watch the reasoning pulses. You are seeing the actual logic of the LLM as it processes the previous agent's input. <br><span class="text-accent font-bold italic text-[9px]">Pro-Tip: You can interrupt the meeting with "Chairman Instructions" to steer the conversation.</span></p>
 					</div>
 				</div>
@@ -1160,7 +1160,7 @@ class AdminRenderer {
 								<label class="flex items-center gap-3 p-4 rounded-xl bg-nexus-elevated border border-nexus-border hover:border-accent cursor-pointer transition-all group">
 									<input type="checkbox" class="nexus-meeting-invitee w-5 h-5 rounded border-gray-600 bg-gray-700 text-accent focus:ring-accent" value="<?php echo (int) $agent['id']; ?>">
 									<div>
-										<p class="text-sm font-bold text-white group-hover:text-accent transition-colors"><?php echo esc_html( $agent['name'] ); ?></p>
+										<p class="text-sm font-bold text-[#1e293b] group-hover:text-accent transition-colors"><?php echo esc_html( $agent['name'] ); ?></p>
 										<p class="text-[10px] text-gray-500 uppercase"><?php echo esc_html( $agent['position'] ); ?></p>
 									</div>
 								</label>
@@ -1170,7 +1170,7 @@ class AdminRenderer {
 
 					<div class="glass-panel p-6 rounded-2xl border border-nexus-border">
 						<h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Strategic Agenda</h3>
-						<textarea id="nexus-meeting-agenda" class="w-full h-40 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-white text-sm outline-none focus:border-accent" placeholder="Enter objective..."></textarea>
+						<textarea id="nexus-meeting-agenda" class="w-full h-40 bg-nexus-elevated border border-nexus-border rounded-xl p-4 text-[#1e293b] text-sm outline-none focus:border-accent" placeholder="Enter objective..."></textarea>
 					</div>
 				</div>
 
@@ -1180,7 +1180,7 @@ class AdminRenderer {
 						<div class="p-6 border-b border-nexus-border bg-nexus-elevated/50 flex justify-between items-center">
 							<div class="flex items-center gap-4">
 								<div class="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
-								<h2 class="font-bold text-white uppercase tracking-widest text-[10px]">Live Strategic Transcription</h2>
+								<h2 class="font-bold text-[#1e293b] uppercase tracking-widest text-[10px]">Live Strategic Transcription</h2>
 							</div>
 							<div class="flex gap-2">
 								<button id="nexus-meeting-summarize" class="hidden text-[9px] text-accent font-bold bg-accent/10 border border-accent/20 px-3 py-1 rounded-full uppercase hover:bg-accent hover:text-black transition-all">Summarize & Finalize</button>
@@ -1195,8 +1195,8 @@ class AdminRenderer {
 						</div>
 
 						<div class="p-8 bg-nexus-elevated/50 border-t border-nexus-border flex gap-4">
-							<input type="text" id="nexus-meeting-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-5 text-white outline-none focus:border-accent" placeholder="Chairman Instruction...">
-							<button id="nexus-send-meeting-msg" class="bg-accent hover:opacity-90 text-white font-bold px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">Send</button>
+							<input type="text" id="nexus-meeting-input" class="flex-1 bg-nexus-elevated border border-nexus-border rounded-xl p-5 text-[#1e293b] outline-none focus:border-accent" placeholder="Chairman Instruction...">
+							<button id="nexus-send-meeting-msg" class="bg-accent hover:opacity-90 text-[#1e293b] font-bold px-10 rounded-xl transition-all shadow-lg shadow-accent/20 nexus-btn-vibrant">Send</button>
 						</div>
 					</div>
 				</div>
@@ -1222,12 +1222,12 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-archive animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Institutional Knowledge</h2>
-				<h1 class="text-4xl font-bold text-white">Strategic Archive</h1>
+				<h1 class="text-4xl font-bold text-[#1e293b]">Strategic Archive</h1>
 				<p class="text-gray-400 mt-2 max-w-2xl">Access all past AI meetings, workflow traces, and single-agent interactions. Filter by type to find specific strategic decisions.</p>
 			</div>
 
 			<div class="mb-8 flex gap-4">
-				<select id="nexus-archive-filter" class="bg-nexus-elevated border border-nexus-border rounded-xl px-6 py-3 text-white text-sm outline-none focus:border-accent">
+				<select id="nexus-archive-filter" class="bg-nexus-elevated border border-nexus-border rounded-xl px-6 py-3 text-[#1e293b] text-sm outline-none focus:border-accent">
 					<option value="all">All Intelligence Sessions</option>
 					<option value="meeting">AI Meetings</option>
 					<option value="workflow">Workflow Traces</option>
@@ -1249,7 +1249,7 @@ class AdminRenderer {
 						<tbody class="divide-y divide-nexus-border/50">
 							<?php foreach ( $convs as $conv ) : ?>
 								<tr class="nexus-archive-row" data-type="<?php echo esc_attr( $conv['type'] ); ?>">
-									<td class="py-5 px-2 font-bold text-white"><?php echo esc_html( $conv['title'] ?: 'Untitled Session' ); ?></td>
+									<td class="py-5 px-2 font-bold text-[#1e293b]"><?php echo esc_html( $conv['title'] ?: 'Untitled Session' ); ?></td>
 									<td class="py-5 px-2">
 										<span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-[10px] font-bold uppercase border border-accent/20">
 											<?php echo esc_html( $conv['type'] ); ?>
@@ -1257,8 +1257,8 @@ class AdminRenderer {
 									</td>
 									<td class="py-5 px-2 text-xs opacity-50"><?php echo esc_html( $conv['created_at'] ); ?></td>
 									<td class="py-5 px-2 text-right">
-										<button class="nexus-rename-conv bg-white/5 hover:text-accent text-gray-500 px-2 py-1 rounded text-[9px] font-bold transition-all" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">Rename</button>
-										<button class="nexus-view-transcript bg-white/5 hover:bg-white/10 text-white px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">View Transcript</button>
+										<button class="nexus-rename-conv bg-[#f8fafc]/5 hover:text-accent text-gray-500 px-2 py-1 rounded text-[9px] font-bold transition-all" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">Rename</button>
+										<button class="nexus-view-transcript bg-[#f8fafc]/5 hover:bg-[#f8fafc]/10 text-[#1e293b] px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">View Transcript</button>
 										<button class="nexus-export-md bg-accent/20 hover:bg-accent text-accent hover:text-black px-4 py-1 rounded-lg text-[10px] font-bold transition-all ml-2" data-id="<?php echo (int) $conv['id']; ?>" data-title="<?php echo esc_attr( $conv['title'] ); ?>">Export MD</button>
 									</td>
 								</tr>
@@ -1284,15 +1284,15 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Commerce</h2>
-					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Plans & Billing</h1>
+					<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Plans & Billing</h1>
 					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Scale your AI workforce with premium enterprise plans. Manage your subscription and high-impact usage limits.</p>
 				</div>
 				<div class="glass-panel p-6 rounded-2xl flex items-center gap-6">
 					<div class="text-right">
 						<p class="text-[10px] text-gray-500 uppercase font-bold">API Credits Used</p>
-						<p class="text-2xl font-black text-white">72%</p>
+						<p class="text-2xl font-black text-[#1e293b]">72%</p>
 					</div>
-					<div class="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
+					<div class="w-32 h-2 bg-[#f8fafc]/5 rounded-full overflow-hidden">
 						<div class="h-full bg-red-500 w-[72%] shadow-[0_0_10px_#ef4444]"></div>
 					</div>
 				</div>
@@ -1302,65 +1302,65 @@ class AdminRenderer {
 			<div class="glass-panel p-8 rounded-3xl border border-nexus-border mb-12 flex justify-between items-center bg-accent/5">
 				<div>
 					<h3 class="text-xs font-bold text-accent uppercase tracking-widest mb-1">Active Subscription</h3>
-					<p class="text-3xl font-black text-white"><?php echo strtoupper($active_plan); ?> PLAN</p>
+					<p class="text-3xl font-black text-[#1e293b]"><?php echo strtoupper($active_plan); ?> PLAN</p>
 					<p class="text-xs text-gray-500 mt-2">Next billing date: <?php echo date('M d, Y', strtotime('+30 days')); ?></p>
 				</div>
 				<div class="flex gap-4">
-					<button class="bg-white/5 border border-white/10 text-white px-6 py-2 rounded-xl text-xs font-bold hover:bg-white/10 transition-all">Download Invoice</button>
-					<button id="nexus-cancel-sub" class="bg-red-500/10 border border-red-500/20 text-red-500 px-6 py-2 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition-all">Cancel Plan</button>
+					<button class="bg-[#f8fafc]/5 border border-white/10 text-[#1e293b] px-6 py-2 rounded-xl text-xs font-bold hover:bg-[#f8fafc]/10 transition-all">Download Invoice</button>
+					<button id="nexus-cancel-sub" class="bg-red-500/10 border border-red-500/20 text-red-500 px-6 py-2 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-[#1e293b] transition-all">Cancel Plan</button>
 				</div>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-16">
 				<!-- Starter -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full">
-					<h3 class="text-xl font-bold text-white mb-2">Starter</h3>
-					<p class="text-3xl font-black text-white mb-6">$197<span class="text-sm text-gray-500 font-normal">/mo</span></p>
+					<h3 class="text-xl font-bold text-[#1e293b] mb-2">Starter</h3>
+					<p class="text-3xl font-black text-[#1e293b] mb-6">$197<span class="text-sm text-gray-500 font-normal">/mo</span></p>
 					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 3 AI Agents</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Basic Company Brain</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Standard Support</li>
 					</ul>
-					<button class="w-full bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition-all">Current Plan</button>
+					<button class="w-full bg-[#f8fafc]/5 border border-white/10 text-[#1e293b] font-bold py-3 rounded-xl hover:bg-[#f8fafc]/10 transition-all">Current Plan</button>
 				</div>
 
 				<!-- Pro -->
 				<div class="glass-panel p-8 rounded-3xl border-2 border-accent flex flex-col h-full relative overflow-hidden">
-					<div class="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold px-4 py-1 rounded-bl-xl uppercase">Most Popular</div>
-					<h3 class="text-xl font-bold text-white mb-2">Professional</h3>
-					<p class="text-3xl font-black text-white mb-6">$497<span class="text-sm text-gray-500 font-normal">/mo</span></p>
+					<div class="absolute top-0 right-0 bg-accent text-[#1e293b] text-[10px] font-bold px-4 py-1 rounded-bl-xl uppercase">Most Popular</div>
+					<h3 class="text-xl font-bold text-[#1e293b] mb-2">Professional</h3>
+					<p class="text-3xl font-black text-[#1e293b] mb-6">$497<span class="text-sm text-gray-500 font-normal">/mo</span></p>
 					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 15 AI Agents</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Advanced RAG Engine</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Multi-Agent Workflows</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Priority API Access</li>
 					</ul>
-					<button class="w-full bg-accent text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all nexus-btn-vibrant">Upgrade to Pro</button>
+					<button class="w-full bg-accent text-[#1e293b] font-bold py-3 rounded-xl hover:opacity-90 transition-all nexus-btn-vibrant">Upgrade to Pro</button>
 				</div>
 
 				<!-- Agency -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full">
-					<h3 class="text-xl font-bold text-white mb-2">Agency</h3>
-					<p class="text-3xl font-black text-white mb-6">$997<span class="text-sm text-gray-500 font-normal">/mo</span></p>
+					<h3 class="text-xl font-bold text-[#1e293b] mb-2">Agency</h3>
+					<p class="text-3xl font-black text-[#1e293b] mb-6">$997<span class="text-sm text-gray-500 font-normal">/mo</span></p>
 					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Unlimited Agents</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> White Labeling</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Client Portals</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 24/7 Dedicated Support</li>
 					</ul>
-					<button class="w-full bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition-all">Select Plan</button>
+					<button class="w-full bg-[#f8fafc]/5 border border-white/10 text-[#1e293b] font-bold py-3 rounded-xl hover:bg-[#f8fafc]/10 transition-all">Select Plan</button>
 				</div>
 
 				<!-- Enterprise -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border flex flex-col h-full bg-nexus-violet/5 hover:border-nexus-violet transition-all border-beam active">
-					<h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
-					<p class="text-3xl font-black text-white mb-6 italic">Custom</p>
+					<h3 class="text-xl font-bold text-[#1e293b] mb-2">Enterprise</h3>
+					<p class="text-3xl font-black text-[#1e293b] mb-6 italic">Custom</p>
 					<ul class="space-y-4 text-sm text-gray-400 mb-10 flex-1">
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-nexus-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Local Ollama Hosting</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Custom SLA</li>
 						<li class="flex items-center gap-2"><svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> On-Premise Training</li>
 					</ul>
-					<button class="w-full bg-nexus-blue text-white font-bold py-3 rounded-xl hover:opacity-90 transition-all nexus-btn-vibrant">Contact Sales</button>
+					<button class="w-full bg-nexus-blue text-[#1e293b] font-bold py-3 rounded-xl hover:opacity-90 transition-all nexus-btn-vibrant">Contact Sales</button>
 				</div>
 			</div>
 
@@ -1381,7 +1381,7 @@ class AdminRenderer {
 							<tr>
 								<td class="py-4 px-2 font-mono">#INV-88291</td>
 								<td class="py-4 px-2"><?php echo date('M d, Y'); ?></td>
-								<td class="py-4 px-2 text-white font-bold">$<?php
+								<td class="py-4 px-2 text-[#1e293b] font-bold">$<?php
 									$prices = ['starter' => '197.00', 'pro' => '497.00', 'agency' => '997.00'];
 									echo $prices[$active_plan] ?? '0.00';
 								?></td>
@@ -1404,8 +1404,8 @@ class AdminRenderer {
 		<div class="nexus-admin-body p-10 theme-settings animate-fade-in-up">
 			<div class="mb-10">
 				<h2 class="text-sm font-bold text-accent uppercase tracking-widest mb-2">Security & Compliance</h2>
-				<h1 class="text-6xl font-black text-platinum text-gradient-vibrant leading-tight">System Audit Trail</h1>
-				<p class="text-silver mt-3 max-w-2xl text-lg leading-relaxed">Review all administrative and high-impact AI actions within the platform.</p>
+				<h1 class="text-6xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">System Audit Trail</h1>
+				<p class="text-[#64748b] mt-3 max-w-2xl text-lg leading-relaxed">Review all administrative and high-impact AI actions within the platform.</p>
 			</div>
 
 			<div class="glass-panel p-8 rounded-3xl border border-nexus-border">
@@ -1427,7 +1427,7 @@ class AdminRenderer {
 											<?php echo esc_html( $log['event_type'] ); ?>
 										</span>
 									</td>
-									<td class="py-5 px-2 font-medium text-white">
+									<td class="py-5 px-2 font-medium text-[#1e293b]">
 										<?php echo esc_html( $log['description'] ); ?>
 										<?php if ( ! empty( $log['metadata'] ) ) : ?>
 											<div class="mt-2 p-3 bg-black/40 rounded-lg font-mono text-[10px] text-gray-500 overflow-x-auto max-w-md">
@@ -1468,15 +1468,15 @@ class AdminRenderer {
 			<div class="mb-10 flex justify-between items-end">
 				<div>
 					<h2 class="text-sm font-semibold text-accent uppercase tracking-widest mb-2">Education</h2>
-					<h1 class="text-5xl font-black text-white text-gradient-vibrant leading-tight">Learning Center</h1>
+					<h1 class="text-5xl font-black text-[#1e293b] text-gradient-vibrant leading-tight">Learning Center</h1>
 					<p class="text-gray-400 mt-3 max-w-2xl text-lg leading-relaxed">Master the AI Workforce platform with specialized modular lessons.</p>
 				</div>
 				<div class="glass-panel p-6 rounded-2xl flex items-center gap-6">
 					<div class="text-right">
 						<p class="text-[10px] text-gray-500 uppercase font-bold">Your Progress</p>
-						<p class="text-2xl font-black text-white"><?php echo (int) $progress; ?>%</p>
+						<p class="text-2xl font-black text-[#1e293b]"><?php echo (int) $progress; ?>%</p>
 					</div>
-					<div class="w-32 h-2 bg-white/5 rounded-full overflow-hidden">
+					<div class="w-32 h-2 bg-[#f8fafc]/5 rounded-full overflow-hidden">
 						<div class="h-full bg-accent transition-all duration-1000" style="width: <?php echo (int) $progress; ?>%; box-shadow: 0 0 10px var(--nexus-accent);"></div>
 					</div>
 				</div>
@@ -1486,22 +1486,22 @@ class AdminRenderer {
 				<!-- Lesson 1 -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('blueprint', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
 					<?php if ( in_array('blueprint', $completed) ): ?>
-						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[#1e293b] text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
 					<?php endif; ?>
-					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">The Core Blueprint</h3>
+					<h3 class="text-xl font-bold mb-4 text-[#1e293b] group-hover:text-accent transition-colors">The Core Blueprint</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Master AI Persona crafting.</p>
-						<p>AI performance is 90% determined by the <span class="text-white font-bold">Identity</span> field. Learn how to define boundaries and KPIs for your agents.</p>
+						<p>AI performance is 90% determined by the <span class="text-[#1e293b] font-bold">Identity</span> field. Learn how to define boundaries and KPIs for your agents.</p>
 						<div class="p-4 rounded-xl bg-accent/5 border border-accent/10">
-							<p class="font-bold text-white mb-2 text-[10px] uppercase">Example Identity:</p>
+							<p class="font-bold text-[#1e293b] mb-2 text-[10px] uppercase">Example Identity:</p>
 							<p class="italic text-xs">"You are a master of behavioral economics and luxury brand positioning. Your tone is sophisticated and direct. Your goal is to maximize perceived value."</p>
 						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li><span class="text-white font-bold">KPI focus:</span> Tell the AI exactly how success is measured (e.g. ROAS, CPA).</li>
-							<li><span class="text-white font-bold">Negative Constraints:</span> Prevent "hallucinations" by listing strict taboos.</li>
+							<li><span class="text-[#1e293b] font-bold">KPI focus:</span> Tell the AI exactly how success is measured (e.g. ROAS, CPA).</li>
+							<li><span class="text-[#1e293b] font-bold">Negative Constraints:</span> Prevent "hallucinations" by listing strict taboos.</li>
 						</ul>
 					</div>
-					<button class="nexus-complete-lesson w-full <?php echo in_array('blueprint', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="blueprint">
+					<button class="nexus-complete-lesson w-full <?php echo in_array('blueprint', $completed) ? 'bg-green-500 text-[#1e293b]' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="blueprint">
 						<?php echo in_array('blueprint', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
 					</button>
 				</div>
@@ -1509,22 +1509,22 @@ class AdminRenderer {
 				<!-- Lesson 2 -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('roi', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
 					<?php if ( in_array('roi', $completed) ): ?>
-						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[#1e293b] text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
 					<?php endif; ?>
-					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Scaling ROI</h3>
+					<h3 class="text-xl font-bold mb-4 text-[#1e293b] group-hover:text-accent transition-colors">Scaling ROI</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Build AI departments.</p>
-						<p>Scaling your business by creating <span class="text-white font-bold">Multi-Agent Departments</span>. Learn to chain specialized agents into a single high-output engine.</p>
+						<p>Scaling your business by creating <span class="text-[#1e293b] font-bold">Multi-Agent Departments</span>. Learn to chain specialized agents into a single high-output engine.</p>
 						<div class="p-4 rounded-xl bg-nexus-blue/5 border border-nexus-blue/10">
-							<p class="font-bold text-white mb-2 text-[10px] uppercase">Department Workflow:</p>
+							<p class="font-bold text-[#1e293b] mb-2 text-[10px] uppercase">Department Workflow:</p>
 							<p class="text-xs">1. Analyst crawls competitor URLs.<br>2. Strategist crafts counter-offers.<br>3. Copywriter generates ads.</p>
 						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li><span class="text-white font-bold">Departmental Memory:</span> Isolated data silos ensure security.</li>
-							<li><span class="text-white font-bold">White-Labeling:</span> Resell these AI workforces to your own clients for $997/mo+.</li>
+							<li><span class="text-[#1e293b] font-bold">Departmental Memory:</span> Isolated data silos ensure security.</li>
+							<li><span class="text-[#1e293b] font-bold">White-Labeling:</span> Resell these AI workforces to your own clients for $997/mo+.</li>
 						</ul>
 					</div>
-					<button class="nexus-complete-lesson w-full <?php echo in_array('roi', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="roi">
+					<button class="nexus-complete-lesson w-full <?php echo in_array('roi', $completed) ? 'bg-green-500 text-[#1e293b]' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="roi">
 						<?php echo in_array('roi', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
 					</button>
 				</div>
@@ -1532,22 +1532,22 @@ class AdminRenderer {
 				<!-- Lesson 3 -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('security', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
 					<?php if ( in_array('security', $completed) ): ?>
-						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[#1e293b] text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
 					<?php endif; ?>
-					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Security & RBAC</h3>
+					<h3 class="text-xl font-bold mb-4 text-[#1e293b] group-hover:text-accent transition-colors">Security & RBAC</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Secure your infrastructure.</p>
-						<p>Learn how to manage <span class="text-white font-bold">Permissions</span> and protect your API tokens in an enterprise environment.</p>
+						<p>Learn how to manage <span class="text-[#1e293b] font-bold">Permissions</span> and protect your API tokens in an enterprise environment.</p>
 						<div class="p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-							<p class="font-bold text-white mb-2 text-[10px] uppercase">Best Practice:</p>
+							<p class="font-bold text-[#1e293b] mb-2 text-[10px] uppercase">Best Practice:</p>
 							<p class="text-xs">Never share plain-text API keys. Nexus AI automatically encrypts all keys using your site's unique AUTH_KEY salt.</p>
 						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li><span class="text-white font-bold">Audit Trails:</span> Monitor every administrative action in the Audit Log.</li>
-							<li><span class="text-white font-bold">Rate Limiting:</span> Prevent runaway token consumption by setting department quotas.</li>
+							<li><span class="text-[#1e293b] font-bold">Audit Trails:</span> Monitor every administrative action in the Audit Log.</li>
+							<li><span class="text-[#1e293b] font-bold">Rate Limiting:</span> Prevent runaway token consumption by setting department quotas.</li>
 						</ul>
 					</div>
-					<button class="nexus-complete-lesson w-full <?php echo in_array('security', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="security">
+					<button class="nexus-complete-lesson w-full <?php echo in_array('security', $completed) ? 'bg-green-500 text-[#1e293b]' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="security">
 						<?php echo in_array('security', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
 					</button>
 				</div>
@@ -1555,22 +1555,22 @@ class AdminRenderer {
 				<!-- Lesson 4 -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('collab', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
 					<?php if ( in_array('collab', $completed) ): ?>
-						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[#1e293b] text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
 					<?php endif; ?>
-					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">AI Collaboration</h3>
+					<h3 class="text-xl font-bold mb-4 text-[#1e293b] group-hover:text-accent transition-colors">AI Collaboration</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Master AI Meetings.</p>
-						<p>Learn to run <span class="text-white font-bold">Consensus Meetings</span>. Gather multiple experts to debate a topic until a decision is reached.</p>
+						<p>Learn to run <span class="text-[#1e293b] font-bold">Consensus Meetings</span>. Gather multiple experts to debate a topic until a decision is reached.</p>
 						<div class="p-4 rounded-xl bg-nexus-violet/5 border border-nexus-violet/10">
-							<p class="font-bold text-white mb-2 text-[10px] uppercase">Meeting Tip:</p>
+							<p class="font-bold text-[#1e293b] mb-2 text-[10px] uppercase">Meeting Tip:</p>
 							<p class="text-xs">Use the "Chairman Instruction" to provide "Negative Steering" if agents are agreeing too quickly. Encourage debate.</p>
 						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li><span class="text-white font-bold">Voting & Decisions:</span> Agents are programmed to reach a "DECISION" keyword when they agree.</li>
-							<li><span class="text-white font-bold">Consensus Loop:</span> Each round increases the "Pressure to Decide" dynamically.</li>
+							<li><span class="text-[#1e293b] font-bold">Voting & Decisions:</span> Agents are programmed to reach a "DECISION" keyword when they agree.</li>
+							<li><span class="text-[#1e293b] font-bold">Consensus Loop:</span> Each round increases the "Pressure to Decide" dynamically.</li>
 						</ul>
 					</div>
-					<button class="nexus-complete-lesson w-full <?php echo in_array('collab', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="collab">
+					<button class="nexus-complete-lesson w-full <?php echo in_array('collab', $completed) ? 'bg-green-500 text-[#1e293b]' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="collab">
 						<?php echo in_array('collab', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
 					</button>
 				</div>
@@ -1578,22 +1578,22 @@ class AdminRenderer {
 				<!-- Lesson 5 -->
 				<div class="glass-panel p-8 rounded-3xl border border-nexus-border hover:border-accent transition-all glass-card-hover group relative <?php echo in_array('automations', $completed) ? 'border-green-500/30' : ''; ?> border-beam">
 					<?php if ( in_array('automations', $completed) ): ?>
-						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
+						<div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[#1e293b] text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]">✓</div>
 					<?php endif; ?>
-					<h3 class="text-xl font-bold mb-4 text-white group-hover:text-accent transition-colors">Strategic Automations</h3>
+					<h3 class="text-xl font-bold mb-4 text-[#1e293b] group-hover:text-accent transition-colors">Strategic Automations</h3>
 					<div class="space-y-4 text-sm text-gray-400 leading-relaxed mb-8">
 						<p><span class="text-accent font-bold">Objective:</span> Multi-Agent Workflows.</p>
-						<p>Establish high-value <span class="text-white font-bold">Automated Chains</span>. Pass data seamlessly between agents to complete complex sequences.</p>
+						<p>Establish high-value <span class="text-[#1e293b] font-bold">Automated Chains</span>. Pass data seamlessly between agents to complete complex sequences.</p>
 						<div class="p-4 rounded-xl bg-orange-500/5 border border-orange-500/10">
-							<p class="font-bold text-white mb-2 text-[10px] uppercase">Elite Workflow Example:</p>
+							<p class="font-bold text-[#1e293b] mb-2 text-[10px] uppercase">Elite Workflow Example:</p>
 							<p class="text-xs">"Analyst (Step 1): Research Top 3 competitors. -> Copywriter (Step 2): Write better headlines than Step 1. -> WP Dev (Step 3): Create a landing page draft."</p>
 						</div>
 						<ul class="list-disc list-inside space-y-2 text-xs">
-							<li><span class="text-white font-bold">Chain Persistence:</span> Every agent in the workflow has full access to the previous step's output.</li>
-							<li><span class="text-white font-bold">Scale:</span> Run these workflows 24/7 to outperform human-only teams.</li>
+							<li><span class="text-[#1e293b] font-bold">Chain Persistence:</span> Every agent in the workflow has full access to the previous step's output.</li>
+							<li><span class="text-[#1e293b] font-bold">Scale:</span> Run these workflows 24/7 to outperform human-only teams.</li>
 						</ul>
 					</div>
-					<button class="nexus-complete-lesson w-full <?php echo in_array('automations', $completed) ? 'bg-green-500 text-white' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="automations">
+					<button class="nexus-complete-lesson w-full <?php echo in_array('automations', $completed) ? 'bg-green-500 text-[#1e293b]' : 'bg-accent/20 text-accent'; ?> font-bold py-3 rounded-xl hover:opacity-90 transition-all" data-id="automations">
 						<?php echo in_array('automations', $completed) ? 'Completed ✓' : 'Complete Lesson'; ?>
 					</button>
 				</div>

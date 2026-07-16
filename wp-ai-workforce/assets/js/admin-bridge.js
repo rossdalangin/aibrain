@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.nexus-tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById(`nexus-${target}-tab`)?.classList.remove('hidden');
 
-            tabBtns.forEach(b => b.classList.remove('bg-accent', 'text-white'));
+            tabBtns.forEach(b => b.classList.remove('bg-accent', 'text-[#1e293b]'));
             tabBtns.forEach(b => b.classList.add('text-gray-400'));
             btn.classList.remove('text-gray-400');
-            btn.classList.add('bg-accent', 'text-white');
+            btn.classList.add('bg-accent', 'text-[#1e293b]');
         });
     });
 
@@ -289,15 +289,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const stepCount = canvas.querySelectorAll('.nexus-workflow-step').length + 1;
 
             const step = document.createElement('div');
-            step.className = 'nexus-workflow-step p-6 rounded-2xl bg-nexus-surface border border-nexus-violet animate-fade-in-up mb-4 w-72 shadow-xl relative z-10';
+            step.className = 'nexus-workflow-step p-6 rounded-2xl bg-[#f8fafc] border border-nexus-violet animate-fade-in-up mb-4 w-72 shadow-xl relative z-10';
             step.dataset.agentId = id;
             step.innerHTML = `
                 <div class="flex justify-between items-center mb-3">
                     <p class="text-nexus-violet font-bold text-xs uppercase tracking-widest">Step ${stepCount}</p>
                     <button class="text-gray-600 hover:text-red-500 transition-colors nexus-step-delete">✕</button>
                 </div>
-                <p class="text-white font-bold">${name}</p>
-                <textarea placeholder="Define task..." class="nexus-step-task w-full bg-nexus-bg border border-nexus-border rounded-xl mt-3 p-3 text-xs text-white outline-none focus:border-nexus-violet h-20"></textarea>
+                <p class="text-[#1e293b] font-bold">${name}</p>
+                <textarea placeholder="Define task..." class="nexus-step-task w-full bg-nexus-bg border border-nexus-border rounded-xl mt-3 p-3 text-xs text-[#1e293b] outline-none focus:border-nexus-violet h-20"></textarea>
             `;
             if (canvas.querySelector('.text-center')) canvas.innerHTML = '';
             canvas.appendChild(step);
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const isUser = msg.sender_type === 'user';
                     container.innerHTML += `
                         <div class="flex gap-4 items-start ${isUser ? 'justify-end' : ''}">
-                            <div class="max-w-[80%] p-6 rounded-3xl ${isUser ? 'bg-accent/10 border border-accent/20' : 'bg-white/5 border border-white/5 shadow-xl'}">
+                            <div class="max-w-[80%] p-6 rounded-3xl ${isUser ? 'bg-accent/10 border border-accent/20' : 'bg-[#f8fafc]/5 border border-white/5 shadow-xl'}">
                                 <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">${escapeHTML(msg.sender_type)}</p>
                                 <p class="text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">${escapeHTML(msg.content)}</p>
                                 <p class="text-[9px] text-gray-600 mt-4">${escapeHTML(msg.created_at)}</p>
@@ -487,8 +487,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="w-12 h-12 rounded-full bg-nexus-elevated border border-accent flex items-center justify-center font-bold text-accent shrink-0">${idx + 1}</div>
                             <div class="flex-1">
                                 <div class="flex justify-between items-center mb-2">
-                                    <p class="font-bold text-white uppercase tracking-widest text-[10px] opacity-50">${escapeHTML(step.step)} • ${escapeHTML(step.agent)}</p>
-                                    <button class="text-[10px] text-accent hover:text-white" onclick="navigator.clipboard.writeText(\`${outputContent.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); showToast('Output copied to clipboard.')">Copy</button>
+                                    <p class="font-bold text-[#1e293b] uppercase tracking-widest text-[10px] opacity-50">${escapeHTML(step.step)} • ${escapeHTML(step.agent)}</p>
+                                    <button class="text-[10px] text-accent hover:text-[#1e293b]" onclick="navigator.clipboard.writeText(\`${outputContent.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`); showToast('Output copied to clipboard.')">Copy</button>
                                 </div>
                                 <div class="p-6 rounded-3xl bg-nexus-elevated border border-nexus-border text-gray-300 text-sm leading-relaxed shadow-xl whitespace-pre-wrap">${escapeHTML(outputContent)}</div>
                             </div>
@@ -577,13 +577,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Local UI update
                     completeLessonBtn.innerText = 'Completed ✓';
                     completeLessonBtn.classList.remove('bg-accent/20', 'text-accent', 'opacity-50', 'pointer-events-none');
-                    completeLessonBtn.classList.add('bg-green-500', 'text-white');
+                    completeLessonBtn.classList.add('bg-green-500', 'text-[#1e293b]');
 
                     const card = completeLessonBtn.closest('.glass-panel');
                     card.classList.add('border-green-500/30');
                     if (!card.querySelector('.absolute.top-4.right-4')) {
                         const badge = document.createElement('div');
-                        badge.className = 'absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]';
+                        badge.className = 'absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-[#1e293b] text-[10px] font-bold shadow-[0_0_15px_rgba(34,197,94,0.4)]';
                         badge.innerText = '✓';
                         card.appendChild(badge);
                     }
@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!input.value) return;
             chairmanMessage = input.value;
             const bubble = `<div class="flex gap-4 items-start justify-end animate-fade-in-up">
-                <div class="max-w-[80%] p-6 rounded-3xl bg-accent text-white shadow-xl">
+                <div class="max-w-[80%] p-6 rounded-3xl bg-accent text-[#1e293b] shadow-xl">
                     <p class="text-[10px] font-bold uppercase mb-2">Chairman Instruction</p>
                     <p class="text-sm leading-relaxed">${escapeHTML(input.value)}</p>
                 </div>
@@ -698,8 +698,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const colors = ['#7C3AED', '#0ea5e9', '#f59e0b', '#10b981', '#ef4444', '#f97316'];
             const agentColor = colors[round % colors.length];
             const bubble = `<div class="flex gap-6 items-start animate-fade-in-up">
-                <div class="w-12 h-12 rounded-full shrink-0 flex items-center justify-center font-bold text-white shadow-xl" style="background-color: ${agentColor}">${escapeHTML(res.agent_name[0])}</div>
-                <div class="flex-1 p-6 bg-white/5 rounded-3xl border-l-4 shadow-2xl" style="border-color: ${agentColor}">
+                <div class="w-12 h-12 rounded-full shrink-0 flex items-center justify-center font-bold text-[#1e293b] shadow-xl" style="background-color: ${agentColor}">${escapeHTML(res.agent_name[0])}</div>
+                <div class="flex-1 p-6 bg-[#f8fafc]/5 rounded-3xl border-l-4 shadow-2xl" style="border-color: ${agentColor}">
                     <p class="text-[10px] text-gray-500 font-bold uppercase mb-2 tracking-widest">${escapeHTML(res.agent_name)} • ${escapeHTML(res.position)}</p>
                     <p class="text-sm text-gray-200 leading-relaxed whitespace-pre-wrap">${escapeHTML(res.content)}</p>
                 </div>

@@ -28,4 +28,9 @@ class WorkflowRepository {
 		$wpdb->insert( $this->table_name, $data );
 		return (int) $wpdb->insert_id;
 	}
+
+	public function get_by_id( int $id ): ?array {
+		global $wpdb;
+		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE id = %d", $id ), ARRAY_A );
+	}
 }

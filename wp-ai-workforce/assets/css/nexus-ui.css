@@ -10,7 +10,7 @@
   --nexus-slate: #475569;
 
   --nexus-bg: #f8fafc;     /* Light Gray BG */
-  --nexus-surface: #ffffff; /* White Surface */
+  --nexus-surface: #f8fafc; /* White Surface */
   --nexus-elevated: #f1f5f9;
   --nexus-border: #e2e8f0;
   --nexus-text-main: #1e293b;
@@ -53,10 +53,10 @@
 }
 
 /* Typography Overrides for Light Theme */
-.text-platinum { color: var(--nexus-text-main) !important; }
-.text-silver { color: var(--nexus-text-muted) !important; }
-.text-slate { color: var(--nexus-slate) !important; }
-.text-white { color: var(--nexus-text-main) !important; }
+.text-[#1e293b] { color: var(--nexus-text-main) !important; }
+.text-[#64748b] { color: var(--nexus-text-muted) !important; }
+.text-[#1e293b] { color: var(--nexus-slate) !important; }
+.text-[#1e293b] { color: var(--nexus-text-main) !important; }
 .text-gray-400 { color: var(--nexus-text-muted) !important; }
 .text-gray-500 { color: var(--nexus-text-muted) !important; }
 
@@ -73,7 +73,7 @@
 /* Standard Buttons - Flat Style */
 .nexus-btn-vibrant {
   background: var(--nexus-accent) !important;
-  color: #ffffff !important;
+  color: #f8fafc !important;
   border: none !important;
   border-radius: 6px !important;
   padding: 10px 20px !important;
@@ -106,7 +106,7 @@ input[type="email"],
 input[type="number"],
 textarea,
 select {
-  background-color: #ffffff !important;
+  background-color: #f1f5f9 !important;
   border: 1px solid var(--nexus-border) !important;
   color: var(--nexus-text-main) !important;
   border-radius: 6px !important;
@@ -117,12 +117,12 @@ input:focus, textarea:focus, select:focus {
   border-color: var(--nexus-accent) !important;
   outline: 2px solid var(--nexus-accent) !important;
   outline-offset: -1px !important;
-  background-color: #ffffff !important;
+  background-color: #f1f5f9 !important;
   transform: none !important;
 }
 
 .form-group-tint {
-  background: #f8fafc;
+  background: #f1f5f9;
   border: 1px solid var(--nexus-border);
   padding: 1.5rem;
   border-radius: 8px;
@@ -148,9 +148,9 @@ input:focus, textarea:focus, select:focus {
 
 /* Strategic Archive & Tables */
 tr:hover td {
-  background: #f8fafc;
+  background: #f1f5f9;
 }
 
 .bg-nexus-elevated { background-color: #f1f5f9 !important; }
-.bg-nexus-bg { background-color: #f8fafc !important; }
+.bg-nexus-bg { background-color: #f1f5f9 !important; }
 .border-nexus-border { border-color: #e2e8f0 !important; }

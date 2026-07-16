@@ -26,16 +26,6 @@ class RestHandler {
 	 * Register all routes.
 	 */
 	public function register_routes(): void {
-		// Simple Rate Limiting for Enterprise Stability
-		if ( ! is_user_logged_in() || ! current_user_can('manage_options') ) {
-			$transient_key = 'nexus_ai_rate_limit_' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
-			$calls = (int) get_transient( $transient_key );
-			if ( $calls > 50 ) {
-				wp_die( 'Rate limit exceeded. Please wait 1 hour.', '', [ 'response' => 429 ] );
-			}
-			set_transient( $transient_key, $calls + 1, HOUR_IN_SECONDS );
-		}
-
 		$employee_controller = new EmployeeController();
 		$chat_controller = new ChatController();
 		$settings_controller = new SettingsController();
@@ -54,6 +44,14 @@ class RestHandler {
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $settings_controller, 'update_item' ],
+				'permission_callback' => [ $this, 'check_permission' ],
+			],
+		] );
+
+		register_rest_route( $this->namespace, '/billing/upgrade', [
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $billing_controller, 'upgrade_plan' ],
 				'permission_callback' => [ $this, 'check_permission' ],
 			],
 		] );
@@ -371,7 +369,17 @@ class RestHandler {
 	/**
 	 * Check if the user has permission to access the API.
 	 */
-	public function check_permission(): bool {
+	public function check_permission( \WP_REST_Request $request ): bool {
+		// Simple Rate Limiting scoped to our plugin namespace
+		if ( ! current_user_can('manage_options') ) {
+			$transient_key = 'nexus_ai_rate_limit_' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
+			$calls = (int) get_transient( $transient_key );
+			if ( $calls > 50 ) {
+				return false;
+			}
+			set_transient( $transient_key, $calls + 1, HOUR_IN_SECONDS );
+		}
+
 		return current_user_can( 'manage_options' );
 	}
 }

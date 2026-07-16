@@ -44,4 +44,10 @@ class BillingController {
 		$sub = $this->subscriptions->get_by_user( $user_id );
 		return new WP_REST_Response( $sub, 200 );
 	}
+
+	public function upgrade_plan( WP_REST_Request $request ): WP_REST_Response {
+		$plan = sanitize_text_field( $request->get_param( 'plan' ) );
+		update_option( 'nexus_ai_active_plan', $plan );
+		return new WP_REST_Response( [ 'success' => true, 'plan' => $plan ], 200 );
+	}
 }

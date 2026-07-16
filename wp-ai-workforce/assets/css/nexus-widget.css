@@ -53,7 +53,7 @@
 .nexus-chat-header {
   padding: 1rem;
   background: var(--nexus-widget-accent);
-  color: #ffffff;
+  color: #1e293b;
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -74,7 +74,7 @@
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
-  background: #ffffff;
+  background: #f8fafc;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -90,7 +90,7 @@
 .nexus-msg-user {
   align-self: flex-end;
   background: var(--nexus-widget-accent);
-  color: #ffffff;
+  color: #1e293b;
 }
 
 .nexus-msg-ai {
@@ -103,7 +103,7 @@
 .nexus-chat-input-container {
   padding: 1rem;
   border-top: 1px solid var(--nexus-widget-border);
-  background: #ffffff;
+  background: #f8fafc;
   display: flex;
   gap: 0.5rem;
 }
@@ -118,7 +118,7 @@
 
 .nexus-chat-send-btn {
   background: var(--nexus-widget-accent);
-  color: #ffffff;
+  color: #1e293b;
   border: none;
   border-radius: 6px;
   padding: 0 1rem;

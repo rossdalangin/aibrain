@@ -17,8 +17,8 @@ const AgentAvatar = ({ size = 'md', status = 'online', color = 'violet' }) => {
   };
 
   return (
-    <div className={`relative rounded-full border-2 ${statusColors[status]} ${sizes[size]} p-1 bg-nexus-surface overflow-hidden`}>
-      <div className={`w-full h-full rounded-full bg-gradient-to-tr from-nexus-${color} to-nexus-blue flex items-center justify-center text-xs font-bold text-white`}>
+    <div className={`relative rounded-full border-2 ${statusColors[status]} ${sizes[size]} p-1 bg-[#f8fafc] overflow-hidden`}>
+      <div className={`w-full h-full rounded-full bg-gradient-to-tr from-nexus-${color} to-nexus-blue flex items-center justify-center text-xs font-bold text-[#1e293b]`}>
         AI
       </div>
     </div>

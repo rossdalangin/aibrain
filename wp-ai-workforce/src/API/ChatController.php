@@ -120,6 +120,12 @@ class ChatController {
 				'title'   => mb_substr( $content, 0, 50 ),
 				'status'  => 'active',
 			] );
+		} else {
+			// Security: Verify conversation ownership
+			$conv = $this->conversations->get_by_id( $conversation_id );
+			if ( ! $conv || (int) $conv['user_id'] !== $user_id ) {
+				return new WP_REST_Response( [ 'error' => 'Unauthorized conversation access' ], 403 );
+			}
 		}
 
 		// Store User Message
@@ -167,7 +173,19 @@ class ChatController {
 
 	private function get_orchestrator( array $agent_data ): Orchestrator {
 		$model_settings = json_decode( $agent_data['model_settings'] ?? '{}', true );
-		$provider = $model_settings['provider'] ?? 'openai';
+		$model_name = $agent_data['model'] ?? $model_settings['model'] ?? 'gpt-4o';
+
+		// Dynamically determine the provider based on the chosen model name
+		$provider = 'openai';
+		if ( strpos( $model_name, 'claude' ) !== false ) {
+			$provider = 'claude';
+		} elseif ( strpos( $model_name, 'gemini' ) !== false ) {
+			$provider = 'gemini';
+		} elseif ( strpos( $model_name, 'llama' ) !== false || strpos( $model_name, 'openrouter' ) !== false ) {
+			$provider = 'openrouter';
+		} elseif ( strpos( $model_name, 'local' ) !== false ) {
+			$provider = 'ollama';
+		}
 
 		$model = ModelFactory::create( $provider );
 		return new Orchestrator( $model );

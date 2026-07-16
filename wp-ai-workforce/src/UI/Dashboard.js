@@ -8,9 +8,9 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('workforce');
 
   return (
-    <div className="flex h-screen bg-nexus-bg text-platinum overflow-hidden">
+    <div className="flex h-screen bg-nexus-bg text-[#1e293b] overflow-hidden">
       {/* Sidebar Navigation */}
-      <aside className="w-64 border-r border-nexus-border bg-nexus-surface flex flex-col">
+      <aside className="w-64 border-r border-nexus-border bg-[#f8fafc] flex flex-col">
         <div className="p-6">
           <h1 className="text-2xl font-bold tracking-tighter text-nexus-violet">NEXUS AI</h1>
         </div>
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
         <div className="p-4 mt-auto">
           <div className="glass-panel p-4 rounded-xl">
-            <p className="text-xs text-silver">Monthly Usage</p>
+            <p className="text-xs text-[#64748b]">Monthly Usage</p>
             <div className="h-1 bg-nexus-border rounded-full mt-2 overflow-hidden">
               <div className="h-full bg-nexus-violet w-3/4"></div>
             </div>
@@ -41,8 +41,8 @@ const Dashboard = () => {
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden bg-nexus-bg">
-        <header className="h-16 border-b border-nexus-border flex items-center justify-between px-8 bg-nexus-surface backdrop-blur-md">
-          <h2 className="text-lg font-medium text-platinum">Command Center</h2>
+        <header className="h-16 border-b border-nexus-border flex items-center justify-between px-8 bg-[#f8fafc] backdrop-blur-md">
+          <h2 className="text-lg font-medium text-[#1e293b]">Command Center</h2>
           <div className="flex items-center gap-4">
             <div className="bg-nexus-violet/10 text-nexus-violet px-3 py-1 rounded-full text-xs font-semibold">Enterprise Plan</div>
             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-nexus-violet to-nexus-blue"></div>
@@ -66,7 +66,7 @@ const Dashboard = () => {
 const NavItem = ({ label, active, onClick }) => (
   <button
     onClick={onClick}
-    className={`w-full flex items-center px-4 py-3 rounded-lg transition-all ${active ? 'bg-nexus-violet text-platinum' : 'text-silver hover:text-platinum hover:bg-nexus-elevated'}`}
+    className={`w-full flex items-center px-4 py-3 rounded-lg transition-all ${active ? 'bg-nexus-violet text-[#1e293b]' : 'text-[#64748b] hover:text-[#1e293b] hover:bg-nexus-elevated'}`}
   >
     <span className="text-sm font-medium">{label}</span>
   </button>
@@ -74,8 +74,8 @@ const NavItem = ({ label, active, onClick }) => (
 
 const StatCard = ({ label, value, trend }) => (
   <div className="glass-panel p-6 rounded-2xl gradient-border">
-    <p className="text-sm text-silver">{label}</p>
-    <p className="text-3xl font-bold mt-2 text-platinum">{value}</p>
+    <p className="text-sm text-[#64748b]">{label}</p>
+    <p className="text-3xl font-bold mt-2 text-[#1e293b]">{value}</p>
     <p className="text-xs text-nexus-violet mt-2">{trend}</p>
   </div>
 );

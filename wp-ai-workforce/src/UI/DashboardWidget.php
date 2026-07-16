@@ -36,7 +36,7 @@ class DashboardWidget {
 					<p style="font-size: 24px; font-weight: 900; margin: 5px 0 0 0;"><?php echo (int)$agent_count; ?></p>
 				</div>
 			</div>
-			<a href="<?php echo admin_url('admin.php?page=nexus-ai-workforce'); ?>" style="display: block; width: 100%; text-align: center; background: #7C3AED; color: white; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; text-transform: uppercase;">Open Command Center</a>
+			<a href="<?php echo admin_url('admin.php?page=nexus-ai-workforce'); ?>" style="display: block; width: 100%; text-align: center; background: #7C3AED; color: #1e293b; text-decoration: none; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 12px; text-transform: uppercase;">Open Command Center</a>
 		</div>
 		<?php
 	}
